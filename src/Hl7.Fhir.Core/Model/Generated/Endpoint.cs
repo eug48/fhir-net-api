@@ -4,7 +4,7 @@ using Hl7.Fhir.Introspection;
 using Hl7.Fhir.Validation;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.ComponentModel;
+using Hl7.Fhir.Utility;
 
 /*
   Copyright (c) 2011+, HL7, Inc.
@@ -37,7 +37,7 @@ using System.ComponentModel;
 */
 
 //
-// Generated for FHIR v1.9.0
+// Generated for FHIR v3.0.1
 //
 namespace Hl7.Fhir.Model
 {
@@ -281,7 +281,7 @@ namespace Hl7.Fhir.Model
         }
         
         /// <summary>
-        /// The technical address for conneccting to this endpoint
+        /// The technical base address for connecting to this endpoint
         /// </summary>
         [FhirElement("address", InSummary=true, Order=180)]
         [Cardinality(Min=1,Max=1)]
@@ -295,7 +295,7 @@ namespace Hl7.Fhir.Model
         private Hl7.Fhir.Model.FhirUri _AddressElement;
         
         /// <summary>
-        /// The technical address for conneccting to this endpoint
+        /// The technical base address for connecting to this endpoint
         /// </summary>
         /// <remarks>This uses the native .NET datatype, rather than the FHIR equivalent</remarks>
         [NotMapped]
@@ -429,7 +429,7 @@ namespace Hl7.Fhir.Model
         {
             get
             {
-				// Endpoint elements
+                foreach (var item in base.Children) yield return item;
 				foreach (var elem in Identifier) { if (elem != null) yield return elem; }
 				if (StatusElement != null) yield return StatusElement;
 				if (ConnectionType != null) yield return ConnectionType;

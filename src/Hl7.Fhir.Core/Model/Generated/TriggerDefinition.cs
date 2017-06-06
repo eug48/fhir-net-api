@@ -4,7 +4,7 @@ using Hl7.Fhir.Introspection;
 using Hl7.Fhir.Validation;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.ComponentModel;
+using Hl7.Fhir.Utility;
 
 /*
   Copyright (c) 2011+, HL7, Inc.
@@ -37,7 +37,7 @@ using System.ComponentModel;
 */
 
 //
-// Generated for FHIR v1.9.0
+// Generated for FHIR v3.0.1
 //
 namespace Hl7.Fhir.Model
 {
@@ -136,7 +136,7 @@ namespace Hl7.Fhir.Model
         }
         
         /// <summary>
-        /// Name of the event
+        /// Triggering event name
         /// </summary>
         [FhirElement("eventName", InSummary=true, Order=40)]
         [DataMember]
@@ -149,7 +149,7 @@ namespace Hl7.Fhir.Model
         private Hl7.Fhir.Model.FhirString _EventNameElement;
         
         /// <summary>
-        /// Name of the event
+        /// Triggering event name
         /// </summary>
         /// <remarks>This uses the native .NET datatype, rather than the FHIR equivalent</remarks>
         [NotMapped]
@@ -251,7 +251,7 @@ namespace Hl7.Fhir.Model
         {
             get
             {
-                // TriggerDefinition elements
+                foreach (var item in base.Children) yield return item;
                 if (TypeElement != null) yield return TypeElement;
                 if (EventNameElement != null) yield return EventNameElement;
                 if (EventTiming != null) yield return EventTiming;

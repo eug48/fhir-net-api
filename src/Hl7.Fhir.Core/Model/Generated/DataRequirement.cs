@@ -4,7 +4,7 @@ using Hl7.Fhir.Introspection;
 using Hl7.Fhir.Validation;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.ComponentModel;
+using Hl7.Fhir.Utility;
 
 /*
   Copyright (c) 2011+, HL7, Inc.
@@ -37,7 +37,7 @@ using System.ComponentModel;
 */
 
 //
-// Generated for FHIR v1.9.0
+// Generated for FHIR v3.0.1
 //
 namespace Hl7.Fhir.Model
 {
@@ -107,7 +107,7 @@ namespace Hl7.Fhir.Model
             private Hl7.Fhir.Model.Element _ValueSet;
             
             /// <summary>
-            /// Code value of the filter
+            /// What code is expected
             /// </summary>
             [FhirElement("valueCode", InSummary=true, Order=60)]
             [Cardinality(Min=0,Max=-1)]
@@ -121,7 +121,7 @@ namespace Hl7.Fhir.Model
             private List<Hl7.Fhir.Model.Code> _ValueCodeElement;
             
             /// <summary>
-            /// Code value of the filter
+            /// What code is expected
             /// </summary>
             /// <remarks>This uses the native .NET datatype, rather than the FHIR equivalent</remarks>
             [NotMapped]
@@ -140,7 +140,7 @@ namespace Hl7.Fhir.Model
             }
             
             /// <summary>
-            /// Coding value of the filter
+            /// What Coding is expected
             /// </summary>
             [FhirElement("valueCoding", InSummary=true, Order=70)]
             [Cardinality(Min=0,Max=-1)]
@@ -154,7 +154,7 @@ namespace Hl7.Fhir.Model
             private List<Hl7.Fhir.Model.Coding> _ValueCoding;
             
             /// <summary>
-            /// CodeableConcept value of the filter
+            /// What CodeableConcept is expected
             /// </summary>
             [FhirElement("valueCodeableConcept", InSummary=true, Order=80)]
             [Cardinality(Min=0,Max=-1)]
@@ -225,9 +225,7 @@ namespace Hl7.Fhir.Model
             {
                 get
                 {
-                    // Element elements
-                    foreach (var elem in Extension) { if (elem != null) yield return elem; }
-                    // CodeFilterComponent elements
+                    foreach (var item in base.Children) yield return item;
                     if (PathElement != null) yield return PathElement;
                     if (ValueSet != null) yield return ValueSet;
                     foreach (var elem in ValueCodeElement) { if (elem != null) yield return elem; }
@@ -343,9 +341,7 @@ namespace Hl7.Fhir.Model
             {
                 get
                 {
-                    // Element elements
-                    foreach (var elem in Extension) { if (elem != null) yield return elem; }
-                    // DateFilterComponent elements
+                    foreach (var item in base.Children) yield return item;
                     if (PathElement != null) yield return PathElement;
                     if (Value != null) yield return Value;
                 }
@@ -454,7 +450,7 @@ namespace Hl7.Fhir.Model
         }
         
         /// <summary>
-        /// Code filters for the data
+        /// What codes are expected
         /// </summary>
         [FhirElement("codeFilter", InSummary=true, Order=60)]
         [Cardinality(Min=0,Max=-1)]
@@ -468,7 +464,7 @@ namespace Hl7.Fhir.Model
         private List<Hl7.Fhir.Model.DataRequirement.CodeFilterComponent> _CodeFilter;
         
         /// <summary>
-        /// Date filters for the data
+        /// What dates/date ranges are expected
         /// </summary>
         [FhirElement("dateFilter", InSummary=true, Order=70)]
         [Cardinality(Min=0,Max=-1)]
@@ -540,7 +536,7 @@ namespace Hl7.Fhir.Model
         {
             get
             {
-                // DataRequirement elements
+                foreach (var item in base.Children) yield return item;
                 if (TypeElement != null) yield return TypeElement;
                 foreach (var elem in ProfileElement) { if (elem != null) yield return elem; }
                 foreach (var elem in MustSupportElement) { if (elem != null) yield return elem; }

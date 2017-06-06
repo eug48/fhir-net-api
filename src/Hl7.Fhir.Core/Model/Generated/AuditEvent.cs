@@ -4,7 +4,7 @@ using Hl7.Fhir.Introspection;
 using Hl7.Fhir.Validation;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.ComponentModel;
+using Hl7.Fhir.Utility;
 
 /*
   Copyright (c) 2011+, HL7, Inc.
@@ -37,7 +37,7 @@ using System.ComponentModel;
 */
 
 //
-// Generated for FHIR v1.9.0
+// Generated for FHIR v3.0.1
 //
 namespace Hl7.Fhir.Model
 {
@@ -54,7 +54,7 @@ namespace Hl7.Fhir.Model
         public override string TypeName { get { return "AuditEvent"; } }
         
         /// <summary>
-        /// Indicator for type of action performed during the event that generated the audit.
+        /// Indicator for type of action performed during the event that generated the event
         /// (url: http://hl7.org/fhir/ValueSet/audit-event-action)
         /// </summary>
         [FhirEnumeration("AuditEventAction")]
@@ -475,9 +475,7 @@ namespace Hl7.Fhir.Model
             {
                 get
                 {
-                    // BackboneElement elements
-                    foreach (var elem in ModifierExtension) { if (elem != null) yield return elem; }
-                    // AgentComponent elements
+                    foreach (var item in base.Children) yield return item;
                     foreach (var elem in Role) { if (elem != null) yield return elem; }
                     if (Reference != null) yield return Reference;
                     if (UserId != null) yield return UserId;
@@ -616,9 +614,7 @@ namespace Hl7.Fhir.Model
             {
                 get
                 {
-                    // BackboneElement elements
-                    foreach (var elem in ModifierExtension) { if (elem != null) yield return elem; }
-                    // NetworkComponent elements
+                    foreach (var item in base.Children) yield return item;
                     if (AddressElement != null) yield return AddressElement;
                     if (TypeElement != null) yield return TypeElement;
                 }
@@ -747,9 +743,7 @@ namespace Hl7.Fhir.Model
             {
                 get
                 {
-                    // BackboneElement elements
-                    foreach (var elem in ModifierExtension) { if (elem != null) yield return elem; }
-                    // SourceComponent elements
+                    foreach (var item in base.Children) yield return item;
                     if (SiteElement != null) yield return SiteElement;
                     if (Identifier != null) yield return Identifier;
                     foreach (var elem in Type) { if (elem != null) yield return elem; }
@@ -1031,9 +1025,7 @@ namespace Hl7.Fhir.Model
             {
                 get
                 {
-                    // BackboneElement elements
-                    foreach (var elem in ModifierExtension) { if (elem != null) yield return elem; }
-                    // EntityComponent elements
+                    foreach (var item in base.Children) yield return item;
                     if (Identifier != null) yield return Identifier;
                     if (Reference != null) yield return Reference;
                     if (Type != null) yield return Type;
@@ -1173,9 +1165,7 @@ namespace Hl7.Fhir.Model
             {
                 get
                 {
-                    // BackboneElement elements
-                    foreach (var elem in ModifierExtension) { if (elem != null) yield return elem; }
-                    // DetailComponent elements
+                    foreach (var item in base.Children) yield return item;
                     if (TypeElement != null) yield return TypeElement;
                     if (ValueElement != null) yield return ValueElement;
                 }
@@ -1487,7 +1477,7 @@ namespace Hl7.Fhir.Model
         {
             get
             {
-				// AuditEvent elements
+                foreach (var item in base.Children) yield return item;
 				if (Type != null) yield return Type;
 				foreach (var elem in Subtype) { if (elem != null) yield return elem; }
 				if (ActionElement != null) yield return ActionElement;

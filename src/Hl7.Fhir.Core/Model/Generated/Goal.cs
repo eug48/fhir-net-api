@@ -4,7 +4,7 @@ using Hl7.Fhir.Introspection;
 using Hl7.Fhir.Validation;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.ComponentModel;
+using Hl7.Fhir.Utility;
 
 /*
   Copyright (c) 2011+, HL7, Inc.
@@ -37,7 +37,7 @@ using System.ComponentModel;
 */
 
 //
-// Generated for FHIR v1.9.0
+// Generated for FHIR v3.0.1
 //
 namespace Hl7.Fhir.Model
 {
@@ -243,9 +243,7 @@ namespace Hl7.Fhir.Model
             {
                 get
                 {
-                    // BackboneElement elements
-                    foreach (var elem in ModifierExtension) { if (elem != null) yield return elem; }
-                    // TargetComponent elements
+                    foreach (var item in base.Children) yield return item;
                     if (Measure != null) yield return Measure;
                     if (Detail != null) yield return Detail;
                     if (Due != null) yield return Due;
@@ -532,7 +530,7 @@ namespace Hl7.Fhir.Model
             Key = "gol-1",
             Severity = ElementDefinition.ConstraintSeverity.Warning,
             Human = "Goal.target.measure is required if Goal.target.detail is populated",
-            Xpath = "(exists(f:detail) and exists(f:measure)) or not(exists(f:detail))"
+            Xpath = "(exists(f:*[starts-with(local-name(.), 'detail')]) and exists(f:measure)) or not(exists(f:*[starts-with(local-name(.), 'detail')]))"
         };
 
         public override void AddDefaultConstraints()
@@ -630,7 +628,7 @@ namespace Hl7.Fhir.Model
         {
             get
             {
-				// Goal elements
+                foreach (var item in base.Children) yield return item;
 				foreach (var elem in Identifier) { if (elem != null) yield return elem; }
 				if (StatusElement != null) yield return StatusElement;
 				foreach (var elem in Category) { if (elem != null) yield return elem; }

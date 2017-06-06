@@ -4,7 +4,7 @@ using Hl7.Fhir.Introspection;
 using Hl7.Fhir.Validation;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.ComponentModel;
+using Hl7.Fhir.Utility;
 
 /*
   Copyright (c) 2011+, HL7, Inc.
@@ -37,7 +37,7 @@ using System.ComponentModel;
 */
 
 //
-// Generated for FHIR v1.9.0
+// Generated for FHIR v3.0.1
 //
 namespace Hl7.Fhir.Model
 {
@@ -123,9 +123,7 @@ namespace Hl7.Fhir.Model
             {
                 get
                 {
-                    // BackboneElement elements
-                    foreach (var elem in ModifierExtension) { if (elem != null) yield return elem; }
-                    // PayloadComponent elements
+                    foreach (var item in base.Children) yield return item;
                     if (Content != null) yield return Content;
                 }
             }
@@ -507,7 +505,7 @@ namespace Hl7.Fhir.Model
             Key = "com-1",
             Severity = ElementDefinition.ConstraintSeverity.Warning,
             Human = "Not Done Reason can only be specified if NotDone is \"true\"",
-            Xpath = "f:notDone='true' or not(exists(f:notDoneReason))"
+            Xpath = "f:notDone/@value=true() or not(exists(f:notDoneReason))"
         };
 
         public override void AddDefaultConstraints()
@@ -620,7 +618,7 @@ namespace Hl7.Fhir.Model
         {
             get
             {
-				// Communication elements
+                foreach (var item in base.Children) yield return item;
 				foreach (var elem in Identifier) { if (elem != null) yield return elem; }
 				foreach (var elem in Definition) { if (elem != null) yield return elem; }
 				foreach (var elem in BasedOn) { if (elem != null) yield return elem; }

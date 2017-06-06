@@ -4,7 +4,7 @@ using Hl7.Fhir.Introspection;
 using Hl7.Fhir.Validation;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.ComponentModel;
+using Hl7.Fhir.Utility;
 
 /*
   Copyright (c) 2011+, HL7, Inc.
@@ -37,7 +37,7 @@ using System.ComponentModel;
 */
 
 //
-// Generated for FHIR v1.9.0
+// Generated for FHIR v3.0.1
 //
 namespace Hl7.Fhir.Model
 {
@@ -159,7 +159,7 @@ namespace Hl7.Fhir.Model
             }
             
             /// <summary>
-            /// Minimum occurences for this link
+            /// Minimum occurrences for this link
             /// </summary>
             [FhirElement("min", Order=60)]
             [DataMember]
@@ -172,7 +172,7 @@ namespace Hl7.Fhir.Model
             private Hl7.Fhir.Model.Integer _MinElement;
             
             /// <summary>
-            /// Minimum occurences for this link
+            /// Minimum occurrences for this link
             /// </summary>
             /// <remarks>This uses the native .NET datatype, rather than the FHIR equivalent</remarks>
             [NotMapped]
@@ -191,7 +191,7 @@ namespace Hl7.Fhir.Model
             }
             
             /// <summary>
-            /// Maximum occurences for this link
+            /// Maximum occurrences for this link
             /// </summary>
             [FhirElement("max", Order=70)]
             [DataMember]
@@ -204,7 +204,7 @@ namespace Hl7.Fhir.Model
             private Hl7.Fhir.Model.FhirString _MaxElement;
             
             /// <summary>
-            /// Maximum occurences for this link
+            /// Maximum occurrences for this link
             /// </summary>
             /// <remarks>This uses the native .NET datatype, rather than the FHIR equivalent</remarks>
             [NotMapped]
@@ -330,9 +330,7 @@ namespace Hl7.Fhir.Model
             {
                 get
                 {
-                    // BackboneElement elements
-                    foreach (var elem in ModifierExtension) { if (elem != null) yield return elem; }
-                    // LinkComponent elements
+                    foreach (var item in base.Children) yield return item;
                     if (PathElement != null) yield return PathElement;
                     if (SliceNameElement != null) yield return SliceNameElement;
                     if (MinElement != null) yield return MinElement;
@@ -501,9 +499,7 @@ namespace Hl7.Fhir.Model
             {
                 get
                 {
-                    // BackboneElement elements
-                    foreach (var elem in ModifierExtension) { if (elem != null) yield return elem; }
-                    // TargetComponent elements
+                    foreach (var item in base.Children) yield return item;
                     if (TypeElement != null) yield return TypeElement;
                     if (ProfileElement != null) yield return ProfileElement;
                     foreach (var elem in Compartment) { if (elem != null) yield return elem; }
@@ -707,9 +703,7 @@ namespace Hl7.Fhir.Model
             {
                 get
                 {
-                    // BackboneElement elements
-                    foreach (var elem in ModifierExtension) { if (elem != null) yield return elem; }
-                    // CompartmentComponent elements
+                    foreach (var item in base.Children) yield return item;
                     if (CodeElement != null) yield return CodeElement;
                     if (RuleElement != null) yield return RuleElement;
                     if (ExpressionElement != null) yield return ExpressionElement;
@@ -721,7 +715,7 @@ namespace Hl7.Fhir.Model
         
         
         /// <summary>
-        /// Logical uri to reference this graph definition (globally unique)
+        /// Logical URI to reference this graph definition (globally unique)
         /// </summary>
         [FhirElement("url", InSummary=true, Order=90)]
         [DataMember]
@@ -734,7 +728,7 @@ namespace Hl7.Fhir.Model
         private Hl7.Fhir.Model.FhirUri _UrlElement;
         
         /// <summary>
-        /// Logical uri to reference this graph definition (globally unique)
+        /// Logical URI to reference this graph definition (globally unique)
         /// </summary>
         /// <remarks>This uses the native .NET datatype, rather than the FHIR equivalent</remarks>
         [NotMapped]
@@ -785,7 +779,7 @@ namespace Hl7.Fhir.Model
         }
         
         /// <summary>
-        /// Name for this graph definition (Computer friendly)
+        /// Name for this graph definition (computer friendly)
         /// </summary>
         [FhirElement("name", InSummary=true, Order=110)]
         [Cardinality(Min=1,Max=1)]
@@ -799,7 +793,7 @@ namespace Hl7.Fhir.Model
         private Hl7.Fhir.Model.FhirString _NameElement;
         
         /// <summary>
-        /// Name for this graph definition (Computer friendly)
+        /// Name for this graph definition (computer friendly)
         /// </summary>
         /// <remarks>This uses the native .NET datatype, rather than the FHIR equivalent</remarks>
         [NotMapped]
@@ -818,7 +812,7 @@ namespace Hl7.Fhir.Model
         }
         
         /// <summary>
-        /// draft | active | retired
+        /// draft | active | retired | unknown
         /// </summary>
         [FhirElement("status", InSummary=true, Order=120)]
         [Cardinality(Min=1,Max=1)]
@@ -832,7 +826,7 @@ namespace Hl7.Fhir.Model
         private Code<Hl7.Fhir.Model.PublicationStatus> _StatusElement;
         
         /// <summary>
-        /// draft | active | retired
+        /// draft | active | retired | unknown
         /// </summary>
         /// <remarks>This uses the native .NET datatype, rather than the FHIR equivalent</remarks>
         [NotMapped]
@@ -851,7 +845,7 @@ namespace Hl7.Fhir.Model
         }
         
         /// <summary>
-        /// If for testing purposes, not real usage
+        /// For testing purposes, not real usage
         /// </summary>
         [FhirElement("experimental", InSummary=true, Order=130)]
         [DataMember]
@@ -864,7 +858,7 @@ namespace Hl7.Fhir.Model
         private Hl7.Fhir.Model.FhirBoolean _ExperimentalElement;
         
         /// <summary>
-        /// If for testing purposes, not real usage
+        /// For testing purposes, not real usage
         /// </summary>
         /// <remarks>This uses the native .NET datatype, rather than the FHIR equivalent</remarks>
         [NotMapped]
@@ -915,7 +909,7 @@ namespace Hl7.Fhir.Model
         }
         
         /// <summary>
-        /// Name of the publisher (Organization or individual)
+        /// Name of the publisher (organization or individual)
         /// </summary>
         [FhirElement("publisher", InSummary=true, Order=150)]
         [DataMember]
@@ -928,7 +922,7 @@ namespace Hl7.Fhir.Model
         private Hl7.Fhir.Model.FhirString _PublisherElement;
         
         /// <summary>
-        /// Name of the publisher (Organization or individual)
+        /// Name of the publisher (organization or individual)
         /// </summary>
         /// <remarks>This uses the native .NET datatype, rather than the FHIR equivalent</remarks>
         [NotMapped]
@@ -974,7 +968,7 @@ namespace Hl7.Fhir.Model
         private Hl7.Fhir.Model.Markdown _Description;
         
         /// <summary>
-        /// Content intends to support these contexts
+        /// Context the content is intended to support
         /// </summary>
         [FhirElement("useContext", InSummary=true, Order=180)]
         [Cardinality(Min=0,Max=-1)]
@@ -1188,7 +1182,7 @@ namespace Hl7.Fhir.Model
         {
             get
             {
-				// GraphDefinition elements
+                foreach (var item in base.Children) yield return item;
 				if (UrlElement != null) yield return UrlElement;
 				if (VersionElement != null) yield return VersionElement;
 				if (NameElement != null) yield return NameElement;

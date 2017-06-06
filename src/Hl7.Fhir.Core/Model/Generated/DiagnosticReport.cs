@@ -4,7 +4,7 @@ using Hl7.Fhir.Introspection;
 using Hl7.Fhir.Validation;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.ComponentModel;
+using Hl7.Fhir.Utility;
 
 /*
   Copyright (c) 2011+, HL7, Inc.
@@ -37,7 +37,7 @@ using System.ComponentModel;
 */
 
 //
-// Generated for FHIR v1.9.0
+// Generated for FHIR v3.0.1
 //
 namespace Hl7.Fhir.Model
 {
@@ -208,9 +208,7 @@ namespace Hl7.Fhir.Model
             {
                 get
                 {
-                    // BackboneElement elements
-                    foreach (var elem in ModifierExtension) { if (elem != null) yield return elem; }
-                    // PerformerComponent elements
+                    foreach (var item in base.Children) yield return item;
                     if (Role != null) yield return Role;
                     if (Actor != null) yield return Actor;
                 }
@@ -324,9 +322,7 @@ namespace Hl7.Fhir.Model
             {
                 get
                 {
-                    // BackboneElement elements
-                    foreach (var elem in ModifierExtension) { if (elem != null) yield return elem; }
-                    // ImageComponent elements
+                    foreach (var item in base.Children) yield return item;
                     if (CommentElement != null) yield return CommentElement;
                     if (Link != null) yield return Link;
                 }
@@ -336,7 +332,7 @@ namespace Hl7.Fhir.Model
         
         
         /// <summary>
-        /// Business Identifer for report
+        /// Business identifier for report
         /// </summary>
         [FhirElement("identifier", InSummary=true, Order=90)]
         [Cardinality(Min=0,Max=-1)]
@@ -426,7 +422,7 @@ namespace Hl7.Fhir.Model
         private Hl7.Fhir.Model.CodeableConcept _Code;
         
         /// <summary>
-        /// The subject of the report, usually, but not always, the patient
+        /// The subject of the report - usually, but not always, the patient
         /// </summary>
         [FhirElement("subject", InSummary=true, Order=140)]
         [CLSCompliant(false)]
@@ -456,7 +452,7 @@ namespace Hl7.Fhir.Model
         private Hl7.Fhir.Model.ResourceReference _Context;
         
         /// <summary>
-        /// Clinically Relevant time/time-period for report
+        /// Clinically relevant time/time-period for report
         /// </summary>
         [FhirElement("effective", InSummary=true, Order=160, Choice=ChoiceType.DatatypeChoice)]
         [CLSCompliant(false)]
@@ -739,7 +735,7 @@ namespace Hl7.Fhir.Model
         {
             get
             {
-				// DiagnosticReport elements
+                foreach (var item in base.Children) yield return item;
 				foreach (var elem in Identifier) { if (elem != null) yield return elem; }
 				foreach (var elem in BasedOn) { if (elem != null) yield return elem; }
 				if (StatusElement != null) yield return StatusElement;

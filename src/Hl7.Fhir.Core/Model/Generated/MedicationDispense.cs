@@ -4,7 +4,7 @@ using Hl7.Fhir.Introspection;
 using Hl7.Fhir.Validation;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.ComponentModel;
+using Hl7.Fhir.Utility;
 
 /*
   Copyright (c) 2011+, HL7, Inc.
@@ -37,7 +37,7 @@ using System.ComponentModel;
 */
 
 //
-// Generated for FHIR v1.9.0
+// Generated for FHIR v3.0.1
 //
 namespace Hl7.Fhir.Model
 {
@@ -186,9 +186,7 @@ namespace Hl7.Fhir.Model
             {
                 get
                 {
-                    // BackboneElement elements
-                    foreach (var elem in ModifierExtension) { if (elem != null) yield return elem; }
-                    // PerformerComponent elements
+                    foreach (var item in base.Children) yield return item;
                     if (Actor != null) yield return Actor;
                     if (OnBehalfOf != null) yield return OnBehalfOf;
                 }
@@ -336,9 +334,7 @@ namespace Hl7.Fhir.Model
             {
                 get
                 {
-                    // BackboneElement elements
-                    foreach (var elem in ModifierExtension) { if (elem != null) yield return elem; }
-                    // SubstitutionComponent elements
+                    foreach (var item in base.Children) yield return item;
                     if (WasSubstitutedElement != null) yield return WasSubstitutedElement;
                     if (Type != null) yield return Type;
                     foreach (var elem in Reason) { if (elem != null) yield return elem; }
@@ -692,7 +688,7 @@ namespace Hl7.Fhir.Model
         private Hl7.Fhir.Model.MedicationDispense.SubstitutionComponent _Substitution;
         
         /// <summary>
-        /// Clinical Issue with action
+        /// Clinical issue with action
         /// </summary>
         [FhirElement("detectedIssue", Order=290)]
         [CLSCompliant(false)]
@@ -755,7 +751,7 @@ namespace Hl7.Fhir.Model
         private Hl7.Fhir.Model.Element _NotDoneReason;
         
         /// <summary>
-        /// A list of events of interest in the lifecycle
+        /// A list of releveant lifecycle events
         /// </summary>
         [FhirElement("eventHistory", Order=320)]
         [CLSCompliant(false)]
@@ -902,7 +898,7 @@ namespace Hl7.Fhir.Model
         {
             get
             {
-				// MedicationDispense elements
+                foreach (var item in base.Children) yield return item;
 				foreach (var elem in Identifier) { if (elem != null) yield return elem; }
 				foreach (var elem in PartOf) { if (elem != null) yield return elem; }
 				if (StatusElement != null) yield return StatusElement;

@@ -4,7 +4,7 @@ using Hl7.Fhir.Introspection;
 using Hl7.Fhir.Validation;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.ComponentModel;
+using Hl7.Fhir.Utility;
 
 /*
   Copyright (c) 2011+, HL7, Inc.
@@ -37,7 +37,7 @@ using System.ComponentModel;
 */
 
 //
-// Generated for FHIR v1.9.0
+// Generated for FHIR v3.0.1
 //
 namespace Hl7.Fhir.Model
 {
@@ -54,7 +54,7 @@ namespace Hl7.Fhir.Model
         public override string TypeName { get { return "Media"; } }
         
         /// <summary>
-        /// Whether the Media is a photo, video, or audio
+        /// Whether the media is a photo, video, or audio
         /// (url: http://hl7.org/fhir/ValueSet/digital-media-type)
         /// </summary>
         [FhirEnumeration("DigitalMediaType")]
@@ -571,7 +571,7 @@ namespace Hl7.Fhir.Model
         {
             get
             {
-				// Media elements
+                foreach (var item in base.Children) yield return item;
 				foreach (var elem in Identifier) { if (elem != null) yield return elem; }
 				foreach (var elem in BasedOn) { if (elem != null) yield return elem; }
 				if (TypeElement != null) yield return TypeElement;

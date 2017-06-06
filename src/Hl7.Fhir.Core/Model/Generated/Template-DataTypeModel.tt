@@ -208,7 +208,7 @@ using Hl7.Fhir.Introspection;
 using Hl7.Fhir.Validation;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.ComponentModel;
+using Hl7.Fhir.Utility;
 
 /*
   Copyright (c) 2011+, HL7, Inc.
@@ -564,6 +564,7 @@ if (!abstractType){
             {
                 get
                 {
+                    foreach (var item in base.Children) yield return item;
 <#
 					YieldComponent(docTypes, componentName, "Element", component, nsR, enums, "                    ");
 #>
@@ -749,6 +750,7 @@ if (!abstractType){
         {
             get
             {
+                foreach (var item in base.Children) yield return item;
 <#
                 YieldChildren(docResources, e as System.Xml.XmlElement, nsR, enums, "                ");
 #>

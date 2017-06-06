@@ -4,7 +4,7 @@ using Hl7.Fhir.Introspection;
 using Hl7.Fhir.Validation;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.ComponentModel;
+using Hl7.Fhir.Utility;
 
 /*
   Copyright (c) 2011+, HL7, Inc.
@@ -37,7 +37,7 @@ using System.ComponentModel;
 */
 
 //
-// Generated for FHIR v1.9.0
+// Generated for FHIR v3.0.1
 //
 namespace Hl7.Fhir.Model
 {
@@ -53,195 +53,6 @@ namespace Hl7.Fhir.Model
         [NotMapped]
         public override string TypeName { get { return "Measure"; } }
         
-        /// <summary>
-        /// The scoring type of the measure
-        /// (url: http://hl7.org/fhir/ValueSet/measure-scoring)
-        /// </summary>
-        [FhirEnumeration("MeasureScoring")]
-        public enum MeasureScoring
-        {
-            /// <summary>
-            /// MISSING DESCRIPTION
-            /// (system: http://hl7.org/fhir/measure-scoring)
-            /// </summary>
-            [EnumLiteral("proportion"), Description("Proportion")]
-            Proportion,
-            /// <summary>
-            /// MISSING DESCRIPTION
-            /// (system: http://hl7.org/fhir/measure-scoring)
-            /// </summary>
-            [EnumLiteral("ratio"), Description("Ratio")]
-            Ratio,
-            /// <summary>
-            /// MISSING DESCRIPTION
-            /// (system: http://hl7.org/fhir/measure-scoring)
-            /// </summary>
-            [EnumLiteral("continuous-variable"), Description("Continuous Variable")]
-            ContinuousVariable,
-            /// <summary>
-            /// MISSING DESCRIPTION
-            /// (system: http://hl7.org/fhir/measure-scoring)
-            /// </summary>
-            [EnumLiteral("cohort"), Description("Cohort")]
-            Cohort,
-        }
-
-        /// <summary>
-        /// The composite scoring method of the measure
-        /// (url: http://hl7.org/fhir/ValueSet/composite-measure-scoring)
-        /// </summary>
-        [FhirEnumeration("CompositeMeasureScoring")]
-        public enum CompositeMeasureScoring
-        {
-            /// <summary>
-            /// MISSING DESCRIPTION
-            /// (system: http://hl7.org/fhir/composite-measure-scoring)
-            /// </summary>
-            [EnumLiteral("opportunity"), Description("Opportunity")]
-            Opportunity,
-            /// <summary>
-            /// MISSING DESCRIPTION
-            /// (system: http://hl7.org/fhir/composite-measure-scoring)
-            /// </summary>
-            [EnumLiteral("all-or-nothing"), Description("All-or-nothing")]
-            AllOrNothing,
-            /// <summary>
-            /// MISSING DESCRIPTION
-            /// (system: http://hl7.org/fhir/composite-measure-scoring)
-            /// </summary>
-            [EnumLiteral("linear"), Description("Linear")]
-            Linear,
-            /// <summary>
-            /// MISSING DESCRIPTION
-            /// (system: http://hl7.org/fhir/composite-measure-scoring)
-            /// </summary>
-            [EnumLiteral("weighted"), Description("Weighted")]
-            Weighted,
-        }
-
-        /// <summary>
-        /// The type of measure (includes codes from 2.16.840.1.113883.1.11.20368)
-        /// (url: http://hl7.org/fhir/ValueSet/measure-type)
-        /// </summary>
-        [FhirEnumeration("MeasureType")]
-        public enum MeasureType
-        {
-            /// <summary>
-            /// MISSING DESCRIPTION
-            /// (system: http://hl7.org/fhir/measure-type)
-            /// </summary>
-            [EnumLiteral("process"), Description("Process")]
-            Process,
-            /// <summary>
-            /// MISSING DESCRIPTION
-            /// (system: http://hl7.org/fhir/measure-type)
-            /// </summary>
-            [EnumLiteral("outcome"), Description("Outcome")]
-            Outcome,
-            /// <summary>
-            /// MISSING DESCRIPTION
-            /// (system: http://hl7.org/fhir/measure-type)
-            /// </summary>
-            [EnumLiteral("structure"), Description("Structure")]
-            Structure,
-            /// <summary>
-            /// MISSING DESCRIPTION
-            /// (system: http://hl7.org/fhir/measure-type)
-            /// </summary>
-            [EnumLiteral("patient-reported-outcome"), Description("Patient Reported Outcome")]
-            PatientReportedOutcome,
-            /// <summary>
-            /// MISSING DESCRIPTION
-            /// (system: http://hl7.org/fhir/measure-type)
-            /// </summary>
-            [EnumLiteral("composite"), Description("Composite")]
-            Composite,
-        }
-
-        /// <summary>
-        /// The type of population
-        /// (url: http://hl7.org/fhir/ValueSet/measure-population)
-        /// </summary>
-        [FhirEnumeration("MeasurePopulationType")]
-        public enum MeasurePopulationType
-        {
-            /// <summary>
-            /// MISSING DESCRIPTION
-            /// (system: http://hl7.org/fhir/measure-population)
-            /// </summary>
-            [EnumLiteral("initial-population"), Description("Initial Population")]
-            InitialPopulation,
-            /// <summary>
-            /// MISSING DESCRIPTION
-            /// (system: http://hl7.org/fhir/measure-population)
-            /// </summary>
-            [EnumLiteral("numerator"), Description("Numerator")]
-            Numerator,
-            /// <summary>
-            /// MISSING DESCRIPTION
-            /// (system: http://hl7.org/fhir/measure-population)
-            /// </summary>
-            [EnumLiteral("numerator-exclusion"), Description("Numerator Exclusion")]
-            NumeratorExclusion,
-            /// <summary>
-            /// MISSING DESCRIPTION
-            /// (system: http://hl7.org/fhir/measure-population)
-            /// </summary>
-            [EnumLiteral("denominator"), Description("Denominator")]
-            Denominator,
-            /// <summary>
-            /// MISSING DESCRIPTION
-            /// (system: http://hl7.org/fhir/measure-population)
-            /// </summary>
-            [EnumLiteral("denominator-exclusion"), Description("Denominator Exclusion")]
-            DenominatorExclusion,
-            /// <summary>
-            /// MISSING DESCRIPTION
-            /// (system: http://hl7.org/fhir/measure-population)
-            /// </summary>
-            [EnumLiteral("denominator-exception"), Description("Denominator Exception")]
-            DenominatorException,
-            /// <summary>
-            /// MISSING DESCRIPTION
-            /// (system: http://hl7.org/fhir/measure-population)
-            /// </summary>
-            [EnumLiteral("measure-population"), Description("Measure Population")]
-            MeasurePopulation,
-            /// <summary>
-            /// MISSING DESCRIPTION
-            /// (system: http://hl7.org/fhir/measure-population)
-            /// </summary>
-            [EnumLiteral("measure-population-exclusion"), Description("Measure Population Exclusion")]
-            MeasurePopulationExclusion,
-            /// <summary>
-            /// MISSING DESCRIPTION
-            /// (system: http://hl7.org/fhir/measure-population)
-            /// </summary>
-            [EnumLiteral("measure-observation"), Description("Measure Observation")]
-            MeasureObservation,
-        }
-
-        /// <summary>
-        /// The intended usage for supplemental data elements in the measure
-        /// (url: http://hl7.org/fhir/ValueSet/measure-data-usage)
-        /// </summary>
-        [FhirEnumeration("MeasureDataUsage")]
-        public enum MeasureDataUsage
-        {
-            /// <summary>
-            /// MISSING DESCRIPTION
-            /// (system: http://hl7.org/fhir/measure-data-usage)
-            /// </summary>
-            [EnumLiteral("supplemental-data"), Description("Supplemental Data")]
-            SupplementalData,
-            /// <summary>
-            /// MISSING DESCRIPTION
-            /// (system: http://hl7.org/fhir/measure-data-usage)
-            /// </summary>
-            [EnumLiteral("risk-adjustment-factor"), Description("Risk Adjustment Factor")]
-            RiskAdjustmentFactor,
-        }
-
         [FhirType("GroupComponent")]
         [DataContract]
         public partial class GroupComponent : Hl7.Fhir.Model.BackboneElement, System.ComponentModel.INotifyPropertyChanged
@@ -414,9 +225,7 @@ namespace Hl7.Fhir.Model
             {
                 get
                 {
-                    // BackboneElement elements
-                    foreach (var elem in ModifierExtension) { if (elem != null) yield return elem; }
-                    // GroupComponent elements
+                    foreach (var item in base.Children) yield return item;
                     if (Identifier != null) yield return Identifier;
                     if (NameElement != null) yield return NameElement;
                     if (DescriptionElement != null) yield return DescriptionElement;
@@ -436,43 +245,9 @@ namespace Hl7.Fhir.Model
             public override string TypeName { get { return "PopulationComponent"; } }
             
             /// <summary>
-            /// initial-population | numerator | numerator-exclusion | denominator | denominator-exclusion | denominator-exception | measure-population | measure-population-exclusion | measure-observation
-            /// </summary>
-            [FhirElement("type", Order=40)]
-            [Cardinality(Min=1,Max=1)]
-            [DataMember]
-            public Code<Hl7.Fhir.Model.Measure.MeasurePopulationType> TypeElement
-            {
-                get { return _TypeElement; }
-                set { _TypeElement = value; OnPropertyChanged("TypeElement"); }
-            }
-            
-            private Code<Hl7.Fhir.Model.Measure.MeasurePopulationType> _TypeElement;
-            
-            /// <summary>
-            /// initial-population | numerator | numerator-exclusion | denominator | denominator-exclusion | denominator-exception | measure-population | measure-population-exclusion | measure-observation
-            /// </summary>
-            /// <remarks>This uses the native .NET datatype, rather than the FHIR equivalent</remarks>
-            [NotMapped]
-            [IgnoreDataMemberAttribute]
-            public Hl7.Fhir.Model.Measure.MeasurePopulationType? Type
-            {
-                get { return TypeElement != null ? TypeElement.Value : null; }
-                set
-                {
-                    if (!value.HasValue)
-                        TypeElement = null; 
-                    else
-                        TypeElement = new Code<Hl7.Fhir.Model.Measure.MeasurePopulationType>(value);
-                    OnPropertyChanged("Type");
-                }
-            }
-            
-            /// <summary>
             /// Unique identifier
             /// </summary>
-            [FhirElement("identifier", Order=50)]
-            [Cardinality(Min=1,Max=1)]
+            [FhirElement("identifier", Order=40)]
             [DataMember]
             public Hl7.Fhir.Model.Identifier Identifier
             {
@@ -481,6 +256,19 @@ namespace Hl7.Fhir.Model
             }
             
             private Hl7.Fhir.Model.Identifier _Identifier;
+            
+            /// <summary>
+            /// initial-population | numerator | numerator-exclusion | denominator | denominator-exclusion | denominator-exception | measure-population | measure-population-exclusion | measure-observation
+            /// </summary>
+            [FhirElement("code", Order=50)]
+            [DataMember]
+            public Hl7.Fhir.Model.CodeableConcept Code
+            {
+                get { return _Code; }
+                set { _Code = value; OnPropertyChanged("Code"); }
+            }
+            
+            private Hl7.Fhir.Model.CodeableConcept _Code;
             
             /// <summary>
             /// Short name
@@ -586,8 +374,8 @@ namespace Hl7.Fhir.Model
                 if (dest != null)
                 {
                     base.CopyTo(dest);
-                    if(TypeElement != null) dest.TypeElement = (Code<Hl7.Fhir.Model.Measure.MeasurePopulationType>)TypeElement.DeepCopy();
                     if(Identifier != null) dest.Identifier = (Hl7.Fhir.Model.Identifier)Identifier.DeepCopy();
+                    if(Code != null) dest.Code = (Hl7.Fhir.Model.CodeableConcept)Code.DeepCopy();
                     if(NameElement != null) dest.NameElement = (Hl7.Fhir.Model.FhirString)NameElement.DeepCopy();
                     if(DescriptionElement != null) dest.DescriptionElement = (Hl7.Fhir.Model.FhirString)DescriptionElement.DeepCopy();
                     if(CriteriaElement != null) dest.CriteriaElement = (Hl7.Fhir.Model.FhirString)CriteriaElement.DeepCopy();
@@ -608,8 +396,8 @@ namespace Hl7.Fhir.Model
                 if(otherT == null) return false;
                 
                 if(!base.Matches(otherT)) return false;
-                if( !DeepComparable.Matches(TypeElement, otherT.TypeElement)) return false;
                 if( !DeepComparable.Matches(Identifier, otherT.Identifier)) return false;
+                if( !DeepComparable.Matches(Code, otherT.Code)) return false;
                 if( !DeepComparable.Matches(NameElement, otherT.NameElement)) return false;
                 if( !DeepComparable.Matches(DescriptionElement, otherT.DescriptionElement)) return false;
                 if( !DeepComparable.Matches(CriteriaElement, otherT.CriteriaElement)) return false;
@@ -623,8 +411,8 @@ namespace Hl7.Fhir.Model
                 if(otherT == null) return false;
                 
                 if(!base.IsExactly(otherT)) return false;
-                if( !DeepComparable.IsExactly(TypeElement, otherT.TypeElement)) return false;
                 if( !DeepComparable.IsExactly(Identifier, otherT.Identifier)) return false;
+                if( !DeepComparable.IsExactly(Code, otherT.Code)) return false;
                 if( !DeepComparable.IsExactly(NameElement, otherT.NameElement)) return false;
                 if( !DeepComparable.IsExactly(DescriptionElement, otherT.DescriptionElement)) return false;
                 if( !DeepComparable.IsExactly(CriteriaElement, otherT.CriteriaElement)) return false;
@@ -638,11 +426,9 @@ namespace Hl7.Fhir.Model
             {
                 get
                 {
-                    // BackboneElement elements
-                    foreach (var elem in ModifierExtension) { if (elem != null) yield return elem; }
-                    // PopulationComponent elements
-                    if (TypeElement != null) yield return TypeElement;
+                    foreach (var item in base.Children) yield return item;
                     if (Identifier != null) yield return Identifier;
+                    if (Code != null) yield return Code;
                     if (NameElement != null) yield return NameElement;
                     if (DescriptionElement != null) yield return DescriptionElement;
                     if (CriteriaElement != null) yield return CriteriaElement;
@@ -663,7 +449,6 @@ namespace Hl7.Fhir.Model
             /// The identifier for the stratifier used to coordinate the reported data back to this stratifier
             /// </summary>
             [FhirElement("identifier", Order=40)]
-            [Cardinality(Min=1,Max=1)]
             [DataMember]
             public Hl7.Fhir.Model.Identifier Identifier
             {
@@ -674,7 +459,7 @@ namespace Hl7.Fhir.Model
             private Hl7.Fhir.Model.Identifier _Identifier;
             
             /// <summary>
-            /// Stratifier criteria
+            /// How the measure should be stratified
             /// </summary>
             [FhirElement("criteria", Order=50)]
             [DataMember]
@@ -687,7 +472,7 @@ namespace Hl7.Fhir.Model
             private Hl7.Fhir.Model.FhirString _CriteriaElement;
             
             /// <summary>
-            /// Stratifier criteria
+            /// How the measure should be stratified
             /// </summary>
             /// <remarks>This uses the native .NET datatype, rather than the FHIR equivalent</remarks>
             [NotMapped]
@@ -790,9 +575,7 @@ namespace Hl7.Fhir.Model
             {
                 get
                 {
-                    // BackboneElement elements
-                    foreach (var elem in ModifierExtension) { if (elem != null) yield return elem; }
-                    // StratifierComponent elements
+                    foreach (var item in base.Children) yield return item;
                     if (Identifier != null) yield return Identifier;
                     if (CriteriaElement != null) yield return CriteriaElement;
                     if (PathElement != null) yield return PathElement;
@@ -813,7 +596,6 @@ namespace Hl7.Fhir.Model
             /// Identifier, unique within the measure
             /// </summary>
             [FhirElement("identifier", Order=40)]
-            [Cardinality(Min=1,Max=1)]
             [DataMember]
             public Hl7.Fhir.Model.Identifier Identifier
             {
@@ -829,35 +611,16 @@ namespace Hl7.Fhir.Model
             [FhirElement("usage", Order=50)]
             [Cardinality(Min=0,Max=-1)]
             [DataMember]
-            public List<Code<Hl7.Fhir.Model.Measure.MeasureDataUsage>> UsageElement
+            public List<Hl7.Fhir.Model.CodeableConcept> Usage
             {
-                get { if(_UsageElement==null) _UsageElement = new List<Hl7.Fhir.Model.Code<Hl7.Fhir.Model.Measure.MeasureDataUsage>>(); return _UsageElement; }
-                set { _UsageElement = value; OnPropertyChanged("UsageElement"); }
+                get { if(_Usage==null) _Usage = new List<Hl7.Fhir.Model.CodeableConcept>(); return _Usage; }
+                set { _Usage = value; OnPropertyChanged("Usage"); }
             }
             
-            private List<Code<Hl7.Fhir.Model.Measure.MeasureDataUsage>> _UsageElement;
+            private List<Hl7.Fhir.Model.CodeableConcept> _Usage;
             
             /// <summary>
-            /// supplemental-data | risk-adjustment-factor
-            /// </summary>
-            /// <remarks>This uses the native .NET datatype, rather than the FHIR equivalent</remarks>
-            [NotMapped]
-            [IgnoreDataMemberAttribute]
-            public IEnumerable<Hl7.Fhir.Model.Measure.MeasureDataUsage?> Usage
-            {
-                get { return UsageElement != null ? UsageElement.Select(elem => elem.Value) : null; }
-                set
-                {
-                    if (value == null)
-                        UsageElement = null; 
-                    else
-                        UsageElement = new List<Hl7.Fhir.Model.Code<Hl7.Fhir.Model.Measure.MeasureDataUsage>>(value.Select(elem=>new Hl7.Fhir.Model.Code<Hl7.Fhir.Model.Measure.MeasureDataUsage>(elem)));
-                    OnPropertyChanged("Usage");
-                }
-            }
-            
-            /// <summary>
-            /// Supplemental data criteria
+            /// Expression describing additional data to be reported
             /// </summary>
             [FhirElement("criteria", Order=60)]
             [DataMember]
@@ -870,7 +633,7 @@ namespace Hl7.Fhir.Model
             private Hl7.Fhir.Model.FhirString _CriteriaElement;
             
             /// <summary>
-            /// Supplemental data criteria
+            /// Expression describing additional data to be reported
             /// </summary>
             /// <remarks>This uses the native .NET datatype, rather than the FHIR equivalent</remarks>
             [NotMapped]
@@ -928,7 +691,7 @@ namespace Hl7.Fhir.Model
                 {
                     base.CopyTo(dest);
                     if(Identifier != null) dest.Identifier = (Hl7.Fhir.Model.Identifier)Identifier.DeepCopy();
-                    if(UsageElement != null) dest.UsageElement = new List<Code<Hl7.Fhir.Model.Measure.MeasureDataUsage>>(UsageElement.DeepCopy());
+                    if(Usage != null) dest.Usage = new List<Hl7.Fhir.Model.CodeableConcept>(Usage.DeepCopy());
                     if(CriteriaElement != null) dest.CriteriaElement = (Hl7.Fhir.Model.FhirString)CriteriaElement.DeepCopy();
                     if(PathElement != null) dest.PathElement = (Hl7.Fhir.Model.FhirString)PathElement.DeepCopy();
                     return dest;
@@ -949,7 +712,7 @@ namespace Hl7.Fhir.Model
                 
                 if(!base.Matches(otherT)) return false;
                 if( !DeepComparable.Matches(Identifier, otherT.Identifier)) return false;
-                if( !DeepComparable.Matches(UsageElement, otherT.UsageElement)) return false;
+                if( !DeepComparable.Matches(Usage, otherT.Usage)) return false;
                 if( !DeepComparable.Matches(CriteriaElement, otherT.CriteriaElement)) return false;
                 if( !DeepComparable.Matches(PathElement, otherT.PathElement)) return false;
                 
@@ -963,7 +726,7 @@ namespace Hl7.Fhir.Model
                 
                 if(!base.IsExactly(otherT)) return false;
                 if( !DeepComparable.IsExactly(Identifier, otherT.Identifier)) return false;
-                if( !DeepComparable.IsExactly(UsageElement, otherT.UsageElement)) return false;
+                if( !DeepComparable.IsExactly(Usage, otherT.Usage)) return false;
                 if( !DeepComparable.IsExactly(CriteriaElement, otherT.CriteriaElement)) return false;
                 if( !DeepComparable.IsExactly(PathElement, otherT.PathElement)) return false;
                 
@@ -976,11 +739,9 @@ namespace Hl7.Fhir.Model
             {
                 get
                 {
-                    // BackboneElement elements
-                    foreach (var elem in ModifierExtension) { if (elem != null) yield return elem; }
-                    // SupplementalDataComponent elements
+                    foreach (var item in base.Children) yield return item;
                     if (Identifier != null) yield return Identifier;
-                    foreach (var elem in UsageElement) { if (elem != null) yield return elem; }
+                    foreach (var elem in Usage) { if (elem != null) yield return elem; }
                     if (CriteriaElement != null) yield return CriteriaElement;
                     if (PathElement != null) yield return PathElement;
                 }
@@ -990,7 +751,7 @@ namespace Hl7.Fhir.Model
         
         
         /// <summary>
-        /// Logical uri to reference this measure (globally unique)
+        /// Logical URI to reference this measure (globally unique)
         /// </summary>
         [FhirElement("url", InSummary=true, Order=90)]
         [DataMember]
@@ -1003,7 +764,7 @@ namespace Hl7.Fhir.Model
         private Hl7.Fhir.Model.FhirUri _UrlElement;
         
         /// <summary>
-        /// Logical uri to reference this measure (globally unique)
+        /// Logical URI to reference this measure (globally unique)
         /// </summary>
         /// <remarks>This uses the native .NET datatype, rather than the FHIR equivalent</remarks>
         [NotMapped]
@@ -1068,7 +829,7 @@ namespace Hl7.Fhir.Model
         }
         
         /// <summary>
-        /// Name for this measure (Computer friendly)
+        /// Name for this measure (computer friendly)
         /// </summary>
         [FhirElement("name", InSummary=true, Order=120)]
         [DataMember]
@@ -1081,7 +842,7 @@ namespace Hl7.Fhir.Model
         private Hl7.Fhir.Model.FhirString _NameElement;
         
         /// <summary>
-        /// Name for this measure (Computer friendly)
+        /// Name for this measure (computer friendly)
         /// </summary>
         /// <remarks>This uses the native .NET datatype, rather than the FHIR equivalent</remarks>
         [NotMapped]
@@ -1100,7 +861,7 @@ namespace Hl7.Fhir.Model
         }
         
         /// <summary>
-        /// Name for this measure (Human friendly)
+        /// Name for this measure (human friendly)
         /// </summary>
         [FhirElement("title", InSummary=true, Order=130)]
         [DataMember]
@@ -1113,7 +874,7 @@ namespace Hl7.Fhir.Model
         private Hl7.Fhir.Model.FhirString _TitleElement;
         
         /// <summary>
-        /// Name for this measure (Human friendly)
+        /// Name for this measure (human friendly)
         /// </summary>
         /// <remarks>This uses the native .NET datatype, rather than the FHIR equivalent</remarks>
         [NotMapped]
@@ -1132,7 +893,7 @@ namespace Hl7.Fhir.Model
         }
         
         /// <summary>
-        /// draft | active | retired
+        /// draft | active | retired | unknown
         /// </summary>
         [FhirElement("status", InSummary=true, Order=140)]
         [Cardinality(Min=1,Max=1)]
@@ -1146,7 +907,7 @@ namespace Hl7.Fhir.Model
         private Code<Hl7.Fhir.Model.PublicationStatus> _StatusElement;
         
         /// <summary>
-        /// draft | active | retired
+        /// draft | active | retired | unknown
         /// </summary>
         /// <remarks>This uses the native .NET datatype, rather than the FHIR equivalent</remarks>
         [NotMapped]
@@ -1165,7 +926,7 @@ namespace Hl7.Fhir.Model
         }
         
         /// <summary>
-        /// If for testing purposes, not real usage
+        /// For testing purposes, not real usage
         /// </summary>
         [FhirElement("experimental", InSummary=true, Order=150)]
         [DataMember]
@@ -1178,7 +939,7 @@ namespace Hl7.Fhir.Model
         private Hl7.Fhir.Model.FhirBoolean _ExperimentalElement;
         
         /// <summary>
-        /// If for testing purposes, not real usage
+        /// For testing purposes, not real usage
         /// </summary>
         /// <remarks>This uses the native .NET datatype, rather than the FHIR equivalent</remarks>
         [NotMapped]
@@ -1229,9 +990,41 @@ namespace Hl7.Fhir.Model
         }
         
         /// <summary>
+        /// Name of the publisher (organization or individual)
+        /// </summary>
+        [FhirElement("publisher", InSummary=true, Order=170)]
+        [DataMember]
+        public Hl7.Fhir.Model.FhirString PublisherElement
+        {
+            get { return _PublisherElement; }
+            set { _PublisherElement = value; OnPropertyChanged("PublisherElement"); }
+        }
+        
+        private Hl7.Fhir.Model.FhirString _PublisherElement;
+        
+        /// <summary>
+        /// Name of the publisher (organization or individual)
+        /// </summary>
+        /// <remarks>This uses the native .NET datatype, rather than the FHIR equivalent</remarks>
+        [NotMapped]
+        [IgnoreDataMemberAttribute]
+        public string Publisher
+        {
+            get { return PublisherElement != null ? PublisherElement.Value : null; }
+            set
+            {
+                if (value == null)
+                  PublisherElement = null; 
+                else
+                  PublisherElement = new Hl7.Fhir.Model.FhirString(value);
+                OnPropertyChanged("Publisher");
+            }
+        }
+        
+        /// <summary>
         /// Natural language description of the measure
         /// </summary>
-        [FhirElement("description", Order=170)]
+        [FhirElement("description", InSummary=true, Order=180)]
         [DataMember]
         public Hl7.Fhir.Model.Markdown Description
         {
@@ -1244,7 +1037,7 @@ namespace Hl7.Fhir.Model
         /// <summary>
         /// Why this measure is defined
         /// </summary>
-        [FhirElement("purpose", Order=180)]
+        [FhirElement("purpose", Order=190)]
         [DataMember]
         public Hl7.Fhir.Model.Markdown Purpose
         {
@@ -1257,7 +1050,7 @@ namespace Hl7.Fhir.Model
         /// <summary>
         /// Describes the clinical usage of the measure
         /// </summary>
-        [FhirElement("usage", Order=190)]
+        [FhirElement("usage", Order=200)]
         [DataMember]
         public Hl7.Fhir.Model.FhirString UsageElement
         {
@@ -1287,9 +1080,9 @@ namespace Hl7.Fhir.Model
         }
         
         /// <summary>
-        /// When measure approved by publisher
+        /// When the measure was approved by publisher
         /// </summary>
-        [FhirElement("approvalDate", Order=200)]
+        [FhirElement("approvalDate", Order=210)]
         [DataMember]
         public Hl7.Fhir.Model.Date ApprovalDateElement
         {
@@ -1300,7 +1093,7 @@ namespace Hl7.Fhir.Model
         private Hl7.Fhir.Model.Date _ApprovalDateElement;
         
         /// <summary>
-        /// When measure approved by publisher
+        /// When the measure was approved by publisher
         /// </summary>
         /// <remarks>This uses the native .NET datatype, rather than the FHIR equivalent</remarks>
         [NotMapped]
@@ -1319,9 +1112,9 @@ namespace Hl7.Fhir.Model
         }
         
         /// <summary>
-        /// Last review date for the measure
+        /// When the measure was last reviewed
         /// </summary>
-        [FhirElement("lastReviewDate", Order=210)]
+        [FhirElement("lastReviewDate", Order=220)]
         [DataMember]
         public Hl7.Fhir.Model.Date LastReviewDateElement
         {
@@ -1332,7 +1125,7 @@ namespace Hl7.Fhir.Model
         private Hl7.Fhir.Model.Date _LastReviewDateElement;
         
         /// <summary>
-        /// Last review date for the measure
+        /// When the measure was last reviewed
         /// </summary>
         /// <remarks>This uses the native .NET datatype, rather than the FHIR equivalent</remarks>
         [NotMapped]
@@ -1351,9 +1144,9 @@ namespace Hl7.Fhir.Model
         }
         
         /// <summary>
-        /// The effective date range for the measure
+        /// When the measure is expected to be used
         /// </summary>
-        [FhirElement("effectivePeriod", InSummary=true, Order=220)]
+        [FhirElement("effectivePeriod", InSummary=true, Order=230)]
         [DataMember]
         public Hl7.Fhir.Model.Period EffectivePeriod
         {
@@ -1364,9 +1157,9 @@ namespace Hl7.Fhir.Model
         private Hl7.Fhir.Model.Period _EffectivePeriod;
         
         /// <summary>
-        /// Content intends to support these contexts
+        /// Context the content is intended to support
         /// </summary>
-        [FhirElement("useContext", InSummary=true, Order=230)]
+        [FhirElement("useContext", InSummary=true, Order=240)]
         [Cardinality(Min=0,Max=-1)]
         [DataMember]
         public List<UsageContext> UseContext
@@ -1380,7 +1173,7 @@ namespace Hl7.Fhir.Model
         /// <summary>
         /// Intended jurisdiction for measure (if applicable)
         /// </summary>
-        [FhirElement("jurisdiction", InSummary=true, Order=240)]
+        [FhirElement("jurisdiction", InSummary=true, Order=250)]
         [Cardinality(Min=0,Max=-1)]
         [DataMember]
         public List<Hl7.Fhir.Model.CodeableConcept> Jurisdiction
@@ -1394,7 +1187,7 @@ namespace Hl7.Fhir.Model
         /// <summary>
         /// E.g. Education, Treatment, Assessment, etc
         /// </summary>
-        [FhirElement("topic", Order=250)]
+        [FhirElement("topic", Order=260)]
         [Cardinality(Min=0,Max=-1)]
         [DataMember]
         public List<Hl7.Fhir.Model.CodeableConcept> Topic
@@ -1408,7 +1201,7 @@ namespace Hl7.Fhir.Model
         /// <summary>
         /// A content contributor
         /// </summary>
-        [FhirElement("contributor", Order=260)]
+        [FhirElement("contributor", Order=270)]
         [Cardinality(Min=0,Max=-1)]
         [DataMember]
         public List<Contributor> Contributor
@@ -1418,38 +1211,6 @@ namespace Hl7.Fhir.Model
         }
         
         private List<Contributor> _Contributor;
-        
-        /// <summary>
-        /// Name of the publisher (Organization or individual)
-        /// </summary>
-        [FhirElement("publisher", InSummary=true, Order=270)]
-        [DataMember]
-        public Hl7.Fhir.Model.FhirString PublisherElement
-        {
-            get { return _PublisherElement; }
-            set { _PublisherElement = value; OnPropertyChanged("PublisherElement"); }
-        }
-        
-        private Hl7.Fhir.Model.FhirString _PublisherElement;
-        
-        /// <summary>
-        /// Name of the publisher (Organization or individual)
-        /// </summary>
-        /// <remarks>This uses the native .NET datatype, rather than the FHIR equivalent</remarks>
-        [NotMapped]
-        [IgnoreDataMemberAttribute]
-        public string Publisher
-        {
-            get { return PublisherElement != null ? PublisherElement.Value : null; }
-            set
-            {
-                if (value == null)
-                  PublisherElement = null; 
-                else
-                  PublisherElement = new Hl7.Fhir.Model.FhirString(value);
-                OnPropertyChanged("Publisher");
-            }
-        }
         
         /// <summary>
         /// Contact details for the publisher
@@ -1479,7 +1240,7 @@ namespace Hl7.Fhir.Model
         private Hl7.Fhir.Model.Markdown _Copyright;
         
         /// <summary>
-        /// Related artifacts for the measure
+        /// Additional documentation, citations, etc
         /// </summary>
         [FhirElement("relatedArtifact", Order=300)]
         [Cardinality(Min=0,Max=-1)]
@@ -1509,7 +1270,7 @@ namespace Hl7.Fhir.Model
         private List<Hl7.Fhir.Model.ResourceReference> _Library;
         
         /// <summary>
-        /// Disclaimer for the measure
+        /// Disclaimer for use of the measure or its referenced content
         /// </summary>
         [FhirElement("disclaimer", InSummary=true, Order=320)]
         [DataMember]
@@ -1526,64 +1287,26 @@ namespace Hl7.Fhir.Model
         /// </summary>
         [FhirElement("scoring", InSummary=true, Order=330)]
         [DataMember]
-        public Code<Hl7.Fhir.Model.Measure.MeasureScoring> ScoringElement
+        public Hl7.Fhir.Model.CodeableConcept Scoring
         {
-            get { return _ScoringElement; }
-            set { _ScoringElement = value; OnPropertyChanged("ScoringElement"); }
+            get { return _Scoring; }
+            set { _Scoring = value; OnPropertyChanged("Scoring"); }
         }
         
-        private Code<Hl7.Fhir.Model.Measure.MeasureScoring> _ScoringElement;
-        
-        /// <summary>
-        /// proportion | ratio | continuous-variable | cohort
-        /// </summary>
-        /// <remarks>This uses the native .NET datatype, rather than the FHIR equivalent</remarks>
-        [NotMapped]
-        [IgnoreDataMemberAttribute]
-        public Hl7.Fhir.Model.Measure.MeasureScoring? Scoring
-        {
-            get { return ScoringElement != null ? ScoringElement.Value : null; }
-            set
-            {
-                if (!value.HasValue)
-                  ScoringElement = null; 
-                else
-                  ScoringElement = new Code<Hl7.Fhir.Model.Measure.MeasureScoring>(value);
-                OnPropertyChanged("Scoring");
-            }
-        }
+        private Hl7.Fhir.Model.CodeableConcept _Scoring;
         
         /// <summary>
         /// opportunity | all-or-nothing | linear | weighted
         /// </summary>
         [FhirElement("compositeScoring", InSummary=true, Order=340)]
         [DataMember]
-        public Code<Hl7.Fhir.Model.Measure.CompositeMeasureScoring> CompositeScoringElement
+        public Hl7.Fhir.Model.CodeableConcept CompositeScoring
         {
-            get { return _CompositeScoringElement; }
-            set { _CompositeScoringElement = value; OnPropertyChanged("CompositeScoringElement"); }
+            get { return _CompositeScoring; }
+            set { _CompositeScoring = value; OnPropertyChanged("CompositeScoring"); }
         }
         
-        private Code<Hl7.Fhir.Model.Measure.CompositeMeasureScoring> _CompositeScoringElement;
-        
-        /// <summary>
-        /// opportunity | all-or-nothing | linear | weighted
-        /// </summary>
-        /// <remarks>This uses the native .NET datatype, rather than the FHIR equivalent</remarks>
-        [NotMapped]
-        [IgnoreDataMemberAttribute]
-        public Hl7.Fhir.Model.Measure.CompositeMeasureScoring? CompositeScoring
-        {
-            get { return CompositeScoringElement != null ? CompositeScoringElement.Value : null; }
-            set
-            {
-                if (!value.HasValue)
-                  CompositeScoringElement = null; 
-                else
-                  CompositeScoringElement = new Code<Hl7.Fhir.Model.Measure.CompositeMeasureScoring>(value);
-                OnPropertyChanged("CompositeScoring");
-            }
-        }
+        private Hl7.Fhir.Model.CodeableConcept _CompositeScoring;
         
         /// <summary>
         /// process | outcome | structure | patient-reported-outcome | composite
@@ -1591,32 +1314,13 @@ namespace Hl7.Fhir.Model
         [FhirElement("type", InSummary=true, Order=350)]
         [Cardinality(Min=0,Max=-1)]
         [DataMember]
-        public List<Code<Hl7.Fhir.Model.Measure.MeasureType>> TypeElement
+        public List<Hl7.Fhir.Model.CodeableConcept> Type
         {
-            get { if(_TypeElement==null) _TypeElement = new List<Hl7.Fhir.Model.Code<Hl7.Fhir.Model.Measure.MeasureType>>(); return _TypeElement; }
-            set { _TypeElement = value; OnPropertyChanged("TypeElement"); }
+            get { if(_Type==null) _Type = new List<Hl7.Fhir.Model.CodeableConcept>(); return _Type; }
+            set { _Type = value; OnPropertyChanged("Type"); }
         }
         
-        private List<Code<Hl7.Fhir.Model.Measure.MeasureType>> _TypeElement;
-        
-        /// <summary>
-        /// process | outcome | structure | patient-reported-outcome | composite
-        /// </summary>
-        /// <remarks>This uses the native .NET datatype, rather than the FHIR equivalent</remarks>
-        [NotMapped]
-        [IgnoreDataMemberAttribute]
-        public IEnumerable<Hl7.Fhir.Model.Measure.MeasureType?> Type
-        {
-            get { return TypeElement != null ? TypeElement.Select(elem => elem.Value) : null; }
-            set
-            {
-                if (value == null)
-                  TypeElement = null; 
-                else
-                  TypeElement = new List<Hl7.Fhir.Model.Code<Hl7.Fhir.Model.Measure.MeasureType>>(value.Select(elem=>new Hl7.Fhir.Model.Code<Hl7.Fhir.Model.Measure.MeasureType>(elem)));
-                OnPropertyChanged("Type");
-            }
-        }
+        private List<Hl7.Fhir.Model.CodeableConcept> _Type;
         
         /// <summary>
         /// How is risk adjustment applied for this measure
@@ -1696,7 +1400,7 @@ namespace Hl7.Fhir.Model
         private Hl7.Fhir.Model.Markdown _Rationale;
         
         /// <summary>
-        /// Clinical recommendation
+        /// Summary of clinical guidelines
         /// </summary>
         [FhirElement("clinicalRecommendationStatement", InSummary=true, Order=390)]
         [DataMember]
@@ -1741,20 +1445,21 @@ namespace Hl7.Fhir.Model
         }
         
         /// <summary>
-        /// A natural language definition of the measure
+        /// Defined terms used in the measure documentation
         /// </summary>
         [FhirElement("definition", InSummary=true, Order=410)]
+        [Cardinality(Min=0,Max=-1)]
         [DataMember]
-        public Hl7.Fhir.Model.Markdown Definition
+        public List<Hl7.Fhir.Model.Markdown> Definition
         {
-            get { return _Definition; }
+            get { if(_Definition==null) _Definition = new List<Hl7.Fhir.Model.Markdown>(); return _Definition; }
             set { _Definition = value; OnPropertyChanged("Definition"); }
         }
         
-        private Hl7.Fhir.Model.Markdown _Definition;
+        private List<Hl7.Fhir.Model.Markdown> _Definition;
         
         /// <summary>
-        /// The guidance for the measure
+        /// Additional guidance for implementers
         /// </summary>
         [FhirElement("guidance", InSummary=true, Order=420)]
         [DataMember]
@@ -1813,7 +1518,7 @@ namespace Hl7.Fhir.Model
         private List<Hl7.Fhir.Model.Measure.GroupComponent> _Group;
         
         /// <summary>
-        /// Supplemental data
+        /// What other data should be reported with the measure
         /// </summary>
         [FhirElement("supplementalData", Order=450)]
         [Cardinality(Min=0,Max=-1)]
@@ -1848,6 +1553,7 @@ namespace Hl7.Fhir.Model
                 if(StatusElement != null) dest.StatusElement = (Code<Hl7.Fhir.Model.PublicationStatus>)StatusElement.DeepCopy();
                 if(ExperimentalElement != null) dest.ExperimentalElement = (Hl7.Fhir.Model.FhirBoolean)ExperimentalElement.DeepCopy();
                 if(DateElement != null) dest.DateElement = (Hl7.Fhir.Model.FhirDateTime)DateElement.DeepCopy();
+                if(PublisherElement != null) dest.PublisherElement = (Hl7.Fhir.Model.FhirString)PublisherElement.DeepCopy();
                 if(Description != null) dest.Description = (Hl7.Fhir.Model.Markdown)Description.DeepCopy();
                 if(Purpose != null) dest.Purpose = (Hl7.Fhir.Model.Markdown)Purpose.DeepCopy();
                 if(UsageElement != null) dest.UsageElement = (Hl7.Fhir.Model.FhirString)UsageElement.DeepCopy();
@@ -1858,21 +1564,20 @@ namespace Hl7.Fhir.Model
                 if(Jurisdiction != null) dest.Jurisdiction = new List<Hl7.Fhir.Model.CodeableConcept>(Jurisdiction.DeepCopy());
                 if(Topic != null) dest.Topic = new List<Hl7.Fhir.Model.CodeableConcept>(Topic.DeepCopy());
                 if(Contributor != null) dest.Contributor = new List<Contributor>(Contributor.DeepCopy());
-                if(PublisherElement != null) dest.PublisherElement = (Hl7.Fhir.Model.FhirString)PublisherElement.DeepCopy();
                 if(Contact != null) dest.Contact = new List<ContactDetail>(Contact.DeepCopy());
                 if(Copyright != null) dest.Copyright = (Hl7.Fhir.Model.Markdown)Copyright.DeepCopy();
                 if(RelatedArtifact != null) dest.RelatedArtifact = new List<RelatedArtifact>(RelatedArtifact.DeepCopy());
                 if(Library != null) dest.Library = new List<Hl7.Fhir.Model.ResourceReference>(Library.DeepCopy());
                 if(Disclaimer != null) dest.Disclaimer = (Hl7.Fhir.Model.Markdown)Disclaimer.DeepCopy();
-                if(ScoringElement != null) dest.ScoringElement = (Code<Hl7.Fhir.Model.Measure.MeasureScoring>)ScoringElement.DeepCopy();
-                if(CompositeScoringElement != null) dest.CompositeScoringElement = (Code<Hl7.Fhir.Model.Measure.CompositeMeasureScoring>)CompositeScoringElement.DeepCopy();
-                if(TypeElement != null) dest.TypeElement = new List<Code<Hl7.Fhir.Model.Measure.MeasureType>>(TypeElement.DeepCopy());
+                if(Scoring != null) dest.Scoring = (Hl7.Fhir.Model.CodeableConcept)Scoring.DeepCopy();
+                if(CompositeScoring != null) dest.CompositeScoring = (Hl7.Fhir.Model.CodeableConcept)CompositeScoring.DeepCopy();
+                if(Type != null) dest.Type = new List<Hl7.Fhir.Model.CodeableConcept>(Type.DeepCopy());
                 if(RiskAdjustmentElement != null) dest.RiskAdjustmentElement = (Hl7.Fhir.Model.FhirString)RiskAdjustmentElement.DeepCopy();
                 if(RateAggregationElement != null) dest.RateAggregationElement = (Hl7.Fhir.Model.FhirString)RateAggregationElement.DeepCopy();
                 if(Rationale != null) dest.Rationale = (Hl7.Fhir.Model.Markdown)Rationale.DeepCopy();
                 if(ClinicalRecommendationStatement != null) dest.ClinicalRecommendationStatement = (Hl7.Fhir.Model.Markdown)ClinicalRecommendationStatement.DeepCopy();
                 if(ImprovementNotationElement != null) dest.ImprovementNotationElement = (Hl7.Fhir.Model.FhirString)ImprovementNotationElement.DeepCopy();
-                if(Definition != null) dest.Definition = (Hl7.Fhir.Model.Markdown)Definition.DeepCopy();
+                if(Definition != null) dest.Definition = new List<Hl7.Fhir.Model.Markdown>(Definition.DeepCopy());
                 if(Guidance != null) dest.Guidance = (Hl7.Fhir.Model.Markdown)Guidance.DeepCopy();
                 if(SetElement != null) dest.SetElement = (Hl7.Fhir.Model.FhirString)SetElement.DeepCopy();
                 if(Group != null) dest.Group = new List<Hl7.Fhir.Model.Measure.GroupComponent>(Group.DeepCopy());
@@ -1902,6 +1607,7 @@ namespace Hl7.Fhir.Model
             if( !DeepComparable.Matches(StatusElement, otherT.StatusElement)) return false;
             if( !DeepComparable.Matches(ExperimentalElement, otherT.ExperimentalElement)) return false;
             if( !DeepComparable.Matches(DateElement, otherT.DateElement)) return false;
+            if( !DeepComparable.Matches(PublisherElement, otherT.PublisherElement)) return false;
             if( !DeepComparable.Matches(Description, otherT.Description)) return false;
             if( !DeepComparable.Matches(Purpose, otherT.Purpose)) return false;
             if( !DeepComparable.Matches(UsageElement, otherT.UsageElement)) return false;
@@ -1912,15 +1618,14 @@ namespace Hl7.Fhir.Model
             if( !DeepComparable.Matches(Jurisdiction, otherT.Jurisdiction)) return false;
             if( !DeepComparable.Matches(Topic, otherT.Topic)) return false;
             if( !DeepComparable.Matches(Contributor, otherT.Contributor)) return false;
-            if( !DeepComparable.Matches(PublisherElement, otherT.PublisherElement)) return false;
             if( !DeepComparable.Matches(Contact, otherT.Contact)) return false;
             if( !DeepComparable.Matches(Copyright, otherT.Copyright)) return false;
             if( !DeepComparable.Matches(RelatedArtifact, otherT.RelatedArtifact)) return false;
             if( !DeepComparable.Matches(Library, otherT.Library)) return false;
             if( !DeepComparable.Matches(Disclaimer, otherT.Disclaimer)) return false;
-            if( !DeepComparable.Matches(ScoringElement, otherT.ScoringElement)) return false;
-            if( !DeepComparable.Matches(CompositeScoringElement, otherT.CompositeScoringElement)) return false;
-            if( !DeepComparable.Matches(TypeElement, otherT.TypeElement)) return false;
+            if( !DeepComparable.Matches(Scoring, otherT.Scoring)) return false;
+            if( !DeepComparable.Matches(CompositeScoring, otherT.CompositeScoring)) return false;
+            if( !DeepComparable.Matches(Type, otherT.Type)) return false;
             if( !DeepComparable.Matches(RiskAdjustmentElement, otherT.RiskAdjustmentElement)) return false;
             if( !DeepComparable.Matches(RateAggregationElement, otherT.RateAggregationElement)) return false;
             if( !DeepComparable.Matches(Rationale, otherT.Rationale)) return false;
@@ -1949,6 +1654,7 @@ namespace Hl7.Fhir.Model
             if( !DeepComparable.IsExactly(StatusElement, otherT.StatusElement)) return false;
             if( !DeepComparable.IsExactly(ExperimentalElement, otherT.ExperimentalElement)) return false;
             if( !DeepComparable.IsExactly(DateElement, otherT.DateElement)) return false;
+            if( !DeepComparable.IsExactly(PublisherElement, otherT.PublisherElement)) return false;
             if( !DeepComparable.IsExactly(Description, otherT.Description)) return false;
             if( !DeepComparable.IsExactly(Purpose, otherT.Purpose)) return false;
             if( !DeepComparable.IsExactly(UsageElement, otherT.UsageElement)) return false;
@@ -1959,15 +1665,14 @@ namespace Hl7.Fhir.Model
             if( !DeepComparable.IsExactly(Jurisdiction, otherT.Jurisdiction)) return false;
             if( !DeepComparable.IsExactly(Topic, otherT.Topic)) return false;
             if( !DeepComparable.IsExactly(Contributor, otherT.Contributor)) return false;
-            if( !DeepComparable.IsExactly(PublisherElement, otherT.PublisherElement)) return false;
             if( !DeepComparable.IsExactly(Contact, otherT.Contact)) return false;
             if( !DeepComparable.IsExactly(Copyright, otherT.Copyright)) return false;
             if( !DeepComparable.IsExactly(RelatedArtifact, otherT.RelatedArtifact)) return false;
             if( !DeepComparable.IsExactly(Library, otherT.Library)) return false;
             if( !DeepComparable.IsExactly(Disclaimer, otherT.Disclaimer)) return false;
-            if( !DeepComparable.IsExactly(ScoringElement, otherT.ScoringElement)) return false;
-            if( !DeepComparable.IsExactly(CompositeScoringElement, otherT.CompositeScoringElement)) return false;
-            if( !DeepComparable.IsExactly(TypeElement, otherT.TypeElement)) return false;
+            if( !DeepComparable.IsExactly(Scoring, otherT.Scoring)) return false;
+            if( !DeepComparable.IsExactly(CompositeScoring, otherT.CompositeScoring)) return false;
+            if( !DeepComparable.IsExactly(Type, otherT.Type)) return false;
             if( !DeepComparable.IsExactly(RiskAdjustmentElement, otherT.RiskAdjustmentElement)) return false;
             if( !DeepComparable.IsExactly(RateAggregationElement, otherT.RateAggregationElement)) return false;
             if( !DeepComparable.IsExactly(Rationale, otherT.Rationale)) return false;
@@ -1987,7 +1692,7 @@ namespace Hl7.Fhir.Model
         {
             get
             {
-				// Measure elements
+                foreach (var item in base.Children) yield return item;
 				if (UrlElement != null) yield return UrlElement;
 				foreach (var elem in Identifier) { if (elem != null) yield return elem; }
 				if (VersionElement != null) yield return VersionElement;
@@ -1996,6 +1701,7 @@ namespace Hl7.Fhir.Model
 				if (StatusElement != null) yield return StatusElement;
 				if (ExperimentalElement != null) yield return ExperimentalElement;
 				if (DateElement != null) yield return DateElement;
+				if (PublisherElement != null) yield return PublisherElement;
 				if (Description != null) yield return Description;
 				if (Purpose != null) yield return Purpose;
 				if (UsageElement != null) yield return UsageElement;
@@ -2006,21 +1712,20 @@ namespace Hl7.Fhir.Model
 				foreach (var elem in Jurisdiction) { if (elem != null) yield return elem; }
 				foreach (var elem in Topic) { if (elem != null) yield return elem; }
 				foreach (var elem in Contributor) { if (elem != null) yield return elem; }
-				if (PublisherElement != null) yield return PublisherElement;
 				foreach (var elem in Contact) { if (elem != null) yield return elem; }
 				if (Copyright != null) yield return Copyright;
 				foreach (var elem in RelatedArtifact) { if (elem != null) yield return elem; }
 				foreach (var elem in Library) { if (elem != null) yield return elem; }
 				if (Disclaimer != null) yield return Disclaimer;
-				if (ScoringElement != null) yield return ScoringElement;
-				if (CompositeScoringElement != null) yield return CompositeScoringElement;
-				foreach (var elem in TypeElement) { if (elem != null) yield return elem; }
+				if (Scoring != null) yield return Scoring;
+				if (CompositeScoring != null) yield return CompositeScoring;
+				foreach (var elem in Type) { if (elem != null) yield return elem; }
 				if (RiskAdjustmentElement != null) yield return RiskAdjustmentElement;
 				if (RateAggregationElement != null) yield return RateAggregationElement;
 				if (Rationale != null) yield return Rationale;
 				if (ClinicalRecommendationStatement != null) yield return ClinicalRecommendationStatement;
 				if (ImprovementNotationElement != null) yield return ImprovementNotationElement;
-				if (Definition != null) yield return Definition;
+				foreach (var elem in Definition) { if (elem != null) yield return elem; }
 				if (Guidance != null) yield return Guidance;
 				if (SetElement != null) yield return SetElement;
 				foreach (var elem in Group) { if (elem != null) yield return elem; }

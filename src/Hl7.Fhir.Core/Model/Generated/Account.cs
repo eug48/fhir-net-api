@@ -4,7 +4,7 @@ using Hl7.Fhir.Introspection;
 using Hl7.Fhir.Validation;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.ComponentModel;
+using Hl7.Fhir.Utility;
 
 /*
   Copyright (c) 2011+, HL7, Inc.
@@ -37,7 +37,7 @@ using System.ComponentModel;
 */
 
 //
-// Generated for FHIR v1.9.0
+// Generated for FHIR v3.0.1
 //
 namespace Hl7.Fhir.Model
 {
@@ -185,9 +185,7 @@ namespace Hl7.Fhir.Model
             {
                 get
                 {
-                    // BackboneElement elements
-                    foreach (var elem in ModifierExtension) { if (elem != null) yield return elem; }
-                    // CoverageComponent elements
+                    foreach (var item in base.Children) yield return item;
                     if (Coverage != null) yield return Coverage;
                     if (PriorityElement != null) yield return PriorityElement;
                 }
@@ -317,9 +315,7 @@ namespace Hl7.Fhir.Model
             {
                 get
                 {
-                    // BackboneElement elements
-                    foreach (var elem in ModifierExtension) { if (elem != null) yield return elem; }
-                    // GuarantorComponent elements
+                    foreach (var item in base.Children) yield return item;
                     if (Party != null) yield return Party;
                     if (OnHoldElement != null) yield return OnHoldElement;
                     if (Period != null) yield return Period;
@@ -462,22 +458,9 @@ namespace Hl7.Fhir.Model
         private Hl7.Fhir.Model.Period _Active;
         
         /// <summary>
-        /// Base currency in which balance is tracked
-        /// </summary>
-        [FhirElement("currency", Order=160)]
-        [DataMember]
-        public Hl7.Fhir.Model.Coding Currency
-        {
-            get { return _Currency; }
-            set { _Currency = value; OnPropertyChanged("Currency"); }
-        }
-        
-        private Hl7.Fhir.Model.Coding _Currency;
-        
-        /// <summary>
         /// How much is in account?
         /// </summary>
-        [FhirElement("balance", Order=170)]
+        [FhirElement("balance", Order=160)]
         [DataMember]
         public Money Balance
         {
@@ -490,7 +473,7 @@ namespace Hl7.Fhir.Model
         /// <summary>
         /// The party(s) that are responsible for covering the payment of this account, and what order should they be applied to the account
         /// </summary>
-        [FhirElement("coverage", InSummary=true, Order=180)]
+        [FhirElement("coverage", InSummary=true, Order=170)]
         [Cardinality(Min=0,Max=-1)]
         [DataMember]
         public List<Hl7.Fhir.Model.Account.CoverageComponent> Coverage
@@ -504,7 +487,7 @@ namespace Hl7.Fhir.Model
         /// <summary>
         /// Who is responsible?
         /// </summary>
-        [FhirElement("owner", InSummary=true, Order=190)]
+        [FhirElement("owner", InSummary=true, Order=180)]
         [CLSCompliant(false)]
 		[References("Organization")]
         [DataMember]
@@ -519,7 +502,7 @@ namespace Hl7.Fhir.Model
         /// <summary>
         /// Explanation of purpose/use
         /// </summary>
-        [FhirElement("description", InSummary=true, Order=200)]
+        [FhirElement("description", InSummary=true, Order=190)]
         [DataMember]
         public Hl7.Fhir.Model.FhirString DescriptionElement
         {
@@ -551,7 +534,7 @@ namespace Hl7.Fhir.Model
         /// <summary>
         /// Responsible for the account
         /// </summary>
-        [FhirElement("guarantor", Order=210)]
+        [FhirElement("guarantor", Order=200)]
         [Cardinality(Min=0,Max=-1)]
         [DataMember]
         public List<Hl7.Fhir.Model.Account.GuarantorComponent> Guarantor
@@ -583,7 +566,6 @@ namespace Hl7.Fhir.Model
                 if(Subject != null) dest.Subject = (Hl7.Fhir.Model.ResourceReference)Subject.DeepCopy();
                 if(Period != null) dest.Period = (Hl7.Fhir.Model.Period)Period.DeepCopy();
                 if(Active != null) dest.Active = (Hl7.Fhir.Model.Period)Active.DeepCopy();
-                if(Currency != null) dest.Currency = (Hl7.Fhir.Model.Coding)Currency.DeepCopy();
                 if(Balance != null) dest.Balance = (Money)Balance.DeepCopy();
                 if(Coverage != null) dest.Coverage = new List<Hl7.Fhir.Model.Account.CoverageComponent>(Coverage.DeepCopy());
                 if(Owner != null) dest.Owner = (Hl7.Fhir.Model.ResourceReference)Owner.DeepCopy();
@@ -613,7 +595,6 @@ namespace Hl7.Fhir.Model
             if( !DeepComparable.Matches(Subject, otherT.Subject)) return false;
             if( !DeepComparable.Matches(Period, otherT.Period)) return false;
             if( !DeepComparable.Matches(Active, otherT.Active)) return false;
-            if( !DeepComparable.Matches(Currency, otherT.Currency)) return false;
             if( !DeepComparable.Matches(Balance, otherT.Balance)) return false;
             if( !DeepComparable.Matches(Coverage, otherT.Coverage)) return false;
             if( !DeepComparable.Matches(Owner, otherT.Owner)) return false;
@@ -636,7 +617,6 @@ namespace Hl7.Fhir.Model
             if( !DeepComparable.IsExactly(Subject, otherT.Subject)) return false;
             if( !DeepComparable.IsExactly(Period, otherT.Period)) return false;
             if( !DeepComparable.IsExactly(Active, otherT.Active)) return false;
-            if( !DeepComparable.IsExactly(Currency, otherT.Currency)) return false;
             if( !DeepComparable.IsExactly(Balance, otherT.Balance)) return false;
             if( !DeepComparable.IsExactly(Coverage, otherT.Coverage)) return false;
             if( !DeepComparable.IsExactly(Owner, otherT.Owner)) return false;
@@ -651,7 +631,7 @@ namespace Hl7.Fhir.Model
         {
             get
             {
-				// Account elements
+                foreach (var item in base.Children) yield return item;
 				foreach (var elem in Identifier) { if (elem != null) yield return elem; }
 				if (StatusElement != null) yield return StatusElement;
 				if (Type != null) yield return Type;
@@ -659,7 +639,6 @@ namespace Hl7.Fhir.Model
 				if (Subject != null) yield return Subject;
 				if (Period != null) yield return Period;
 				if (Active != null) yield return Active;
-				if (Currency != null) yield return Currency;
 				if (Balance != null) yield return Balance;
 				foreach (var elem in Coverage) { if (elem != null) yield return elem; }
 				if (Owner != null) yield return Owner;

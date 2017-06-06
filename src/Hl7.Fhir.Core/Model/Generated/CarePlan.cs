@@ -4,7 +4,7 @@ using Hl7.Fhir.Introspection;
 using Hl7.Fhir.Validation;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.ComponentModel;
+using Hl7.Fhir.Utility;
 
 /*
   Copyright (c) 2011+, HL7, Inc.
@@ -37,7 +37,7 @@ using System.ComponentModel;
 */
 
 //
-// Generated for FHIR v1.9.0
+// Generated for FHIR v3.0.1
 //
 namespace Hl7.Fhir.Model
 {
@@ -244,7 +244,7 @@ namespace Hl7.Fhir.Model
             /// </summary>
             [FhirElement("reference", Order=70)]
             [CLSCompliant(false)]
-			[References("Appointment","CommunicationRequest","DeviceRequest","MedicationRequest","NutritionOrder","Task","ProcessRequest","ReferralRequest","VisionPrescription","RequestGroup")]
+			[References("Appointment","CommunicationRequest","DeviceRequest","MedicationRequest","NutritionOrder","Task","ProcedureRequest","ReferralRequest","VisionPrescription","RequestGroup")]
             [DataMember]
             public Hl7.Fhir.Model.ResourceReference Reference
             {
@@ -326,9 +326,7 @@ namespace Hl7.Fhir.Model
             {
                 get
                 {
-                    // BackboneElement elements
-                    foreach (var elem in ModifierExtension) { if (elem != null) yield return elem; }
-                    // ActivityComponent elements
+                    foreach (var item in base.Children) yield return item;
                     foreach (var elem in OutcomeCodeableConcept) { if (elem != null) yield return elem; }
                     foreach (var elem in OutcomeReference) { if (elem != null) yield return elem; }
                     foreach (var elem in Progress) { if (elem != null) yield return elem; }
@@ -742,9 +740,7 @@ namespace Hl7.Fhir.Model
             {
                 get
                 {
-                    // BackboneElement elements
-                    foreach (var elem in ModifierExtension) { if (elem != null) yield return elem; }
-                    // DetailComponent elements
+                    foreach (var item in base.Children) yield return item;
                     if (Category != null) yield return Category;
                     if (Definition != null) yield return Definition;
                     if (Code != null) yield return Code;
@@ -1261,7 +1257,7 @@ namespace Hl7.Fhir.Model
         {
             get
             {
-				// CarePlan elements
+                foreach (var item in base.Children) yield return item;
 				foreach (var elem in Identifier) { if (elem != null) yield return elem; }
 				foreach (var elem in Definition) { if (elem != null) yield return elem; }
 				foreach (var elem in BasedOn) { if (elem != null) yield return elem; }

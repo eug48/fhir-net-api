@@ -17,6 +17,7 @@ using Hl7.Fhir.Support;
 using Hl7.Fhir.Model;
 using Hl7.Fhir.Introspection;
 using System.Diagnostics;
+using Hl7.Fhir.Utility;
 
 namespace Hl7.Fhir.Specification.Source
 {
@@ -39,6 +40,13 @@ namespace Hl7.Fhir.Specification.Source
             var resources = StreamResources();
 
             return resources
+
+                // [WMR 20170420] Issue: if the resource type is unknown (i.e. DSTU Conformance),
+                // then we cannot parse res.Name to a ResourceType enum value
+                // (ParseLiteral returns null and .Value throws an exception)
+                // => First skip unknown resources
+                .Where(res => ModelInfo.IsKnownResource(res.Name.LocalName))
+
                 .Select(res =>
                         new ResourceScanInformation()
                         {
@@ -199,7 +207,7 @@ namespace Hl7.Fhir.Specification.Source
 
         public XElement FindResourceByUri(string uri)
         {
-            if (uri == null) throw Error.ArgumentNull("uri");
+            if (uri == null) throw Error.ArgumentNull(nameof(uri));
 
             var resources = StreamResources();
 

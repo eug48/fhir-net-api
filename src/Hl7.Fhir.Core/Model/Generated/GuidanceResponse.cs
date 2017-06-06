@@ -4,7 +4,7 @@ using Hl7.Fhir.Introspection;
 using Hl7.Fhir.Validation;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.ComponentModel;
+using Hl7.Fhir.Utility;
 
 /*
   Copyright (c) 2011+, HL7, Inc.
@@ -37,7 +37,7 @@ using System.ComponentModel;
 */
 
 //
-// Generated for FHIR v1.9.0
+// Generated for FHIR v3.0.1
 //
 namespace Hl7.Fhir.Model
 {
@@ -90,12 +90,18 @@ namespace Hl7.Fhir.Model
             /// </summary>
             [EnumLiteral("failure"), Description("Failure")]
             Failure,
+            /// <summary>
+            /// MISSING DESCRIPTION
+            /// (system: http://hl7.org/fhir/guidance-response-status)
+            /// </summary>
+            [EnumLiteral("entered-in-error"), Description("Entered In Error")]
+            EnteredInError,
         }
 
         /// <summary>
         /// The id of the request associated with this response, if any
         /// </summary>
-        [FhirElement("requestId", Order=90)]
+        [FhirElement("requestId", InSummary=true, Order=90)]
         [DataMember]
         public Hl7.Fhir.Model.Id RequestIdElement
         {
@@ -154,7 +160,7 @@ namespace Hl7.Fhir.Model
         private Hl7.Fhir.Model.ResourceReference _Module;
         
         /// <summary>
-        /// success | data-requested | data-required | in-progress | failure
+        /// success | data-requested | data-required | in-progress | failure | entered-in-error
         /// </summary>
         [FhirElement("status", InSummary=true, Order=120)]
         [Cardinality(Min=1,Max=1)]
@@ -168,7 +174,7 @@ namespace Hl7.Fhir.Model
         private Code<Hl7.Fhir.Model.GuidanceResponse.GuidanceResponseStatus> _StatusElement;
         
         /// <summary>
-        /// success | data-requested | data-required | in-progress | failure
+        /// success | data-requested | data-required | in-progress | failure | entered-in-error
         /// </summary>
         /// <remarks>This uses the native .NET datatype, rather than the FHIR equivalent</remarks>
         [NotMapped]
@@ -444,7 +450,7 @@ namespace Hl7.Fhir.Model
         {
             get
             {
-				// GuidanceResponse elements
+                foreach (var item in base.Children) yield return item;
 				if (RequestIdElement != null) yield return RequestIdElement;
 				if (Identifier != null) yield return Identifier;
 				if (Module != null) yield return Module;

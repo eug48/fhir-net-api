@@ -4,7 +4,7 @@ using Hl7.Fhir.Introspection;
 using Hl7.Fhir.Validation;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.ComponentModel;
+using Hl7.Fhir.Utility;
 
 /*
   Copyright (c) 2011+, HL7, Inc.
@@ -37,7 +37,7 @@ using System.ComponentModel;
 */
 
 //
-// Generated for FHIR v1.9.0
+// Generated for FHIR v3.0.1
 //
 namespace Hl7.Fhir.Model
 {
@@ -62,25 +62,25 @@ namespace Hl7.Fhir.Model
         {
             /// <summary>
             /// MISSING DESCRIPTION
-            /// (system: http://nema.org/dicom/dicm)
+            /// (system: http://dicom.nema.org/resources/ontology/DCM)
             /// </summary>
             [EnumLiteral("ONLINE"), Description("Online")]
             ONLINE,
             /// <summary>
             /// MISSING DESCRIPTION
-            /// (system: http://nema.org/dicom/dicm)
+            /// (system: http://dicom.nema.org/resources/ontology/DCM)
             /// </summary>
             [EnumLiteral("OFFLINE"), Description("Offline")]
             OFFLINE,
             /// <summary>
             /// MISSING DESCRIPTION
-            /// (system: http://nema.org/dicom/dicm)
+            /// (system: http://dicom.nema.org/resources/ontology/DCM)
             /// </summary>
             [EnumLiteral("NEARLINE"), Description("Nearline")]
             NEARLINE,
             /// <summary>
             /// MISSING DESCRIPTION
-            /// (system: http://nema.org/dicom/dicm)
+            /// (system: http://dicom.nema.org/resources/ontology/DCM)
             /// </summary>
             [EnumLiteral("UNAVAILABLE"), Description("Unavailable")]
             UNAVAILABLE,
@@ -452,9 +452,7 @@ namespace Hl7.Fhir.Model
             {
                 get
                 {
-                    // BackboneElement elements
-                    foreach (var elem in ModifierExtension) { if (elem != null) yield return elem; }
-                    // SeriesComponent elements
+                    foreach (var item in base.Children) yield return item;
                     if (UidElement != null) yield return UidElement;
                     if (NumberElement != null) yield return NumberElement;
                     if (Modality != null) yield return Modality;
@@ -666,9 +664,7 @@ namespace Hl7.Fhir.Model
             {
                 get
                 {
-                    // BackboneElement elements
-                    foreach (var elem in ModifierExtension) { if (elem != null) yield return elem; }
-                    // InstanceComponent elements
+                    foreach (var item in base.Children) yield return item;
                     if (UidElement != null) yield return UidElement;
                     if (NumberElement != null) yield return NumberElement;
                     if (SopClassElement != null) yield return SopClassElement;
@@ -976,7 +972,7 @@ namespace Hl7.Fhir.Model
         }
         
         /// <summary>
-        /// The performed Procedure Reference
+        /// The performed Procedure reference
         /// </summary>
         [FhirElement("procedureReference", InSummary=true, Order=230)]
         [CLSCompliant(false)]
@@ -1171,7 +1167,7 @@ namespace Hl7.Fhir.Model
         {
             get
             {
-				// ImagingStudy elements
+                foreach (var item in base.Children) yield return item;
 				if (UidElement != null) yield return UidElement;
 				if (Accession != null) yield return Accession;
 				foreach (var elem in Identifier) { if (elem != null) yield return elem; }

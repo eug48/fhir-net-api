@@ -112,8 +112,8 @@ namespace Hl7.Fhir.Validation
         public void QuantityElement()
         {
             var assertion = new ProfileAssertion("Patient.name[0]", resolve);
-            assertion.SetInstanceType(FHIRAllTypes.Quantity);
-            assertion.SetDeclaredType(FHIRAllTypes.Age);
+            assertion.SetInstanceType(FHIRAllTypes.Age);
+            assertion.SetDeclaredType(FHIRAllTypes.Quantity);
 
             Assert.True(assertion.Validate().Success);
             Assert.Single(assertion.MinimalProfiles, assertion.DeclaredType);
@@ -162,7 +162,7 @@ namespace Hl7.Fhir.Validation
             Assert.Contains("is incompatible with that of the instance", report.ToString());
         }
 
-        
+
         [Fact]
         public void ResourceWithStatedProfiles()
         {

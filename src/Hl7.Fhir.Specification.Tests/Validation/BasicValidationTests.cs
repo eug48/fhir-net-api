@@ -1,6 +1,4 @@
-﻿using Hl7.ElementModel;
-using Hl7.Fhir.Introspection;
-using Hl7.Fhir.Model;
+﻿using Hl7.Fhir.Model;
 using Hl7.Fhir.Serialization;
 using Hl7.Fhir.Specification.Navigation;
 using Hl7.Fhir.Specification.Source;
@@ -9,10 +7,11 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
-using System;
 using Hl7.Fhir.Rest;
-using Hl7.Fhir.Support;
 using System.Collections.Generic;
+using Hl7.Fhir.ElementModel;
+using Hl7.Fhir.Utility;
+using Hl7.Fhir.Specification.Terminology;
 
 namespace Hl7.Fhir.Validation
 {
@@ -22,6 +21,9 @@ namespace Hl7.Fhir.Validation
         [TestInitialize]
         public void SetupSource()
         {
+            // Ensure the FHIR extensions are registered
+            Hl7.Fhir.FhirPath.PocoNavigatorExtensions.PrepareFhirSymbolTableFunctions();
+
             _source = new CachedResolver(
                 new MultiResolver(
                     new BundleExampleResolver(@"TestData\validation"),
@@ -37,6 +39,10 @@ namespace Hl7.Fhir.Validation
                 Trace = false,
                 ResolveExteralReferences = true
             };
+
+            // until we have a local terminology service ready, here is the remote implementation
+            //ctx.TerminologyService = new ExternalTerminologyService(new FhirClient("http://fhir3.healthintersections.com.au/open"));
+            ctx.TerminologyService = new LocalTerminologyServer(_source);
 
             _validator = new Validator(ctx);
         }
@@ -122,12 +128,13 @@ namespace Hl7.Fhir.Validation
                         ElementNode.Valued("id", "myId1"),
                         ElementNode.Valued("id", "myId2"),
                         ElementNode.Node("extension",
-                            ElementNode.Valued("value", 4, "integer")),
+                            ElementNode.Valued("value", 4L, "integer")),
                         ElementNode.Node("extension",
                             ElementNode.Valued("value", "world!", "string"))).ToNavigator();
 
             var report = _validator.Validate(data, boolSd);
-            Assert.AreEqual(3, report.ListErrors().Count());
+            Assert.AreEqual(3, report.Errors);
+            Assert.AreEqual(0, report.Warnings);
         }
 
         [TestMethod]
@@ -299,16 +306,16 @@ namespace Hl7.Fhir.Validation
         [TestMethod]
         public void ValidateOverNameRef()
         {
-            var questionnaireXml = File.ReadAllText("TestData\\validation\\questionnaire-sdc-profile-example-cap.xml");
+            var questionnaireXml = File.ReadAllText("TestData\\validation\\questionnaire-with-incorrect-fixed-type.xml");
 
             var questionnaire = (new FhirXmlParser()).Parse<Questionnaire>(questionnaireXml);
             Assert.IsNotNull(questionnaire);
 
             // the questionnaire instance references the profile to be validated:
             //      http://validationtest.org/fhir/StructureDefinition/QuestionnaireWithFixedType
-            var report = _validator.Validate(questionnaire);
+            var report = _validator.Validate(questionnaire, "http://validationtest.org/fhir/StructureDefinition/QuestionnaireWithFixedType");
             Assert.IsFalse(report.Success);
-            Assert.AreEqual(35, report.Errors);
+            Assert.AreEqual(2, report.Errors);
             Assert.AreEqual(0, report.Warnings);           // 3x narrative constraint with no fhirpath
         }
 
@@ -358,8 +365,10 @@ namespace Hl7.Fhir.Validation
             var careplan = (new FhirXmlParser()).Parse<CarePlan>(careplanXml);
             Assert.IsNotNull(careplan);
             var careplanSd = _source.FindStructureDefinitionForCoreType(FHIRAllTypes.CarePlan);
-
+            //var old = _validator.Settings.ResolveExteralReferences;
+            //_validator.Settings.ResolveExteralReferences = false;
             var report = _validator.Validate(careplan, careplanSd);
+            //_validator.Settings.ResolveExteralReferences = old;
             Assert.IsTrue(report.Success);
             Assert.AreEqual(0, report.Warnings);            // 3x invariant
         }
@@ -485,8 +494,11 @@ namespace Hl7.Fhir.Validation
             p.MaritalStatus.Coding[0].Code = "XX";
 
             report = _validator.Validate(p);
-            Assert.IsFalse(report.Success);
-            Assert.AreEqual(0, report.Warnings);
+            Assert.IsTrue(report.Success);
+            Assert.AreEqual(1, report.Warnings);
+            Assert.IsTrue(report.ToString().Contains("not valid for non-required binding"));
+
+            p.MaritalStatus = new CodeableConcept("http://hl7.org/fhir/v3/MaritalStatus", "S");
         }
 
         [TestMethod]
@@ -607,7 +619,7 @@ namespace Hl7.Fhir.Validation
         // Causes stack overflow exception in validator when processing the related Organization profile
         // TypeRefValidationExtensions.ValidateTypeReferences needs to detect and handle recursion
         // Example: Organization.partOf => Organization
-        [TestMethod,Ignore]
+        [TestMethod,Ignore] // Causes stack overflow exception
         public void TestPatientWithOrganization()
         {
             // DirectorySource (and ResourceStreamScanner) does not support json...

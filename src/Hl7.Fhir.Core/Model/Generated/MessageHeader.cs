@@ -4,7 +4,7 @@ using Hl7.Fhir.Introspection;
 using Hl7.Fhir.Validation;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.ComponentModel;
+using Hl7.Fhir.Utility;
 
 /*
   Copyright (c) 2011+, HL7, Inc.
@@ -37,7 +37,7 @@ using System.ComponentModel;
 */
 
 //
-// Generated for FHIR v1.9.0
+// Generated for FHIR v3.0.1
 //
 namespace Hl7.Fhir.Model
 {
@@ -220,9 +220,7 @@ namespace Hl7.Fhir.Model
             {
                 get
                 {
-                    // BackboneElement elements
-                    foreach (var elem in ModifierExtension) { if (elem != null) yield return elem; }
-                    // MessageDestinationComponent elements
+                    foreach (var item in base.Children) yield return item;
                     if (NameElement != null) yield return NameElement;
                     if (Target != null) yield return Target;
                     if (EndpointElement != null) yield return EndpointElement;
@@ -440,9 +438,7 @@ namespace Hl7.Fhir.Model
             {
                 get
                 {
-                    // BackboneElement elements
-                    foreach (var elem in ModifierExtension) { if (elem != null) yield return elem; }
-                    // MessageSourceComponent elements
+                    foreach (var item in base.Children) yield return item;
                     if (NameElement != null) yield return NameElement;
                     if (SoftwareElement != null) yield return SoftwareElement;
                     if (VersionElement != null) yield return VersionElement;
@@ -595,9 +591,7 @@ namespace Hl7.Fhir.Model
             {
                 get
                 {
-                    // BackboneElement elements
-                    foreach (var elem in ModifierExtension) { if (elem != null) yield return elem; }
-                    // ResponseComponent elements
+                    foreach (var item in base.Children) yield return item;
                     if (IdentifierElement != null) yield return IdentifierElement;
                     if (CodeElement != null) yield return CodeElement;
                     if (Details != null) yield return Details;
@@ -622,7 +616,7 @@ namespace Hl7.Fhir.Model
         private Hl7.Fhir.Model.Coding _Event;
         
         /// <summary>
-        /// Message Destination Application(s)
+        /// Message destination application(s)
         /// </summary>
         [FhirElement("destination", InSummary=true, Order=100)]
         [Cardinality(Min=0,Max=-1)]
@@ -729,7 +723,7 @@ namespace Hl7.Fhir.Model
         private Hl7.Fhir.Model.ResourceReference _Author;
         
         /// <summary>
-        /// Message Source Application
+        /// Message source application
         /// </summary>
         [FhirElement("source", InSummary=true, Order=160)]
         [Cardinality(Min=1,Max=1)]
@@ -885,7 +879,7 @@ namespace Hl7.Fhir.Model
         {
             get
             {
-				// MessageHeader elements
+                foreach (var item in base.Children) yield return item;
 				if (Event != null) yield return Event;
 				foreach (var elem in Destination) { if (elem != null) yield return elem; }
 				if (Receiver != null) yield return Receiver;

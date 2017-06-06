@@ -4,7 +4,7 @@ using Hl7.Fhir.Introspection;
 using Hl7.Fhir.Validation;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.ComponentModel;
+using Hl7.Fhir.Utility;
 
 /*
   Copyright (c) 2011+, HL7, Inc.
@@ -37,7 +37,7 @@ using System.ComponentModel;
 */
 
 //
-// Generated for FHIR v1.9.0
+// Generated for FHIR v3.0.1
 //
 namespace Hl7.Fhir.Model
 {
@@ -206,7 +206,7 @@ namespace Hl7.Fhir.Model
         }
         
         /// <summary>
-        /// Url for the related artifact
+        /// Where the artifact can be accessed
         /// </summary>
         [FhirElement("url", InSummary=true, Order=60)]
         [DataMember]
@@ -219,7 +219,7 @@ namespace Hl7.Fhir.Model
         private Hl7.Fhir.Model.FhirUri _UrlElement;
         
         /// <summary>
-        /// Url for the related artifact
+        /// Where the artifact can be accessed
         /// </summary>
         /// <remarks>This uses the native .NET datatype, rather than the FHIR equivalent</remarks>
         [NotMapped]
@@ -238,7 +238,7 @@ namespace Hl7.Fhir.Model
         }
         
         /// <summary>
-        /// The related document
+        /// What document is being referenced
         /// </summary>
         [FhirElement("document", InSummary=true, Order=70)]
         [DataMember]
@@ -251,7 +251,7 @@ namespace Hl7.Fhir.Model
         private Hl7.Fhir.Model.Attachment _Document;
         
         /// <summary>
-        /// The related resource
+        /// What resource is being referenced
         /// </summary>
         [FhirElement("resource", InSummary=true, Order=80)]
         [CLSCompliant(false)]
@@ -327,7 +327,7 @@ namespace Hl7.Fhir.Model
         {
             get
             {
-                // RelatedArtifact elements
+                foreach (var item in base.Children) yield return item;
                 if (TypeElement != null) yield return TypeElement;
                 if (DisplayElement != null) yield return DisplayElement;
                 if (CitationElement != null) yield return CitationElement;

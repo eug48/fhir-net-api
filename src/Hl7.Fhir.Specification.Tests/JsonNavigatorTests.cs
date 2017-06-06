@@ -17,13 +17,14 @@ using Hl7.Fhir.Support;
 using Hl7.Fhir.XPath;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
+using Hl7.Fhir.Utility;
 
 namespace Hl7.Fhir.Specification.Tests
 {
     [TestClass]
     public class JsonNavigatorTests
     {
-        [TestMethod]
+        [TestMethod, Ignore]
         public void TestConstruct()
         {
             var nav = buildNav();
@@ -116,30 +117,28 @@ namespace Hl7.Fhir.Specification.Tests
             Assert.IsTrue(nav.MoveToChild("contact", XmlNs.FHIR));
             Assert.IsTrue(nav.MoveToChild("name", XmlNs.FHIR));
 
-            Assert.IsTrue(nav.MoveToFirstChild());  // family #1 - null
+            Assert.IsTrue(nav.MoveToFirstChild());  // family #1
             Assert.AreEqual("f:family", nav.Name);
-            Assert.IsFalse(nav.MoveToFirstAttribute()); // no value (null)
-            Assert.IsTrue(nav.MoveToFirstChild());  // extension
-            Assert.AreEqual("f:extension", nav.Name);
-            nav.MoveToParent();
+            Assert.AreEqual("du Marché", nav.Value);
 
-            Assert.IsTrue(nav.MoveToNext());        // family #2  - du
-            Assert.AreEqual("f:family", nav.Name);
-            
-            Assert.IsTrue(nav.MoveToFirstAttribute()); // @value="du"
-            Assert.AreEqual("du", nav.Value);
-            Assert.AreEqual("value", nav.Name);
-            Assert.IsTrue(nav.MoveToNextAttribute()); // @id="a2"
-            Assert.AreEqual("a2", nav.Value);
+            Assert.IsTrue(nav.MoveToNext());  // given #1
+            Assert.AreEqual("f:given", nav.Name);
+
+            Assert.IsTrue(nav.MoveToNext());  // given #2
+            Assert.AreEqual("f:given", nav.Name);
+
+            Assert.IsTrue(nav.MoveToFirstAttribute()); // @value
+            Assert.AreEqual("Denise", nav.Value);
+            Assert.IsTrue(nav.MoveToNextAttribute());  // @id="a3"
+            Assert.AreEqual("a3", nav.Value);
             Assert.AreEqual("id", nav.Name);
             nav.MoveToParent();
 
-            Assert.IsTrue(nav.MoveToNext());        // family #3  - null
-            Assert.IsTrue(nav.MoveToNext());        // family #4  - Marché
-            Assert.IsTrue(nav.MoveToNext());        // family #5  - null
-
-            Assert.IsTrue(nav.MoveToNext());
+            Assert.IsTrue(nav.MoveToNext());        // given #3  - marie           
             Assert.AreEqual("f:given", nav.Name);
+            Assert.AreEqual("Marie", nav.Value);
+
+            Assert.IsFalse(nav.MoveToNext());
         }
 
         [TestMethod]

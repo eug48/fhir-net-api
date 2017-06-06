@@ -1,7 +1,7 @@
 ﻿
 
 //
-// Model Generated on Fri, 17 Feb 2017 16:21:17 GMT for FHIR v1.9.0
+// Model Generated on Sat, 06 May 2017 12:41:53 GMT for FHIR v3.0.1
 //
 // Generated Shared Enumeration: ResourceType
 	// Used in model class (resource): ActivityDefinition.kind
@@ -27,7 +27,7 @@
 	// Used in model class (resource): ValueSet.compose.include.filter.op
 
 // Generated Shared Enumeration: ActionSelectionBehavior
-	// Used in model class (resource): PlanDefinition.actionDefinition.selectionBehavior
+	// Used in model class (resource): PlanDefinition.action.selectionBehavior
 	// Used in model class (resource): RequestGroup.action.selectionBehavior
 
 // Generated Shared Enumeration: RequestPriority
@@ -35,11 +35,14 @@
 	// Used in model class (resource): DeviceRequest.priority
 	// Used in model class (resource): ProcedureRequest.priority
 	// Used in model class (resource): ReferralRequest.priority
+	// Used in model class (resource): RequestGroup.priority
+	// Used in model class (resource): SupplyRequest.priority
 	// Used in model class (resource): Task.priority
 
 // Generated Shared Enumeration: RequestIntent
 	// Used in model class (resource): ProcedureRequest.intent
 	// Used in model class (resource): ReferralRequest.intent
+	// Used in model class (resource): RequestGroup.intent
 	// Used in model class (resource): Task.intent
 
 // Generated Shared Enumeration: AdministrativeGender
@@ -55,15 +58,16 @@
 	// Used in model class (resource): Procedure.status
 
 // Generated Shared Enumeration: ActionGroupingBehavior
-	// Used in model class (resource): PlanDefinition.actionDefinition.groupingBehavior
+	// Used in model class (resource): PlanDefinition.action.groupingBehavior
 	// Used in model class (resource): RequestGroup.action.groupingBehavior
 
 // Generated Shared Enumeration: ObservationStatus
+	// Used in model class (resource): DetectedIssue.status
 	// Used in model class (resource): Observation.status
 	// Used in model class (resource): RiskAssessment.status
 
 // Generated Shared Enumeration: ActionPrecheckBehavior
-	// Used in model class (resource): PlanDefinition.actionDefinition.precheckBehavior
+	// Used in model class (resource): PlanDefinition.action.precheckBehavior
 	// Used in model class (resource): RequestGroup.action.precheckBehavior
 
 // Generated Shared Enumeration: BindingStrength
@@ -86,7 +90,6 @@
 // Generated Shared Enumeration: FinancialResourceStatusCodes
 	// Used in model class (resource): Claim.status
 	// Used in model class (resource): ClaimResponse.status
-	// Used in model class (resource): Contract.status
 	// Used in model class (resource): Coverage.status
 	// Used in model class (resource): EligibilityRequest.status
 	// Used in model class (resource): EligibilityResponse.status
@@ -99,11 +102,11 @@
 	// Used in model class (resource): VisionPrescription.status
 
 // Generated Shared Enumeration: ActionCardinalityBehavior
-	// Used in model class (resource): PlanDefinition.actionDefinition.cardinalityBehavior
+	// Used in model class (resource): PlanDefinition.action.cardinalityBehavior
 	// Used in model class (resource): RequestGroup.action.cardinalityBehavior
 
 // Generated Shared Enumeration: ActionConditionKind
-	// Used in model class (resource): PlanDefinition.actionDefinition.condition.kind
+	// Used in model class (resource): PlanDefinition.action.condition.kind
 	// Used in model class (resource): RequestGroup.action.condition.kind
 
 // Generated Shared Enumeration: CompartmentType
@@ -112,7 +115,7 @@
 
 // Generated Shared Enumeration: ActionParticipantType
 	// Used in model class (resource): ActivityDefinition.participant.type
-	// Used in model class (resource): PlanDefinition.actionDefinition.participant.type
+	// Used in model class (resource): PlanDefinition.action.participant.type
 
 // Generated Shared Enumeration: DaysOfWeek
 	// Used in model class (resource): HealthcareService.availableTime.daysOfWeek
@@ -120,7 +123,7 @@
 	// Used in model class (type): Timing.repeat.dayOfWeek
 
 // Generated Shared Enumeration: ActionRelationshipType
-	// Used in model class (resource): PlanDefinition.actionDefinition.relatedAction.relationship
+	// Used in model class (resource): PlanDefinition.action.relatedAction.relationship
 	// Used in model class (resource): RequestGroup.action.relatedAction.relationship
 
 // Generated Shared Enumeration: DocumentReferenceStatus
@@ -132,14 +135,19 @@
 	// Used in model class (resource): DeviceRequest.status
 	// Used in model class (resource): ProcedureRequest.status
 	// Used in model class (resource): ReferralRequest.status
+	// Used in model class (resource): RequestGroup.status
 
 // Generated Shared Enumeration: CompositionStatus
 	// Used in model class (resource): Composition.status
 	// Used in model class (resource): DocumentReference.docStatus
 
 // Generated Shared Enumeration: ActionRequiredBehavior
-	// Used in model class (resource): PlanDefinition.actionDefinition.requiredBehavior
+	// Used in model class (resource): PlanDefinition.action.requiredBehavior
 	// Used in model class (resource): RequestGroup.action.requiredBehavior
+
+// Generated Shared Enumeration: DocumentRelationshipType
+	// Used in model class (resource): Composition.relatesTo.code
+	// Used in model class (resource): DocumentReference.relatesTo.code
 
 // Generated Shared Enumeration: MessageSignificanceCategory
 	// Used in model class (resource): CapabilityStatement.messaging.event.category
@@ -151,10 +159,9 @@
 	// Used in model class (type): ParameterDefinition.type
 
 // Generated Shared Enumeration: PublicationStatus
-	// Used in model class (resource): CodeSystem.status
-	// Used in model class (resource): ValueSet.status
 	// Used in model class (resource): ActivityDefinition.status
 	// Used in model class (resource): CapabilityStatement.status
+	// Used in model class (resource): CodeSystem.status
 	// Used in model class (resource): CompartmentDefinition.status
 	// Used in model class (resource): ConceptMap.status
 	// Used in model class (resource): DataElement.status
@@ -167,16 +174,19 @@
 	// Used in model class (resource): NamingSystem.status
 	// Used in model class (resource): OperationDefinition.status
 	// Used in model class (resource): PlanDefinition.status
+	// Used in model class (resource): Questionnaire.status
 	// Used in model class (resource): SearchParameter.status
 	// Used in model class (resource): ServiceDefinition.status
 	// Used in model class (resource): StructureDefinition.status
 	// Used in model class (resource): StructureMap.status
 	// Used in model class (resource): TestScript.status
+	// Used in model class (resource): ValueSet.status
 	// Used in model class (resource): MetadataResource.status
 
 // Generated helper templates
 // Generated items
 // Hl7.Fhir.Core\Model\Generated\VisionPrescription.cs
+// Hl7.Fhir.Core\Model\Generated\ValueSet.cs
 // Hl7.Fhir.Core\Model\Generated\TestScript.cs
 // Hl7.Fhir.Core\Model\Generated\TestReport.cs
 // Hl7.Fhir.Core\Model\Generated\Task.cs
@@ -212,6 +222,7 @@
 // Hl7.Fhir.Core\Model\Generated\PaymentReconciliation.cs
 // Hl7.Fhir.Core\Model\Generated\PaymentNotice.cs
 // Hl7.Fhir.Core\Model\Generated\Patient.cs
+// Hl7.Fhir.Core\Model\Generated\Parameters.cs
 // Hl7.Fhir.Core\Model\Generated\Organization.cs
 // Hl7.Fhir.Core\Model\Generated\OperationOutcome.cs
 // Hl7.Fhir.Core\Model\Generated\OperationDefinition.cs
@@ -253,6 +264,7 @@
 // Hl7.Fhir.Core\Model\Generated\Encounter.cs
 // Hl7.Fhir.Core\Model\Generated\EligibilityResponse.cs
 // Hl7.Fhir.Core\Model\Generated\EligibilityRequest.cs
+// Hl7.Fhir.Core\Model\Generated\DomainResource.cs
 // Hl7.Fhir.Core\Model\Generated\DocumentReference.cs
 // Hl7.Fhir.Core\Model\Generated\DocumentManifest.cs
 // Hl7.Fhir.Core\Model\Generated\DiagnosticReport.cs
@@ -272,11 +284,11 @@
 // Hl7.Fhir.Core\Model\Generated\CompartmentDefinition.cs
 // Hl7.Fhir.Core\Model\Generated\CommunicationRequest.cs
 // Hl7.Fhir.Core\Model\Generated\Communication.cs
+// Hl7.Fhir.Core\Model\Generated\CodeSystem.cs
 // Hl7.Fhir.Core\Model\Generated\ClinicalImpression.cs
 // Hl7.Fhir.Core\Model\Generated\ClaimResponse.cs
 // Hl7.Fhir.Core\Model\Generated\Claim.cs
 // Hl7.Fhir.Core\Model\Generated\ChargeItem.cs
-// Hl7.Fhir.Core\Model\Generated\Catalog.cs
 // Hl7.Fhir.Core\Model\Generated\CareTeam.cs
 // Hl7.Fhir.Core\Model\Generated\CarePlan.cs
 // Hl7.Fhir.Core\Model\Generated\CapabilityStatement.cs
@@ -291,7 +303,3 @@
 // Hl7.Fhir.Core\Model\Generated\AdverseEvent.cs
 // Hl7.Fhir.Core\Model\Generated\ActivityDefinition.cs
 // Hl7.Fhir.Core\Model\Generated\Account.cs
-// Hl7.Fhir.Core\Model\Generated\Parameters.cs
-// Hl7.Fhir.Core\Model\Generated\DomainResource.cs
-// Hl7.Fhir.Core\Model\Generated\ValueSet.cs
-// Hl7.Fhir.Core\Model\Generated\CodeSystem.cs

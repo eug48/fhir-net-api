@@ -8,9 +8,11 @@
 
 using System;
 using Hl7.Fhir.Model;
-using Hl7.ElementModel;
 using Hl7.Fhir.Support;
 using System.Linq;
+using Hl7.Fhir.Specification.Navigation;
+using Hl7.Fhir.ElementModel;
+using Hl7.Fhir.Utility;
 
 // [WMR 20160907] TODO: Create unit tests to evaluate behavior for different kinds of errors, e.g.
 // - unresolved external (type/extension) profile
@@ -58,9 +60,9 @@ namespace Hl7.Fhir.Specification.Snapshot
                 _name = elementDef.SliceName;
             }
             public string Name => _name;
-            public string Path => _path;
+            public string Location => _path;
 
-            public string TypeName => ModelInfo.FhirTypeToFhirTypeName(FHIRAllTypes.ElementDefinition); // _elemDef.TypeName;
+            public string Type => ModelInfo.FhirTypeToFhirTypeName(FHIRAllTypes.ElementDefinition); // _elemDef.TypeName;
 
             public object Value { get { throw new NotImplementedException(); } }
 
@@ -70,7 +72,7 @@ namespace Hl7.Fhir.Specification.Snapshot
 
             public bool MoveToNext() { throw new NotImplementedException(); }
 
-            public override string ToString() => string.IsNullOrEmpty(Name) ? $"'{Path}'" : $"'{Path}' : '{Name}'";
+            public override string ToString() => string.IsNullOrEmpty(Name) ? $"'{Location}'" : $"'{Location}' : '{Name}'";
         }
 
         // static IElementNavigator ToNamedNode(ElementDefinition elementDef) => new ElementDefinitionNamedNode(elementDef);
@@ -270,6 +272,24 @@ namespace Hl7.Fhir.Specification.Snapshot
             return PROFILE_ELEMENTDEF_INVALID_SLICE_WITHOUT_NAME.ToIssueComponent(
                 $"Element {location} defines a slice without a name. Individual slices must always have a unique name, except extensions.",
                 location
+            );
+        }
+
+        // [WMR 20170224] NEW - ElementDefinition.Type.Profile target profile has the wrong type
+        // e.g. if a profile extension references a StructureDefinition that is not an Extension Definition.
+        // or if Identifier element type references a Location profile
+        public static readonly Issue PROFILE_ELEMENTDEF_INVALID_PROFILE_TYPE = Issue.Create(10009, OperationOutcome.IssueSeverity.Error, OperationOutcome.IssueType.Invalid);
+
+        internal OperationOutcome.IssueComponent addIssueInvalidProfileType(ElementDefinition elementDef, StructureDefinition profile)
+        {
+            var location = elementDef.ToNamedNode();
+            var elemType = elementDef.PrimaryTypeCode();
+            var profileType = profile.Type;
+            return addIssue(
+                PROFILE_ELEMENTDEF_INVALID_PROFILE_TYPE.ToIssueComponent(
+                    $"Element {location} has an invalid type profile constraint '{profile.Url}'. The target represents a profile on '{profileType}' which is incompatible with the element type '{elemType}'.",
+                    location
+                )
             );
         }
 

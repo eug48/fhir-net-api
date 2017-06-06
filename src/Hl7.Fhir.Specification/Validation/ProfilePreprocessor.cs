@@ -6,7 +6,7 @@
  * available at https://raw.githubusercontent.com/ewoutkramer/fhir-net-api/master/LICENSE
  */
 
-using Hl7.ElementModel;
+using Hl7.Fhir.ElementModel;
 using Hl7.Fhir.Model;
 using Hl7.Fhir.Specification.Navigation;
 using Hl7.Fhir.Support;
@@ -19,30 +19,30 @@ namespace Hl7.Fhir.Validation
     internal class ProfilePreprocessor
     {
         private Func<string, StructureDefinition> _profileResolver;
-        private Action<StructureDefinition> _snapshotGenerator;
+        private Func<StructureDefinition,OperationOutcome> _snapshotGenerator;
         private string _path;
         private ProfileAssertion _profiles;
 
-        public ProfilePreprocessor(Func<string,StructureDefinition> profileResolver, Action<StructureDefinition> snapshotGenerator, 
+        public ProfilePreprocessor(Func<string,StructureDefinition> profileResolver, Func<StructureDefinition,OperationOutcome> snapshotGenerator, 
                 IElementNavigator instance, string declaredTypeProfile, 
                 IEnumerable<StructureDefinition> additionalProfiles, IEnumerable<string> additionalCanonicals)
         {
             _profileResolver = profileResolver;
             _snapshotGenerator = snapshotGenerator;
-            _path = instance.Path;
+            _path = instance.Location;
 
             _profiles = new ProfileAssertion(_path, _profileResolver);
 
-            if (instance.TypeName != null) _profiles.SetInstanceType(ModelInfo.CanonicalUriForFhirCoreType(instance.TypeName));
+            if (instance.Type != null) _profiles.SetInstanceType(ModelInfo.CanonicalUriForFhirCoreType(instance.Type));
             if (declaredTypeProfile != null) _profiles.SetDeclaredType(declaredTypeProfile);
 
             // This is only for resources, but I don't bother checking, since this will return empty anyway
-            _profiles.AddStatedProfile(instance.GetChildrenByName("meta").ChildrenValues("profile").Cast<string>());
+            _profiles.AddStatedProfile(instance.Children("meta").Children("profile").Select(p=>p.Value).Cast<string>());
 
             //Almost identically, extensions can declare adherance to a profile using the 'url' attribute
             if (declaredTypeProfile == ModelInfo.CanonicalUriForFhirCoreType(FHIRAllTypes.Extension))
             {
-                var urlDeclaration = instance.GetChildrenByName("url").FirstOrDefault()?.Value as string;
+                var urlDeclaration = instance.Children("url").FirstOrDefault()?.Value as string;
 
                 if (urlDeclaration != null && urlDeclaration.StartsWith("http://",StringComparison.OrdinalIgnoreCase)) _profiles.AddStatedProfile(urlDeclaration);
             }
@@ -98,7 +98,7 @@ namespace Hl7.Fhir.Validation
         /// Generate snapshots for all StructureDefinitions available to the preprocessor
         /// </summary>
         /// <returns></returns>
-        public static OperationOutcome GenerateSnapshots(IEnumerable<StructureDefinition> sds, Action<StructureDefinition> snapshotGenerator, string path)
+        public static OperationOutcome GenerateSnapshots(IEnumerable<StructureDefinition> sds, Func<StructureDefinition,OperationOutcome> snapshotGenerator, string path)
         {
             var outcome = new OperationOutcome();
 
@@ -108,7 +108,7 @@ namespace Hl7.Fhir.Validation
                 {
                     try
                     {
-                        snapshotGenerator(sd);
+                        outcome.Add(snapshotGenerator(sd));
                     }
                     catch (Exception e)
                     {
@@ -116,6 +116,7 @@ namespace Hl7.Fhir.Validation
                                Issue.UNAVAILABLE_SNAPSHOT_GENERATION_FAILED, path);
                     }
                 }
+
 
                 if (!sd.HasSnapshot)
                     outcome.AddIssue($"Profile '{sd.Url}' does not include a snapshot.", Issue.UNAVAILABLE_NEED_SNAPSHOT, path);

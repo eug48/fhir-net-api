@@ -9,7 +9,7 @@
 // [WMR 20161219] Save and reuse existing instance, so generator can detect & handle recursion
 #define REUSE_SNAPSHOT_GENERATOR
 
-using Hl7.ElementModel;
+using Hl7.Fhir.ElementModel;
 using Hl7.Fhir.FhirPath;
 using Hl7.Fhir.Model;
 using Hl7.Fhir.Serialization;
@@ -18,6 +18,7 @@ using Hl7.Fhir.Specification.Snapshot;
 using Hl7.Fhir.Specification.Source;
 using Hl7.Fhir.Specification.Terminology;
 using Hl7.Fhir.Support;
+using Hl7.Fhir.Utility;
 using Hl7.FhirPath;
 using System;
 using System.Collections.Generic;
@@ -25,7 +26,6 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Xml;
-using Time = Hl7.FhirPath.Time;
 
 namespace Hl7.Fhir.Validation
 {
@@ -169,7 +169,7 @@ namespace Hl7.Fhir.Validation
 
             try
             {
-                Trace(outcome, "Start validation of ElementDefinition at path '{0}'".FormatWith(definition.QualifiedDefinitionPath()), Issue.PROCESSING_PROGRESS, instance);
+                Trace(outcome, $"Start validation of ElementDefinition at path '{definition.QualifiedDefinitionPath()}'", Issue.PROCESSING_PROGRESS, instance);
 
                 ScopeTracker.Enter(instance);
 
@@ -237,6 +237,9 @@ namespace Hl7.Fhir.Validation
 
         internal OperationOutcome ValidateConstraints(ElementDefinition definition, IElementNavigator instance)
         {
+            // Make sure FHIR extensions are installed in FP compiler
+            PocoNavigatorExtensions.PrepareFhirSymbolTableFunctions();
+
             var outcome = new OperationOutcome();
 
             if (Settings.SkipConstraintValidation) return outcome;
@@ -305,7 +308,7 @@ namespace Hl7.Fhir.Validation
                 ts = new LocalTerminologyServer(Settings.ResourceResolver);
             }
 
-            var bindingValidator = new BindingValidator(ts, instance.Path);
+            var bindingValidator = new BindingValidator(ts, instance.Location);
 
             try
             {
@@ -323,8 +326,8 @@ namespace Hl7.Fhir.Validation
         {
             if (definition.IsChoice())
             {
-                if (instance.TypeName != null)
-                    return ModelInfo.FhirTypeNameToFhirType(instance.TypeName);
+                if (instance.Type != null)
+                    return ModelInfo.FhirTypeNameToFhirType(instance.Type);
                 else
                     return null;
             }
@@ -440,10 +443,10 @@ namespace Hl7.Fhir.Validation
                 return XmlConvert.ToString((decimal)val);
             else if (val is bool)
                 return (bool)val ? "true" : "false";
-            else if (val is Hl7.FhirPath.Time)
-                return ((Hl7.FhirPath.Time)val).ToString();
-            else if (val is Hl7.FhirPath.PartialDateTime)
-                return ((Hl7.FhirPath.PartialDateTime)val).ToString();
+            else if (val is Model.Primitives.PartialTime)
+                return ((Model.Primitives.PartialTime)val).ToString();
+            else if (val is Model.Primitives.PartialDateTime)
+                return ((Model.Primitives.PartialDateTime)val).ToString();
             else
                 return val.ToString();
         }
@@ -499,15 +502,16 @@ namespace Hl7.Fhir.Validation
         // Note: this modifies an SD that is passed to us and will alter a possibly cached
         // object shared amongst other threads. This is generally useful and saves considerable
         // time when the same snapshot is needed again, but may result in side-effects
-        private void snapshotGenerationNeeded(StructureDefinition definition)
+        private OperationOutcome snapshotGenerationNeeded(StructureDefinition definition)
         {
-            if (!Settings.GenerateSnapshot) return;
+            if (!Settings.GenerateSnapshot) return new OperationOutcome();
 
             // Default implementation: call event
             if (OnSnapshotNeeded != null)
             {
-                OnSnapshotNeeded(this, new OnSnapshotNeededEventArgs(definition, Settings.ResourceResolver));
-                return;
+                var eventData = new OnSnapshotNeededEventArgs(definition, Settings.ResourceResolver);
+                OnSnapshotNeeded(this, eventData);
+                return eventData.Result;
             }
 
             // Else, expand, depending on our configuration
@@ -516,6 +520,16 @@ namespace Hl7.Fhir.Validation
             if (generator != null)
             {
                 generator.Update(definition);
+#if DUMP_SNAPSHOTS
+
+                string xml = FhirSerializer.SerializeResourceToXml(definition);
+                string name = definition.Id ?? definition.Name.Replace(" ", "");
+
+                File.WriteAllText(@"c:\temp\validation\" + name + ".StructureDefinition.xml", xml);
+#endif
+
+
+                return generator.Outcome ?? new OperationOutcome();
 #else
             if (Settings.ResourceResolver != null)
             {
@@ -524,16 +538,9 @@ namespace Hl7.Fhir.Validation
                 (new SnapshotGenerator(Settings.ResourceResolver, settings)).Update(definition);
 
 #endif
-
-#if DUMP_SNAPSHOTS
-
-                string xml = FhirSerializer.SerializeResourceToXml(definition);
-                string name = definition.Id ?? definition.Name.Replace(" ", "");
-
-                File.WriteAllText(@"c:\temp\validation\" + name + ".StructureDefinition.xml", xml);
-#endif
             }
 
+            return new OperationOutcome();
         }
     }
 
@@ -550,6 +557,8 @@ namespace Hl7.Fhir.Validation
                    t == typeof(Model.Time) ||
                    t == typeof(FhirDecimal) ||
                    t == typeof(Integer) ||
+                   t == typeof(PositiveInt) ||
+                   t == typeof(UnsignedInt) ||
                    t == typeof(Model.Quantity) ||
                    t == typeof(FhirString);
         }
@@ -578,6 +587,8 @@ namespace Hl7.Fhir.Validation
         public StructureDefinition Definition { get; }
 
         public IResourceResolver Resolver { get; }
+
+        public OperationOutcome Result { get; set; }
     }
 
     public class OnResolveResourceReferenceEventArgs : EventArgs

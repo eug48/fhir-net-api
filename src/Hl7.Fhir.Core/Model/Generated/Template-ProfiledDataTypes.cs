@@ -1,6 +1,6 @@
 ﻿
 //
-// Model Generated on Fri, 17 Feb 2017 16:21:44 GMT for FHIR v1.9.0
+// Model Generated on Sat, 06 May 2017 12:41:30 GMT for FHIR v3.0.1
 //
 // Generated Shared Enumeration: ResourceType
 
@@ -57,6 +57,8 @@
 
 // Generated Shared Enumeration: ActionRequiredBehavior
 
+// Generated Shared Enumeration: DocumentRelationshipType
+
 // Generated Shared Enumeration: MessageSignificanceCategory
 
 // Generated Shared Enumeration: FHIRAllTypes
@@ -68,8 +70,8 @@
 // Generated helper templates
 // Generated items
 // Hl7.Fhir.Core\Model\Generated\SimpleQuantity.cs
-// Hl7.Fhir.Core\Model\Generated\Age.cs
-// Hl7.Fhir.Core\Model\Generated\Distance.cs
 // Hl7.Fhir.Core\Model\Generated\Money.cs
-// Hl7.Fhir.Core\Model\Generated\Count.cs
 // Hl7.Fhir.Core\Model\Generated\Duration.cs
+// Hl7.Fhir.Core\Model\Generated\Distance.cs
+// Hl7.Fhir.Core\Model\Generated\Count.cs
+// Hl7.Fhir.Core\Model\Generated\Age.cs

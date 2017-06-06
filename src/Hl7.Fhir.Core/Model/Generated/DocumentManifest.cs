@@ -4,7 +4,7 @@ using Hl7.Fhir.Introspection;
 using Hl7.Fhir.Validation;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.ComponentModel;
+using Hl7.Fhir.Utility;
 
 /*
   Copyright (c) 2011+, HL7, Inc.
@@ -37,12 +37,12 @@ using System.ComponentModel;
 */
 
 //
-// Generated for FHIR v1.9.0
+// Generated for FHIR v3.0.1
 //
 namespace Hl7.Fhir.Model
 {
     /// <summary>
-    /// A manifest that defines a set of documents
+    /// A list that defines a set of documents
     /// </summary>
     [FhirType("DocumentManifest", IsResource=true)]
     [DataContract]
@@ -123,9 +123,7 @@ namespace Hl7.Fhir.Model
             {
                 get
                 {
-                    // BackboneElement elements
-                    foreach (var elem in ModifierExtension) { if (elem != null) yield return elem; }
-                    // ContentComponent elements
+                    foreach (var item in base.Children) yield return item;
                     if (P != null) yield return P;
                 }
             }
@@ -218,9 +216,7 @@ namespace Hl7.Fhir.Model
             {
                 get
                 {
-                    // BackboneElement elements
-                    foreach (var elem in ModifierExtension) { if (elem != null) yield return elem; }
-                    // RelatedComponent elements
+                    foreach (var item in base.Children) yield return item;
                     if (Identifier != null) yield return Identifier;
                     if (Ref != null) yield return Ref;
                 }
@@ -257,9 +253,55 @@ namespace Hl7.Fhir.Model
         private List<Hl7.Fhir.Model.Identifier> _Identifier;
         
         /// <summary>
+        /// current | superseded | entered-in-error
+        /// </summary>
+        [FhirElement("status", InSummary=true, Order=110)]
+        [Cardinality(Min=1,Max=1)]
+        [DataMember]
+        public Code<Hl7.Fhir.Model.DocumentReferenceStatus> StatusElement
+        {
+            get { return _StatusElement; }
+            set { _StatusElement = value; OnPropertyChanged("StatusElement"); }
+        }
+        
+        private Code<Hl7.Fhir.Model.DocumentReferenceStatus> _StatusElement;
+        
+        /// <summary>
+        /// current | superseded | entered-in-error
+        /// </summary>
+        /// <remarks>This uses the native .NET datatype, rather than the FHIR equivalent</remarks>
+        [NotMapped]
+        [IgnoreDataMemberAttribute]
+        public Hl7.Fhir.Model.DocumentReferenceStatus? Status
+        {
+            get { return StatusElement != null ? StatusElement.Value : null; }
+            set
+            {
+                if (!value.HasValue)
+                  StatusElement = null; 
+                else
+                  StatusElement = new Code<Hl7.Fhir.Model.DocumentReferenceStatus>(value);
+                OnPropertyChanged("Status");
+            }
+        }
+        
+        /// <summary>
+        /// Kind of document set
+        /// </summary>
+        [FhirElement("type", InSummary=true, Order=120)]
+        [DataMember]
+        public Hl7.Fhir.Model.CodeableConcept Type
+        {
+            get { return _Type; }
+            set { _Type = value; OnPropertyChanged("Type"); }
+        }
+        
+        private Hl7.Fhir.Model.CodeableConcept _Type;
+        
+        /// <summary>
         /// The subject of the set of documents
         /// </summary>
-        [FhirElement("subject", InSummary=true, Order=110)]
+        [FhirElement("subject", InSummary=true, Order=130)]
         [CLSCompliant(false)]
 		[References("Patient","Practitioner","Group","Device")]
         [DataMember]
@@ -272,54 +314,9 @@ namespace Hl7.Fhir.Model
         private Hl7.Fhir.Model.ResourceReference _Subject;
         
         /// <summary>
-        /// Intended to get notified about this set of documents
-        /// </summary>
-        [FhirElement("recipient", InSummary=true, Order=120)]
-        [CLSCompliant(false)]
-		[References("Patient","Practitioner","RelatedPerson","Organization")]
-        [Cardinality(Min=0,Max=-1)]
-        [DataMember]
-        public List<Hl7.Fhir.Model.ResourceReference> Recipient
-        {
-            get { if(_Recipient==null) _Recipient = new List<Hl7.Fhir.Model.ResourceReference>(); return _Recipient; }
-            set { _Recipient = value; OnPropertyChanged("Recipient"); }
-        }
-        
-        private List<Hl7.Fhir.Model.ResourceReference> _Recipient;
-        
-        /// <summary>
-        /// Kind of document set
-        /// </summary>
-        [FhirElement("type", InSummary=true, Order=130)]
-        [DataMember]
-        public Hl7.Fhir.Model.CodeableConcept Type
-        {
-            get { return _Type; }
-            set { _Type = value; OnPropertyChanged("Type"); }
-        }
-        
-        private Hl7.Fhir.Model.CodeableConcept _Type;
-        
-        /// <summary>
-        /// Who and/or what authored the manifest
-        /// </summary>
-        [FhirElement("author", InSummary=true, Order=140)]
-        [CLSCompliant(false)]
-		[References("Practitioner","Organization","Device","Patient","RelatedPerson")]
-        [Cardinality(Min=0,Max=-1)]
-        [DataMember]
-        public List<Hl7.Fhir.Model.ResourceReference> Author
-        {
-            get { if(_Author==null) _Author = new List<Hl7.Fhir.Model.ResourceReference>(); return _Author; }
-            set { _Author = value; OnPropertyChanged("Author"); }
-        }
-        
-        private List<Hl7.Fhir.Model.ResourceReference> _Author;
-        
-        /// <summary>
         /// When this document manifest created
         /// </summary>
-        [FhirElement("created", InSummary=true, Order=150)]
+        [FhirElement("created", InSummary=true, Order=140)]
         [DataMember]
         public Hl7.Fhir.Model.FhirDateTime CreatedElement
         {
@@ -349,9 +346,41 @@ namespace Hl7.Fhir.Model
         }
         
         /// <summary>
+        /// Who and/or what authored the manifest
+        /// </summary>
+        [FhirElement("author", InSummary=true, Order=150)]
+        [CLSCompliant(false)]
+		[References("Practitioner","Organization","Device","Patient","RelatedPerson")]
+        [Cardinality(Min=0,Max=-1)]
+        [DataMember]
+        public List<Hl7.Fhir.Model.ResourceReference> Author
+        {
+            get { if(_Author==null) _Author = new List<Hl7.Fhir.Model.ResourceReference>(); return _Author; }
+            set { _Author = value; OnPropertyChanged("Author"); }
+        }
+        
+        private List<Hl7.Fhir.Model.ResourceReference> _Author;
+        
+        /// <summary>
+        /// Intended to get notified about this set of documents
+        /// </summary>
+        [FhirElement("recipient", InSummary=true, Order=160)]
+        [CLSCompliant(false)]
+		[References("Patient","Practitioner","RelatedPerson","Organization")]
+        [Cardinality(Min=0,Max=-1)]
+        [DataMember]
+        public List<Hl7.Fhir.Model.ResourceReference> Recipient
+        {
+            get { if(_Recipient==null) _Recipient = new List<Hl7.Fhir.Model.ResourceReference>(); return _Recipient; }
+            set { _Recipient = value; OnPropertyChanged("Recipient"); }
+        }
+        
+        private List<Hl7.Fhir.Model.ResourceReference> _Recipient;
+        
+        /// <summary>
         /// The source system/application/software
         /// </summary>
-        [FhirElement("source", InSummary=true, Order=160)]
+        [FhirElement("source", InSummary=true, Order=170)]
         [DataMember]
         public Hl7.Fhir.Model.FhirUri SourceElement
         {
@@ -377,39 +406,6 @@ namespace Hl7.Fhir.Model
                 else
                   SourceElement = new Hl7.Fhir.Model.FhirUri(value);
                 OnPropertyChanged("Source");
-            }
-        }
-        
-        /// <summary>
-        /// current | superseded | entered-in-error
-        /// </summary>
-        [FhirElement("status", InSummary=true, Order=170)]
-        [Cardinality(Min=1,Max=1)]
-        [DataMember]
-        public Code<Hl7.Fhir.Model.DocumentReferenceStatus> StatusElement
-        {
-            get { return _StatusElement; }
-            set { _StatusElement = value; OnPropertyChanged("StatusElement"); }
-        }
-        
-        private Code<Hl7.Fhir.Model.DocumentReferenceStatus> _StatusElement;
-        
-        /// <summary>
-        /// current | superseded | entered-in-error
-        /// </summary>
-        /// <remarks>This uses the native .NET datatype, rather than the FHIR equivalent</remarks>
-        [NotMapped]
-        [IgnoreDataMemberAttribute]
-        public Hl7.Fhir.Model.DocumentReferenceStatus? Status
-        {
-            get { return StatusElement != null ? StatusElement.Value : null; }
-            set
-            {
-                if (!value.HasValue)
-                  StatusElement = null; 
-                else
-                  StatusElement = new Code<Hl7.Fhir.Model.DocumentReferenceStatus>(value);
-                OnPropertyChanged("Status");
             }
         }
         
@@ -489,13 +485,13 @@ namespace Hl7.Fhir.Model
                 base.CopyTo(dest);
                 if(MasterIdentifier != null) dest.MasterIdentifier = (Hl7.Fhir.Model.Identifier)MasterIdentifier.DeepCopy();
                 if(Identifier != null) dest.Identifier = new List<Hl7.Fhir.Model.Identifier>(Identifier.DeepCopy());
-                if(Subject != null) dest.Subject = (Hl7.Fhir.Model.ResourceReference)Subject.DeepCopy();
-                if(Recipient != null) dest.Recipient = new List<Hl7.Fhir.Model.ResourceReference>(Recipient.DeepCopy());
-                if(Type != null) dest.Type = (Hl7.Fhir.Model.CodeableConcept)Type.DeepCopy();
-                if(Author != null) dest.Author = new List<Hl7.Fhir.Model.ResourceReference>(Author.DeepCopy());
-                if(CreatedElement != null) dest.CreatedElement = (Hl7.Fhir.Model.FhirDateTime)CreatedElement.DeepCopy();
-                if(SourceElement != null) dest.SourceElement = (Hl7.Fhir.Model.FhirUri)SourceElement.DeepCopy();
                 if(StatusElement != null) dest.StatusElement = (Code<Hl7.Fhir.Model.DocumentReferenceStatus>)StatusElement.DeepCopy();
+                if(Type != null) dest.Type = (Hl7.Fhir.Model.CodeableConcept)Type.DeepCopy();
+                if(Subject != null) dest.Subject = (Hl7.Fhir.Model.ResourceReference)Subject.DeepCopy();
+                if(CreatedElement != null) dest.CreatedElement = (Hl7.Fhir.Model.FhirDateTime)CreatedElement.DeepCopy();
+                if(Author != null) dest.Author = new List<Hl7.Fhir.Model.ResourceReference>(Author.DeepCopy());
+                if(Recipient != null) dest.Recipient = new List<Hl7.Fhir.Model.ResourceReference>(Recipient.DeepCopy());
+                if(SourceElement != null) dest.SourceElement = (Hl7.Fhir.Model.FhirUri)SourceElement.DeepCopy();
                 if(DescriptionElement != null) dest.DescriptionElement = (Hl7.Fhir.Model.FhirString)DescriptionElement.DeepCopy();
                 if(Content != null) dest.Content = new List<Hl7.Fhir.Model.DocumentManifest.ContentComponent>(Content.DeepCopy());
                 if(Related != null) dest.Related = new List<Hl7.Fhir.Model.DocumentManifest.RelatedComponent>(Related.DeepCopy());
@@ -518,13 +514,13 @@ namespace Hl7.Fhir.Model
             if(!base.Matches(otherT)) return false;
             if( !DeepComparable.Matches(MasterIdentifier, otherT.MasterIdentifier)) return false;
             if( !DeepComparable.Matches(Identifier, otherT.Identifier)) return false;
-            if( !DeepComparable.Matches(Subject, otherT.Subject)) return false;
-            if( !DeepComparable.Matches(Recipient, otherT.Recipient)) return false;
-            if( !DeepComparable.Matches(Type, otherT.Type)) return false;
-            if( !DeepComparable.Matches(Author, otherT.Author)) return false;
-            if( !DeepComparable.Matches(CreatedElement, otherT.CreatedElement)) return false;
-            if( !DeepComparable.Matches(SourceElement, otherT.SourceElement)) return false;
             if( !DeepComparable.Matches(StatusElement, otherT.StatusElement)) return false;
+            if( !DeepComparable.Matches(Type, otherT.Type)) return false;
+            if( !DeepComparable.Matches(Subject, otherT.Subject)) return false;
+            if( !DeepComparable.Matches(CreatedElement, otherT.CreatedElement)) return false;
+            if( !DeepComparable.Matches(Author, otherT.Author)) return false;
+            if( !DeepComparable.Matches(Recipient, otherT.Recipient)) return false;
+            if( !DeepComparable.Matches(SourceElement, otherT.SourceElement)) return false;
             if( !DeepComparable.Matches(DescriptionElement, otherT.DescriptionElement)) return false;
             if( !DeepComparable.Matches(Content, otherT.Content)) return false;
             if( !DeepComparable.Matches(Related, otherT.Related)) return false;
@@ -540,13 +536,13 @@ namespace Hl7.Fhir.Model
             if(!base.IsExactly(otherT)) return false;
             if( !DeepComparable.IsExactly(MasterIdentifier, otherT.MasterIdentifier)) return false;
             if( !DeepComparable.IsExactly(Identifier, otherT.Identifier)) return false;
-            if( !DeepComparable.IsExactly(Subject, otherT.Subject)) return false;
-            if( !DeepComparable.IsExactly(Recipient, otherT.Recipient)) return false;
-            if( !DeepComparable.IsExactly(Type, otherT.Type)) return false;
-            if( !DeepComparable.IsExactly(Author, otherT.Author)) return false;
-            if( !DeepComparable.IsExactly(CreatedElement, otherT.CreatedElement)) return false;
-            if( !DeepComparable.IsExactly(SourceElement, otherT.SourceElement)) return false;
             if( !DeepComparable.IsExactly(StatusElement, otherT.StatusElement)) return false;
+            if( !DeepComparable.IsExactly(Type, otherT.Type)) return false;
+            if( !DeepComparable.IsExactly(Subject, otherT.Subject)) return false;
+            if( !DeepComparable.IsExactly(CreatedElement, otherT.CreatedElement)) return false;
+            if( !DeepComparable.IsExactly(Author, otherT.Author)) return false;
+            if( !DeepComparable.IsExactly(Recipient, otherT.Recipient)) return false;
+            if( !DeepComparable.IsExactly(SourceElement, otherT.SourceElement)) return false;
             if( !DeepComparable.IsExactly(DescriptionElement, otherT.DescriptionElement)) return false;
             if( !DeepComparable.IsExactly(Content, otherT.Content)) return false;
             if( !DeepComparable.IsExactly(Related, otherT.Related)) return false;
@@ -559,16 +555,16 @@ namespace Hl7.Fhir.Model
         {
             get
             {
-				// DocumentManifest elements
+                foreach (var item in base.Children) yield return item;
 				if (MasterIdentifier != null) yield return MasterIdentifier;
 				foreach (var elem in Identifier) { if (elem != null) yield return elem; }
-				if (Subject != null) yield return Subject;
-				foreach (var elem in Recipient) { if (elem != null) yield return elem; }
-				if (Type != null) yield return Type;
-				foreach (var elem in Author) { if (elem != null) yield return elem; }
-				if (CreatedElement != null) yield return CreatedElement;
-				if (SourceElement != null) yield return SourceElement;
 				if (StatusElement != null) yield return StatusElement;
+				if (Type != null) yield return Type;
+				if (Subject != null) yield return Subject;
+				if (CreatedElement != null) yield return CreatedElement;
+				foreach (var elem in Author) { if (elem != null) yield return elem; }
+				foreach (var elem in Recipient) { if (elem != null) yield return elem; }
+				if (SourceElement != null) yield return SourceElement;
 				if (DescriptionElement != null) yield return DescriptionElement;
 				foreach (var elem in Content) { if (elem != null) yield return elem; }
 				foreach (var elem in Related) { if (elem != null) yield return elem; }

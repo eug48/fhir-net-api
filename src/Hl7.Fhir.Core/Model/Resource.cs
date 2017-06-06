@@ -31,13 +31,11 @@ using Hl7.Fhir.Validation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using Hl7.Fhir.Support;
 using Hl7.Fhir.Introspection;
 using Hl7.Fhir.Rest;
-using Hl7.ElementModel;
 using Hl7.FhirPath;
+using Hl7.Fhir.ElementModel;
+using Hl7.Fhir.Utility;
 
 namespace Hl7.Fhir.Model
 {
@@ -53,13 +51,13 @@ namespace Hl7.Fhir.Model
         {
             get
             {
-                var bd = Annotation<ResourceBaseData>();
+                var bd = this.Annotation<ResourceBaseData>();
                 return bd != null ? bd.Base : null;
             }
 
             set
             {
-                RemoveAnnotations<ResourceBaseData>();
+                this.RemoveAnnotations<ResourceBaseData>();
                 AddAnnotation(new ResourceBaseData { Base = value } );
             }
         }
@@ -88,7 +86,7 @@ namespace Hl7.Fhir.Model
         /// <param name="model"></param>
         /// <param name="result">The OperationOutcome that will have the validation results appended</param>
         /// <returns></returns>
-        protected static bool ValidateInvariantRule(ElementDefinition.ConstraintComponent invariantRule, IElementNavigator model, OperationOutcome result)
+        public static bool ValidateInvariantRule(ElementDefinition.ConstraintComponent invariantRule, IElementNavigator model, OperationOutcome result)
         {
             string expression = invariantRule.Expression;
             try
@@ -107,7 +105,7 @@ namespace Hl7.Fhir.Model
                 }
 
                 // Ensure the FHIR extensions are registered
-                Hl7.Fhir.FhirPath.PocoNavigatorExtensions.PrepareFhirSybolTableFunctions();
+                Hl7.Fhir.FhirPath.PocoNavigatorExtensions.PrepareFhirSymbolTableFunctions();
 
                 if (model.Predicate(expression, model))
                     return true;

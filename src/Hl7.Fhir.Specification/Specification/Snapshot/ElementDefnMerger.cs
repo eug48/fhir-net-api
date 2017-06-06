@@ -12,6 +12,9 @@ using System.Linq;
 using Hl7.Fhir.Model;
 using Hl7.Fhir.Specification.Navigation;
 using Hl7.Fhir.Support;
+using System.Diagnostics;
+using System.Reflection;
+using Hl7.Fhir.Utility;
 
 namespace Hl7.Fhir.Specification.Snapshot
 {
@@ -24,23 +27,12 @@ namespace Hl7.Fhir.Specification.Snapshot
         struct ElementDefnMerger
         {
             /// <summary>Merge two <see cref="ElementDefinition"/> instances. Existing diff properties override associated snap properties.</summary>
-            public static void Merge(SnapshotGenerator generator, ElementDefinition snap, ElementDefinition diff)
+            public static void Merge(SnapshotGenerator generator, ElementDefinition snap, ElementDefinition diff, bool mergeElementId)
             {
                 var merger = new ElementDefnMerger(generator);
-                merger.merge(snap, diff);
+                merger.merge(snap, diff, mergeElementId);
             }
 
-            // [WMR 20170209] TODO: Merge global mapping components
-#if false
-            /// <summary>Merge two lists of global <see cref="StructureDefinition.MappingComponent"/> definitions.</summary>
-            public static List<StructureDefinition.MappingComponent> Merge(SnapshotGenerator generator,
-                List<StructureDefinition.MappingComponent> snap, List<StructureDefinition.MappingComponent> diff)
-            {
-                var merger = new ElementDefnMerger(generator);
-                // Merge global mapping definitions having the same (unique) mapping id
-                return merger.mergeCollection(snap, diff, (a, b) => a.Identity == b.Identity);
-            }
-#endif
             SnapshotGenerator _generator;
 
             ElementDefnMerger(SnapshotGenerator generator)
@@ -48,7 +40,7 @@ namespace Hl7.Fhir.Specification.Snapshot
                 _generator = generator;
             }
 
-            void merge(ElementDefinition snap, ElementDefinition diff)
+            void merge(ElementDefinition snap, ElementDefinition diff, bool mergeElementId)
             {
                 // [WMR 20160915] Important! Derived profiles should never inherit the ChangedByDiff extension
                 // Caller should make sure that existing extensions have been removed from snap,
@@ -66,18 +58,15 @@ namespace Hl7.Fhir.Specification.Snapshot
                     {
                         throw Error.InvalidOperation($"Invalid operation in snapshot generator. Path cannot be changed from '{snap.Path}' to '{diff.Path}', since the type is sliced to '{diff.Type.First().Code}'");
                     }
-
                     snap.PathElement = mergePrimitiveAttribute(snap.PathElement, diff.PathElement);
                 }
 
-                // [WMR 20160906] Also merge Element.Id
-                // Tricky... like ElementDefinition.Base, this value depends on the position in the tree => can't inherit
-                //if (snap.ElementId == null)
-                //{
-                //    snap.ElementId = diff.ElementId;
-                //}
+                // [WMR 20170421] Element.Id is NOT inherited!
+                // Merge custom Element id value from differential in same profile into snapshot
+                // [WMR 20170424] NEW
+                snap.ElementId = mergeId(snap, diff, mergeElementId);
 
-                // representation cannot be overridden
+                // [EK 20170301] This used to be ambiguous, now (STU3) split in contentReference and sliceName
                 snap.SliceNameElement = mergePrimitiveAttribute(snap.SliceNameElement, diff.SliceNameElement);
             
                 // Codes are cumulative based on the code value
@@ -98,7 +87,7 @@ namespace Hl7.Fhir.Specification.Snapshot
 
                 snap.ShortElement = mergePrimitiveAttribute(snap.ShortElement, diff.ShortElement);
                 snap.DefinitionElement = mergePrimitiveAttribute(snap.DefinitionElement, diff.DefinitionElement, allowAppend: true);
-                snap.CommentsElement = mergePrimitiveAttribute(snap.CommentsElement, diff.CommentsElement, allowAppend: true);
+                snap.CommentElement = mergePrimitiveAttribute(snap.CommentElement, diff.CommentElement, allowAppend: true);
                 snap.RequirementsElement = mergePrimitiveAttribute(snap.RequirementsElement, diff.RequirementsElement, allowAppend: true);
                 snap.LabelElement = mergePrimitiveAttribute(snap.LabelElement, diff.LabelElement);
 
@@ -121,21 +110,27 @@ namespace Hl7.Fhir.Specification.Snapshot
                     foreach (var element in snap.Type) { onConstraint(snap); }
                 }
 
-                // ElementDefinition.nameReference cannot be overridden by a derived profile
-                // defaultValue and meaningWhenMissing can only be set in a resource/datatype/extension definition and cannot be overridden
+                // ElementDefinition.contentReference cannot be overridden by a derived profile                
 
                 snap.Fixed = mergeComplexAttribute(snap.Fixed, diff.Fixed);
                 snap.Pattern = mergeComplexAttribute(snap.Pattern, diff.Pattern);
-                // TODO: STU3 snapshot generation
-                // snap.Example = mergeComplexAttribute(snap.Example, diff.Example);
+
+                // Examples are cumulative based on the full value
+                snap.MaxLengthElement = mergePrimitiveAttribute(snap.MaxLengthElement, diff.MaxLengthElement);
+
+                // [EK 20170301] In STU3, this was turned into a collection
+                snap.Example = mergeCollection(snap.Example, diff.Example, (a, b) => a.IsExactly(b));
+
                 snap.MinValue = mergeComplexAttribute(snap.MinValue, diff.MinValue);
                 snap.MaxValue = mergeComplexAttribute(snap.MaxValue, diff.MaxValue);
                 
                 // [WMR 20160909] merge defaultValue and meaningWhenMissing, to handle core definitions; validator can detect invalid constraints
                 snap.DefaultValue = mergeComplexAttribute(snap.DefaultValue, diff.DefaultValue);
                 snap.MeaningWhenMissingElement = mergePrimitiveAttribute(snap.MeaningWhenMissingElement, diff.MeaningWhenMissingElement);
-
                 snap.MaxLengthElement = mergePrimitiveAttribute(snap.MaxLengthElement, diff.MaxLengthElement);
+
+                // [EK 20170301] Added this new STU3 element
+                snap.OrderMeaningElement = mergePrimitiveAttribute(snap.OrderMeaningElement, diff.OrderMeaningElement);
 
                 // TODO: [GG] what to do about conditions?  [EK] We have key, so merge Constraint and condition based on that?
                 // Constraints are cumulative, so they are always "new" (hence a constant false for the comparer)
@@ -170,6 +165,9 @@ namespace Hl7.Fhir.Specification.Snapshot
                 // TODO: What happens to extensions present on an ElementDefinition that is overriding another?
                 // [WMR 20160907] Merge extensions... match on url, diff completely overrides snapshot
                 snap.Extension = mergeCollection(snap.Extension, diff.Extension, (s, d) => s.Url == d.Url);
+
+                // [EK 20170301] Added this after comparison with Java generated snapshot
+                snap.RepresentationElement = mergeCollection(snap.RepresentationElement, diff.RepresentationElement, (s, d) => s.IsExactly(d));
             }
 
             /// <summary>Notify clients about a snapshot element with differential constraints.</summary>
@@ -227,18 +225,34 @@ namespace Hl7.Fhir.Specification.Snapshot
 
             T mergeComplexAttribute<T>(T snap, T diff) where T : Element
             {
-                //TODO: The next != null should be IsNullOrEmpty(), but we don't have that yet for complex types
-                // [WMR 20160718] Handle snap == null
-                // if (diff != null && !diff.IsExactly(snap))
-                // if (diff != null && (snap == null || !diff.IsExactly(snap)))
-                if (!diff.IsNullOrEmpty() && (snap.IsNullOrEmpty() || !diff.IsExactly(snap)))
+                var result = snap;
+                if (!diff.IsNullOrEmpty())
                 {
-                    var result = (T)diff.DeepCopy();
-                    onConstraint(result);
-                    return result;
+                    if (snap.IsNullOrEmpty())
+                    {
+                        result = (T)diff.DeepCopy();
+                        onConstraint(result);
+                    }
+                    else if (!diff.IsExactly(snap))
+                    {
+                        if (snap.GetType().GetTypeInfo().IsAssignableFrom(diff.GetType().GetTypeInfo()))
+                        {
+                            // [WMR 20170227] Diff type is equal to or derived from snap type
+                            // Clone base and recursively copy all non-null diff props over base props
+                            // So effectively the result inherits all missing properties from base
+                            result = (T)snap.DeepCopy();
+                            diff.CopyTo(result);
+                        }
+                        else
+                        {
+                            // [WMR 20170227] Diff type is incompatible with snap type (?)
+                            // diff fully replaces snap
+                            result = (T)diff.DeepCopy();
+                        }
+                        onConstraint(result);
+                    }
                 }
-                else
-                    return snap;
+                return result;
             }
 
             List<T> mergeCollection<T>(List<T> snap, List<T> diff, Func<T, T, bool> elemComparer) where T : Element
@@ -262,6 +276,35 @@ namespace Hl7.Fhir.Specification.Snapshot
                 }
                 else
                     return snap;
+            }
+
+            string mergeId(ElementDefinition snap, ElementDefinition diff, bool mergeElementId)
+            {
+                // Note: Element.ElementId is a simple string property (not Element)
+                // Cannot call onConstraint to annotate
+
+                if (mergeElementId)
+                {
+                    // Merge custom elementId from differential, if specified
+                    if (diff.ElementId != null)
+                    {
+                        return diff.ElementId;
+                    }
+                    // Newly introduced named slices NEVER inherit element id
+                    // Must always regenerate new unique identifier for named slices
+                    else if (diff.SliceName != snap.SliceName)
+                    {
+                        // Regenerate; don't inherit from snap
+                        return null;
+                    }
+                    // Otherwise inherit existing element id from snap
+                    return snap.ElementId;
+                }
+                else
+                {
+                    // Don't merge elementId, e.g. for type profiles
+                    return null;
+                }
             }
 
         }

@@ -4,7 +4,7 @@ using Hl7.Fhir.Introspection;
 using Hl7.Fhir.Validation;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.ComponentModel;
+using Hl7.Fhir.Utility;
 
 /*
   Copyright (c) 2011+, HL7, Inc.
@@ -37,7 +37,7 @@ using System.ComponentModel;
 */
 
 //
-// Generated for FHIR v1.9.0
+// Generated for FHIR v3.0.1
 //
 namespace Hl7.Fhir.Model
 {
@@ -103,7 +103,7 @@ namespace Hl7.Fhir.Model
         }
 
         /// <summary>
-        /// Real world event that the relating to the schedule.
+        /// Real world event relating to the schedule.
         /// (url: http://hl7.org/fhir/ValueSet/event-timing)
         /// </summary>
         [FhirEnumeration("EventTiming")]
@@ -786,9 +786,7 @@ namespace Hl7.Fhir.Model
             {
                 get
                 {
-                    // Element elements
-                    foreach (var elem in Extension) { if (elem != null) yield return elem; }
-                    // RepeatComponent elements
+                    foreach (var item in base.Children) yield return item;
                     if (Bounds != null) yield return Bounds;
                     if (CountElement != null) yield return CountElement;
                     if (CountMaxElement != null) yield return CountMaxElement;
@@ -922,7 +920,7 @@ namespace Hl7.Fhir.Model
         {
             get
             {
-                // Timing elements
+                foreach (var item in base.Children) yield return item;
                 foreach (var elem in EventElement) { if (elem != null) yield return elem; }
                 if (Repeat != null) yield return Repeat;
                 if (Code != null) yield return Code;

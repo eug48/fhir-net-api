@@ -4,7 +4,7 @@ using Hl7.Fhir.Introspection;
 using Hl7.Fhir.Validation;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.ComponentModel;
+using Hl7.Fhir.Utility;
 
 /*
   Copyright (c) 2011+, HL7, Inc.
@@ -37,7 +37,7 @@ using System.ComponentModel;
 */
 
 //
-// Generated for FHIR v1.9.0
+// Generated for FHIR v3.0.1
 //
 namespace Hl7.Fhir.Model
 {
@@ -64,31 +64,31 @@ namespace Hl7.Fhir.Model
             /// MISSING DESCRIPTION
             /// (system: http://hl7.org/fhir/chargeitem-status)
             /// </summary>
-            [EnumLiteral("planned"), Description("planned")]
+            [EnumLiteral("planned"), Description("Planned")]
             Planned,
             /// <summary>
             /// MISSING DESCRIPTION
             /// (system: http://hl7.org/fhir/chargeitem-status)
             /// </summary>
-            [EnumLiteral("billable"), Description("billable")]
+            [EnumLiteral("billable"), Description("Billable")]
             Billable,
             /// <summary>
             /// MISSING DESCRIPTION
             /// (system: http://hl7.org/fhir/chargeitem-status)
             /// </summary>
-            [EnumLiteral("not-billable"), Description("not billable")]
+            [EnumLiteral("not-billable"), Description("Not billable")]
             NotBillable,
             /// <summary>
             /// MISSING DESCRIPTION
             /// (system: http://hl7.org/fhir/chargeitem-status)
             /// </summary>
-            [EnumLiteral("aborted"), Description("aborted")]
+            [EnumLiteral("aborted"), Description("Aborted")]
             Aborted,
             /// <summary>
             /// MISSING DESCRIPTION
             /// (system: http://hl7.org/fhir/chargeitem-status)
             /// </summary>
-            [EnumLiteral("billed"), Description("billed")]
+            [EnumLiteral("billed"), Description("Billed")]
             Billed,
             /// <summary>
             /// MISSING DESCRIPTION
@@ -190,9 +190,7 @@ namespace Hl7.Fhir.Model
             {
                 get
                 {
-                    // BackboneElement elements
-                    foreach (var elem in ModifierExtension) { if (elem != null) yield return elem; }
-                    // ParticipantComponent elements
+                    foreach (var item in base.Children) yield return item;
                     if (Role != null) yield return Role;
                     if (Actor != null) yield return Actor;
                 }
@@ -202,7 +200,7 @@ namespace Hl7.Fhir.Model
         
         
         /// <summary>
-        /// Business Identifer for item
+        /// Business Identifier for item
         /// </summary>
         [FhirElement("identifier", InSummary=true, Order=90)]
         [DataMember]
@@ -746,7 +744,7 @@ namespace Hl7.Fhir.Model
         {
             get
             {
-				// ChargeItem elements
+                foreach (var item in base.Children) yield return item;
 				if (Identifier != null) yield return Identifier;
 				foreach (var elem in DefinitionElement) { if (elem != null) yield return elem; }
 				if (StatusElement != null) yield return StatusElement;

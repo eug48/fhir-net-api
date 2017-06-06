@@ -4,7 +4,7 @@ using Hl7.Fhir.Introspection;
 using Hl7.Fhir.Validation;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.ComponentModel;
+using Hl7.Fhir.Utility;
 
 /*
   Copyright (c) 2011+, HL7, Inc.
@@ -37,12 +37,12 @@ using System.ComponentModel;
 */
 
 //
-// Generated for FHIR v1.9.0
+// Generated for FHIR v3.0.1
 //
 namespace Hl7.Fhir.Model
 {
     /// <summary>
-    /// A statement of system Capabilities
+    /// A statement of system capabilities
     /// </summary>
     [FhirType("CapabilityStatement", IsResource=true)]
     [DataContract]
@@ -285,7 +285,7 @@ namespace Hl7.Fhir.Model
         }
 
         /// <summary>
-        /// A set of flags that defines how references are supported
+        /// A set of flags that defines how references are supported.
         /// (url: http://hl7.org/fhir/ValueSet/reference-handling-policy)
         /// </summary>
         [FhirEnumeration("ReferenceHandlingPolicy")]
@@ -555,9 +555,7 @@ namespace Hl7.Fhir.Model
             {
                 get
                 {
-                    // BackboneElement elements
-                    foreach (var elem in ModifierExtension) { if (elem != null) yield return elem; }
-                    // SoftwareComponent elements
+                    foreach (var item in base.Children) yield return item;
                     if (NameElement != null) yield return NameElement;
                     if (VersionElement != null) yield return VersionElement;
                     if (ReleaseDateElement != null) yield return ReleaseDateElement;
@@ -689,9 +687,7 @@ namespace Hl7.Fhir.Model
             {
                 get
                 {
-                    // BackboneElement elements
-                    foreach (var elem in ModifierExtension) { if (elem != null) yield return elem; }
-                    // ImplementationComponent elements
+                    foreach (var item in base.Children) yield return item;
                     if (DescriptionElement != null) yield return DescriptionElement;
                     if (UrlElement != null) yield return UrlElement;
                 }
@@ -814,7 +810,7 @@ namespace Hl7.Fhir.Model
             private List<Hl7.Fhir.Model.CapabilityStatement.SystemInteractionComponent> _Interaction;
             
             /// <summary>
-            /// Search params for searching all resources
+            /// Search parameters for searching all resources
             /// </summary>
             [FhirElement("searchParam", Order=90)]
             [Cardinality(Min=0,Max=-1)]
@@ -942,9 +938,7 @@ namespace Hl7.Fhir.Model
             {
                 get
                 {
-                    // BackboneElement elements
-                    foreach (var elem in ModifierExtension) { if (elem != null) yield return elem; }
-                    // RestComponent elements
+                    foreach (var item in base.Children) yield return item;
                     if (ModeElement != null) yield return ModeElement;
                     if (DocumentationElement != null) yield return DocumentationElement;
                     if (Security != null) yield return Security;
@@ -1114,9 +1108,7 @@ namespace Hl7.Fhir.Model
             {
                 get
                 {
-                    // BackboneElement elements
-                    foreach (var elem in ModifierExtension) { if (elem != null) yield return elem; }
-                    // SecurityComponent elements
+                    foreach (var item in base.Children) yield return item;
                     if (CorsElement != null) yield return CorsElement;
                     foreach (var elem in Service) { if (elem != null) yield return elem; }
                     if (DescriptionElement != null) yield return DescriptionElement;
@@ -1135,7 +1127,7 @@ namespace Hl7.Fhir.Model
             public override string TypeName { get { return "CertificateComponent"; } }
             
             /// <summary>
-            /// Mime type for certificate
+            /// Mime type for certificates
             /// </summary>
             [FhirElement("type", Order=40)]
             [DataMember]
@@ -1148,7 +1140,7 @@ namespace Hl7.Fhir.Model
             private Hl7.Fhir.Model.Code _TypeElement;
             
             /// <summary>
-            /// Mime type for certificate
+            /// Mime type for certificates
             /// </summary>
             /// <remarks>This uses the native .NET datatype, rather than the FHIR equivalent</remarks>
             [NotMapped]
@@ -1248,9 +1240,7 @@ namespace Hl7.Fhir.Model
             {
                 get
                 {
-                    // BackboneElement elements
-                    foreach (var elem in ModifierExtension) { if (elem != null) yield return elem; }
-                    // CertificateComponent elements
+                    foreach (var item in base.Children) yield return item;
                     if (TypeElement != null) yield return TypeElement;
                     if (BlobElement != null) yield return BlobElement;
                 }
@@ -1665,7 +1655,7 @@ namespace Hl7.Fhir.Model
             }
             
             /// <summary>
-            /// Search params supported by implementation
+            /// Search parameters supported by implementation
             /// </summary>
             [FhirElement("searchParam", Order=180)]
             [Cardinality(Min=0,Max=-1)]
@@ -1767,9 +1757,7 @@ namespace Hl7.Fhir.Model
             {
                 get
                 {
-                    // BackboneElement elements
-                    foreach (var elem in ModifierExtension) { if (elem != null) yield return elem; }
-                    // ResourceComponent elements
+                    foreach (var item in base.Children) yield return item;
                     if (TypeElement != null) yield return TypeElement;
                     if (Profile != null) yield return Profile;
                     if (Documentation != null) yield return Documentation;
@@ -1913,9 +1901,7 @@ namespace Hl7.Fhir.Model
             {
                 get
                 {
-                    // BackboneElement elements
-                    foreach (var elem in ModifierExtension) { if (elem != null) yield return elem; }
-                    // ResourceInteractionComponent elements
+                    foreach (var item in base.Children) yield return item;
                     if (CodeElement != null) yield return CodeElement;
                     if (DocumentationElement != null) yield return DocumentationElement;
                 }
@@ -2117,9 +2103,7 @@ namespace Hl7.Fhir.Model
             {
                 get
                 {
-                    // BackboneElement elements
-                    foreach (var elem in ModifierExtension) { if (elem != null) yield return elem; }
-                    // SearchParamComponent elements
+                    foreach (var item in base.Children) yield return item;
                     if (NameElement != null) yield return NameElement;
                     if (DefinitionElement != null) yield return DefinitionElement;
                     if (TypeElement != null) yield return TypeElement;
@@ -2252,9 +2236,7 @@ namespace Hl7.Fhir.Model
             {
                 get
                 {
-                    // BackboneElement elements
-                    foreach (var elem in ModifierExtension) { if (elem != null) yield return elem; }
-                    // SystemInteractionComponent elements
+                    foreach (var item in base.Children) yield return item;
                     if (CodeElement != null) yield return CodeElement;
                     if (DocumentationElement != null) yield return DocumentationElement;
                 }
@@ -2369,9 +2351,7 @@ namespace Hl7.Fhir.Model
             {
                 get
                 {
-                    // BackboneElement elements
-                    foreach (var elem in ModifierExtension) { if (elem != null) yield return elem; }
-                    // OperationComponent elements
+                    foreach (var item in base.Children) yield return item;
                     if (NameElement != null) yield return NameElement;
                     if (Definition != null) yield return Definition;
                 }
@@ -2466,10 +2446,24 @@ namespace Hl7.Fhir.Model
             }
             
             /// <summary>
+            /// Messages supported by this system
+            /// </summary>
+            [FhirElement("supportedMessage", InSummary=true, Order=70)]
+            [Cardinality(Min=0,Max=-1)]
+            [DataMember]
+            public List<Hl7.Fhir.Model.CapabilityStatement.SupportedMessageComponent> SupportedMessage
+            {
+                get { if(_SupportedMessage==null) _SupportedMessage = new List<Hl7.Fhir.Model.CapabilityStatement.SupportedMessageComponent>(); return _SupportedMessage; }
+                set { _SupportedMessage = value; OnPropertyChanged("SupportedMessage"); }
+            }
+            
+            private List<Hl7.Fhir.Model.CapabilityStatement.SupportedMessageComponent> _SupportedMessage;
+            
+            /// <summary>
             /// Declare support for this event
             /// </summary>
-            [FhirElement("event", InSummary=true, Order=70)]
-            [Cardinality(Min=1,Max=-1)]
+            [FhirElement("event", InSummary=true, Order=80)]
+            [Cardinality(Min=0,Max=-1)]
             [DataMember]
             public List<Hl7.Fhir.Model.CapabilityStatement.EventComponent> Event
             {
@@ -2489,6 +2483,7 @@ namespace Hl7.Fhir.Model
                     if(Endpoint != null) dest.Endpoint = new List<Hl7.Fhir.Model.CapabilityStatement.EndpointComponent>(Endpoint.DeepCopy());
                     if(ReliableCacheElement != null) dest.ReliableCacheElement = (Hl7.Fhir.Model.UnsignedInt)ReliableCacheElement.DeepCopy();
                     if(DocumentationElement != null) dest.DocumentationElement = (Hl7.Fhir.Model.FhirString)DocumentationElement.DeepCopy();
+                    if(SupportedMessage != null) dest.SupportedMessage = new List<Hl7.Fhir.Model.CapabilityStatement.SupportedMessageComponent>(SupportedMessage.DeepCopy());
                     if(Event != null) dest.Event = new List<Hl7.Fhir.Model.CapabilityStatement.EventComponent>(Event.DeepCopy());
                     return dest;
                 }
@@ -2510,6 +2505,7 @@ namespace Hl7.Fhir.Model
                 if( !DeepComparable.Matches(Endpoint, otherT.Endpoint)) return false;
                 if( !DeepComparable.Matches(ReliableCacheElement, otherT.ReliableCacheElement)) return false;
                 if( !DeepComparable.Matches(DocumentationElement, otherT.DocumentationElement)) return false;
+                if( !DeepComparable.Matches(SupportedMessage, otherT.SupportedMessage)) return false;
                 if( !DeepComparable.Matches(Event, otherT.Event)) return false;
                 
                 return true;
@@ -2524,6 +2520,7 @@ namespace Hl7.Fhir.Model
                 if( !DeepComparable.IsExactly(Endpoint, otherT.Endpoint)) return false;
                 if( !DeepComparable.IsExactly(ReliableCacheElement, otherT.ReliableCacheElement)) return false;
                 if( !DeepComparable.IsExactly(DocumentationElement, otherT.DocumentationElement)) return false;
+                if( !DeepComparable.IsExactly(SupportedMessage, otherT.SupportedMessage)) return false;
                 if( !DeepComparable.IsExactly(Event, otherT.Event)) return false;
                 
                 return true;
@@ -2535,12 +2532,11 @@ namespace Hl7.Fhir.Model
             {
                 get
                 {
-                    // BackboneElement elements
-                    foreach (var elem in ModifierExtension) { if (elem != null) yield return elem; }
-                    // MessagingComponent elements
+                    foreach (var item in base.Children) yield return item;
                     foreach (var elem in Endpoint) { if (elem != null) yield return elem; }
                     if (ReliableCacheElement != null) yield return ReliableCacheElement;
                     if (DocumentationElement != null) yield return DocumentationElement;
+                    foreach (var elem in SupportedMessage) { if (elem != null) yield return elem; }
                     foreach (var elem in Event) { if (elem != null) yield return elem; }
                 }
             }
@@ -2652,11 +2648,124 @@ namespace Hl7.Fhir.Model
             {
                 get
                 {
-                    // BackboneElement elements
-                    foreach (var elem in ModifierExtension) { if (elem != null) yield return elem; }
-                    // EndpointComponent elements
+                    foreach (var item in base.Children) yield return item;
                     if (Protocol != null) yield return Protocol;
                     if (AddressElement != null) yield return AddressElement;
+                }
+            }
+            
+        }
+        
+        
+        [FhirType("SupportedMessageComponent")]
+        [DataContract]
+        public partial class SupportedMessageComponent : Hl7.Fhir.Model.BackboneElement, System.ComponentModel.INotifyPropertyChanged
+        {
+            [NotMapped]
+            public override string TypeName { get { return "SupportedMessageComponent"; } }
+            
+            /// <summary>
+            /// sender | receiver
+            /// </summary>
+            [FhirElement("mode", InSummary=true, Order=40)]
+            [Cardinality(Min=1,Max=1)]
+            [DataMember]
+            public Code<Hl7.Fhir.Model.CapabilityStatement.EventCapabilityMode> ModeElement
+            {
+                get { return _ModeElement; }
+                set { _ModeElement = value; OnPropertyChanged("ModeElement"); }
+            }
+            
+            private Code<Hl7.Fhir.Model.CapabilityStatement.EventCapabilityMode> _ModeElement;
+            
+            /// <summary>
+            /// sender | receiver
+            /// </summary>
+            /// <remarks>This uses the native .NET datatype, rather than the FHIR equivalent</remarks>
+            [NotMapped]
+            [IgnoreDataMemberAttribute]
+            public Hl7.Fhir.Model.CapabilityStatement.EventCapabilityMode? Mode
+            {
+                get { return ModeElement != null ? ModeElement.Value : null; }
+                set
+                {
+                    if (!value.HasValue)
+                        ModeElement = null; 
+                    else
+                        ModeElement = new Code<Hl7.Fhir.Model.CapabilityStatement.EventCapabilityMode>(value);
+                    OnPropertyChanged("Mode");
+                }
+            }
+            
+            /// <summary>
+            /// Message supported by this system
+            /// </summary>
+            [FhirElement("definition", InSummary=true, Order=50)]
+            [CLSCompliant(false)]
+			[References("MessageDefinition")]
+            [Cardinality(Min=1,Max=1)]
+            [DataMember]
+            public Hl7.Fhir.Model.ResourceReference Definition
+            {
+                get { return _Definition; }
+                set { _Definition = value; OnPropertyChanged("Definition"); }
+            }
+            
+            private Hl7.Fhir.Model.ResourceReference _Definition;
+            
+            public override IDeepCopyable CopyTo(IDeepCopyable other)
+            {
+                var dest = other as SupportedMessageComponent;
+                
+                if (dest != null)
+                {
+                    base.CopyTo(dest);
+                    if(ModeElement != null) dest.ModeElement = (Code<Hl7.Fhir.Model.CapabilityStatement.EventCapabilityMode>)ModeElement.DeepCopy();
+                    if(Definition != null) dest.Definition = (Hl7.Fhir.Model.ResourceReference)Definition.DeepCopy();
+                    return dest;
+                }
+                else
+                	throw new ArgumentException("Can only copy to an object of the same type", "other");
+            }
+            
+            public override IDeepCopyable DeepCopy()
+            {
+                return CopyTo(new SupportedMessageComponent());
+            }
+            
+            public override bool Matches(IDeepComparable other)
+            {
+                var otherT = other as SupportedMessageComponent;
+                if(otherT == null) return false;
+                
+                if(!base.Matches(otherT)) return false;
+                if( !DeepComparable.Matches(ModeElement, otherT.ModeElement)) return false;
+                if( !DeepComparable.Matches(Definition, otherT.Definition)) return false;
+                
+                return true;
+            }
+            
+            public override bool IsExactly(IDeepComparable other)
+            {
+                var otherT = other as SupportedMessageComponent;
+                if(otherT == null) return false;
+                
+                if(!base.IsExactly(otherT)) return false;
+                if( !DeepComparable.IsExactly(ModeElement, otherT.ModeElement)) return false;
+                if( !DeepComparable.IsExactly(Definition, otherT.Definition)) return false;
+                
+                return true;
+            }
+
+
+            [NotMapped]
+            public override IEnumerable<Base> Children
+            {
+                get
+                {
+                    foreach (var item in base.Children) yield return item;
+                    if (ModeElement != null) yield return ModeElement;
+                    if (Definition != null) yield return Definition;
                 }
             }
             
@@ -2911,9 +3020,7 @@ namespace Hl7.Fhir.Model
             {
                 get
                 {
-                    // BackboneElement elements
-                    foreach (var elem in ModifierExtension) { if (elem != null) yield return elem; }
-                    // EventComponent elements
+                    foreach (var item in base.Children) yield return item;
                     if (Code != null) yield return Code;
                     if (CategoryElement != null) yield return CategoryElement;
                     if (ModeElement != null) yield return ModeElement;
@@ -3068,9 +3175,7 @@ namespace Hl7.Fhir.Model
             {
                 get
                 {
-                    // BackboneElement elements
-                    foreach (var elem in ModifierExtension) { if (elem != null) yield return elem; }
-                    // DocumentComponent elements
+                    foreach (var item in base.Children) yield return item;
                     if (ModeElement != null) yield return ModeElement;
                     if (DocumentationElement != null) yield return DocumentationElement;
                     if (Profile != null) yield return Profile;
@@ -3081,7 +3186,7 @@ namespace Hl7.Fhir.Model
         
         
         /// <summary>
-        /// Logical uri to reference this capability statement (globally unique)
+        /// Logical URI to reference this capability statement (globally unique)
         /// </summary>
         [FhirElement("url", InSummary=true, Order=90)]
         [DataMember]
@@ -3094,7 +3199,7 @@ namespace Hl7.Fhir.Model
         private Hl7.Fhir.Model.FhirUri _UrlElement;
         
         /// <summary>
-        /// Logical uri to reference this capability statement (globally unique)
+        /// Logical URI to reference this capability statement (globally unique)
         /// </summary>
         /// <remarks>This uses the native .NET datatype, rather than the FHIR equivalent</remarks>
         [NotMapped]
@@ -3145,7 +3250,7 @@ namespace Hl7.Fhir.Model
         }
         
         /// <summary>
-        /// Name for this capability statement (Computer friendly)
+        /// Name for this capability statement (computer friendly)
         /// </summary>
         [FhirElement("name", InSummary=true, Order=110)]
         [DataMember]
@@ -3158,7 +3263,7 @@ namespace Hl7.Fhir.Model
         private Hl7.Fhir.Model.FhirString _NameElement;
         
         /// <summary>
-        /// Name for this capability statement (Computer friendly)
+        /// Name for this capability statement (computer friendly)
         /// </summary>
         /// <remarks>This uses the native .NET datatype, rather than the FHIR equivalent</remarks>
         [NotMapped]
@@ -3177,7 +3282,7 @@ namespace Hl7.Fhir.Model
         }
         
         /// <summary>
-        /// Name for this capability statement (Human friendly)
+        /// Name for this capability statement (human friendly)
         /// </summary>
         [FhirElement("title", InSummary=true, Order=120)]
         [DataMember]
@@ -3190,7 +3295,7 @@ namespace Hl7.Fhir.Model
         private Hl7.Fhir.Model.FhirString _TitleElement;
         
         /// <summary>
-        /// Name for this capability statement (Human friendly)
+        /// Name for this capability statement (human friendly)
         /// </summary>
         /// <remarks>This uses the native .NET datatype, rather than the FHIR equivalent</remarks>
         [NotMapped]
@@ -3209,7 +3314,7 @@ namespace Hl7.Fhir.Model
         }
         
         /// <summary>
-        /// draft | active | retired
+        /// draft | active | retired | unknown
         /// </summary>
         [FhirElement("status", InSummary=true, Order=130)]
         [Cardinality(Min=1,Max=1)]
@@ -3223,7 +3328,7 @@ namespace Hl7.Fhir.Model
         private Code<Hl7.Fhir.Model.PublicationStatus> _StatusElement;
         
         /// <summary>
-        /// draft | active | retired
+        /// draft | active | retired | unknown
         /// </summary>
         /// <remarks>This uses the native .NET datatype, rather than the FHIR equivalent</remarks>
         [NotMapped]
@@ -3242,7 +3347,7 @@ namespace Hl7.Fhir.Model
         }
         
         /// <summary>
-        /// If for testing purposes, not real usage
+        /// For testing purposes, not real usage
         /// </summary>
         [FhirElement("experimental", InSummary=true, Order=140)]
         [DataMember]
@@ -3255,7 +3360,7 @@ namespace Hl7.Fhir.Model
         private Hl7.Fhir.Model.FhirBoolean _ExperimentalElement;
         
         /// <summary>
-        /// If for testing purposes, not real usage
+        /// For testing purposes, not real usage
         /// </summary>
         /// <remarks>This uses the native .NET datatype, rather than the FHIR equivalent</remarks>
         [NotMapped]
@@ -3307,7 +3412,7 @@ namespace Hl7.Fhir.Model
         }
         
         /// <summary>
-        /// Name of the publisher (Organization or individual)
+        /// Name of the publisher (organization or individual)
         /// </summary>
         [FhirElement("publisher", InSummary=true, Order=160)]
         [DataMember]
@@ -3320,7 +3425,7 @@ namespace Hl7.Fhir.Model
         private Hl7.Fhir.Model.FhirString _PublisherElement;
         
         /// <summary>
-        /// Name of the publisher (Organization or individual)
+        /// Name of the publisher (organization or individual)
         /// </summary>
         /// <remarks>This uses the native .NET datatype, rather than the FHIR equivalent</remarks>
         [NotMapped]
@@ -3366,7 +3471,7 @@ namespace Hl7.Fhir.Model
         private Hl7.Fhir.Model.Markdown _Description;
         
         /// <summary>
-        /// Content intends to support these contexts
+        /// Context the content is intended to support
         /// </summary>
         [FhirElement("useContext", InSummary=true, Order=190)]
         [Cardinality(Min=0,Max=-1)]
@@ -3644,7 +3749,7 @@ namespace Hl7.Fhir.Model
         }
         
         /// <summary>
-        /// Implementation Guide supported
+        /// Implementation guides supported
         /// </summary>
         [FhirElement("implementationGuide", InSummary=true, Order=310)]
         [Cardinality(Min=0,Max=-1)]
@@ -3658,7 +3763,7 @@ namespace Hl7.Fhir.Model
         private List<Hl7.Fhir.Model.FhirUri> _ImplementationGuideElement;
         
         /// <summary>
-        /// Implementation Guide supported
+        /// Implementation guides supported
         /// </summary>
         /// <remarks>This uses the native .NET datatype, rather than the FHIR equivalent</remarks>
         [NotMapped]
@@ -3740,7 +3845,7 @@ namespace Hl7.Fhir.Model
             Expression = "rest.select(mode).isDistinct()",
             Key = "cpb-8",
             Severity = ElementDefinition.ConstraintSeverity.Warning,
-            Human = "There can only be one REST declaration per mode",
+            Human = "There can only be one REST declaration per mode.",
             Xpath = "count(f:rest)=count(distinct-values(f:rest/f:mode/@value))"
         };
 
@@ -3749,7 +3854,7 @@ namespace Hl7.Fhir.Model
             Expression = "document.select(profile.reference&mode).isDistinct()",
             Key = "cpb-7",
             Severity = ElementDefinition.ConstraintSeverity.Warning,
-            Human = "The set of documents must be unique by the combination of profile & mode",
+            Human = "The set of documents must be unique by the combination of profile and mode.",
             Xpath = "count(f:document[f:mode/@value='producer'])=count(distinct-values(f:document[f:mode/@value='producer']/f:profile/f:reference/@value)) and count(f:document[f:mode/@value='consumer'])=count(distinct-values(f:document[f:mode/@value='consumer']/f:profile/f:reference/@value))"
         };
 
@@ -3758,7 +3863,7 @@ namespace Hl7.Fhir.Model
             Expression = "implementation.empty() or kind != 'capability'",
             Key = "cpb-15",
             Severity = ElementDefinition.ConstraintSeverity.Warning,
-            Human = "Capability Statements of kind 'instance' do not have implementation elements",
+            Human = "Capability Statements of kind 'instance' do not have implementation elements.",
             Xpath = "not(exists(f:implementation)) or (f:kind/@value != 'capability')"
         };
 
@@ -3767,7 +3872,7 @@ namespace Hl7.Fhir.Model
             Expression = "messaging.endpoint.empty() or kind = 'instance'",
             Key = "cpb-3",
             Severity = ElementDefinition.ConstraintSeverity.Warning,
-            Human = "Messaging end-point is required (and is only permitted) when statement is for an implementation",
+            Human = "Messaging end-point is required (and is only permitted) when a statement is for an implementation.",
             Xpath = "not(exists(f:messaging/f:endpoint)) or f:kind/@value = 'instance'"
         };
 
@@ -3776,7 +3881,7 @@ namespace Hl7.Fhir.Model
             Expression = "(software.empty() and implementation.empty()) or kind != 'requirements'",
             Key = "cpb-14",
             Severity = ElementDefinition.ConstraintSeverity.Warning,
-            Human = "Capability Statements of kind 'requirements' do not have software or implementation elements",
+            Human = "Capability Statements of kind 'requirements' do not have software or implementation elements.",
             Xpath = "not(exists(f:software) or exists(f:implementation)) or (f:kind/@value != 'requirements')"
         };
 
@@ -3785,7 +3890,7 @@ namespace Hl7.Fhir.Model
             Expression = "(description.count() + software.count() + implementation.count()) > 0",
             Key = "cpb-2",
             Severity = ElementDefinition.ConstraintSeverity.Warning,
-            Human = "A Capability Statement SHALL have at least one of description, software, or implementation",
+            Human = "A Capability Statement SHALL have at least one of description, software, or implementation element.",
             Xpath = "count(f:software | f:implementation | f:description) > 0"
         };
 
@@ -3794,7 +3899,7 @@ namespace Hl7.Fhir.Model
             Expression = "rest.exists() or messaging.exists() or document.exists()",
             Key = "cpb-1",
             Severity = ElementDefinition.ConstraintSeverity.Warning,
-            Human = "A Capability Statement SHALL have at least one of REST, messaging or document",
+            Human = "A Capability Statement SHALL have at least one of REST, messaging or document element.",
             Xpath = "exists(f:rest) or exists(f:messaging) or exists(f:document)"
         };
 
@@ -3803,7 +3908,7 @@ namespace Hl7.Fhir.Model
             Expression = "rest.all(resource.select(type).isDistinct())",
             Key = "cpb-9",
             Severity = ElementDefinition.ConstraintSeverity.Warning,
-            Human = "A given resource can only be described once per RESTful mode",
+            Human = "A given resource can only be described once per RESTful mode.",
             Xpath = "count(f:resource)=count(distinct-values(f:resource/f:type/@value))"
         };
 
@@ -3812,8 +3917,17 @@ namespace Hl7.Fhir.Model
             Expression = "rest.resource.all(searchParam.select(name).isDistinct())",
             Key = "cpb-12",
             Severity = ElementDefinition.ConstraintSeverity.Warning,
-            Human = "Search parameter names must be unique in the context of a resource",
+            Human = "Search parameter names must be unique in the context of a resource.",
             Xpath = "count(f:searchParam)=count(distinct-values(f:searchParam/f:name/@value))"
+        };
+
+        public static ElementDefinition.ConstraintComponent CapabilityStatement_CPB_16 = new ElementDefinition.ConstraintComponent()
+        {
+            Expression = "messaging.all(supportedMessage.empty() != event.empty())",
+            Key = "cpb-16",
+            Severity = ElementDefinition.ConstraintSeverity.Warning,
+            Human = "A Capability Statement messaging element SHALL have either supportedMessage or event element, but not both.",
+            Xpath = "exists(f:supportedMessage) != exists(f:event)"
         };
 
         public override void AddDefaultConstraints()
@@ -3829,6 +3943,7 @@ namespace Hl7.Fhir.Model
             InvariantConstraints.Add(CapabilityStatement_CPB_1);
             InvariantConstraints.Add(CapabilityStatement_CPB_9);
             InvariantConstraints.Add(CapabilityStatement_CPB_12);
+            InvariantConstraints.Add(CapabilityStatement_CPB_16);
         }
 
         public override IDeepCopyable CopyTo(IDeepCopyable other)
@@ -3955,7 +4070,7 @@ namespace Hl7.Fhir.Model
         {
             get
             {
-				// CapabilityStatement elements
+                foreach (var item in base.Children) yield return item;
 				if (UrlElement != null) yield return UrlElement;
 				if (VersionElement != null) yield return VersionElement;
 				if (NameElement != null) yield return NameElement;

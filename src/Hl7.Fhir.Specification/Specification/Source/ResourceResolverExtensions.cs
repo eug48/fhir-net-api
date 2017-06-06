@@ -10,6 +10,7 @@ using Hl7.Fhir.Introspection;
 using Hl7.Fhir.Model;
 using Hl7.Fhir.Rest;
 using Hl7.Fhir.Support;
+using Hl7.Fhir.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +25,7 @@ namespace Hl7.Fhir.Specification.Source
             if (sd == null) return null;
 
             if (!sd.IsExtension)
-                throw Error.Argument("uri", "Given uri exists as a StructureDefinition, but is not an extension");
+                throw Error.Argument(nameof(uri), "Given uri exists as a StructureDefinition, but is not an extension");
 
             if (sd.Snapshot == null && requireSnapshot)
                 return null;
@@ -67,7 +68,7 @@ namespace Hl7.Fhir.Specification.Source
 
 
         /// <summary>
-        /// Find a CodeSystem by canonical urlTries to locate a codesystem using a combined algorithm: first, the uri is used to find a valueset by system.
+        /// Find a CodeSystem by canonical url.
         /// </summary>
         /// <param name="source"></param>
         /// <param name="uri"></param>
@@ -118,6 +119,53 @@ namespace Hl7.Fhir.Specification.Source
                 }
             }
             return sd;
+        }
+
+        // [WMR 20170227] NEW
+        // TODO:
+        // - Analyze possible re-use by Validator
+        // - Maybe move this method to another (public) class?
+
+        /// <summary>
+        /// Determines if the specified <see cref="StructureDefinition"/> is compatible with <paramref name="type"/>.
+        /// Walks up the profile hierarchy by resolving base profiles from the current <see cref="IResourceResolver"/> instance.
+        /// </summary>
+        /// <returns><c>true</c> if the profile type is equal to or derived from the specified type, or <c>false</c> otherwise.</returns>
+        /// <param name="resolver">A resource resolver instance.</param>
+        /// <param name="type">A FHIR type.</param>
+        /// <param name="profile">A StructureDefinition instance.</param>
+        public static bool IsValidTypeProfile(this IResourceResolver resolver, string type, StructureDefinition profile)
+        {
+            if (resolver == null) { throw new ArgumentNullException(nameof(resolver)); }
+
+            return isValidTypeProfile(resolver, new HashSet<string>(), type, profile);
+        }
+
+        private static bool isValidTypeProfile(this IResourceResolver resolver, HashSet<string> recursionStack, string type, StructureDefinition profile)
+        {
+            // Recursively walk up the base profile hierarchy until we find a profile on baseType
+            if (type == null) { return true; }
+            if (profile == null) { return true; }
+
+            // DSTU2: sd.ConstrainedType is empty for core definitions => resolve from sd.Name
+            // STU3: sd.Type is always specified, including for core definitions
+            var sdType = profile.Type;
+
+            if (sdType == type) { return true; }
+            if (profile.BaseDefinition == null) { return false; }
+            var sdBase = resolver.FindStructureDefinition(profile.BaseDefinition);
+            if (sdBase == null) { return false; }
+            if (sdBase.Url == null) { return false; } // Shouldn't happen...
+
+            // Detect/prevent endless recursion... e.g. X.Base = Y and Y.Base = X
+            if (!recursionStack.Add(sdBase.Url))
+            {
+                throw Error.InvalidOperation(
+                    $"Recursive profile dependency detected. Base profile hierarchy:\r\n{string.Join("\r\n", recursionStack)}"
+                );
+            }
+
+            return isValidTypeProfile(resolver, recursionStack, type, sdBase);
         }
 
     }

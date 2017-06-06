@@ -4,7 +4,7 @@ using Hl7.Fhir.Introspection;
 using Hl7.Fhir.Validation;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.ComponentModel;
+using Hl7.Fhir.Utility;
 
 /*
   Copyright (c) 2011+, HL7, Inc.
@@ -37,12 +37,12 @@ using System.ComponentModel;
 */
 
 //
-// Generated for FHIR v1.9.0
+// Generated for FHIR v3.0.1
 //
 namespace Hl7.Fhir.Model
 {
     /// <summary>
-    /// Investigation increase healthcare-related patient-independent knowledge
+    /// Investigation to increase healthcare-related patient-independent knowledge
     /// </summary>
     [FhirType("ResearchStudy", IsResource=true)]
     [DataContract]
@@ -139,7 +139,7 @@ namespace Hl7.Fhir.Model
             }
             
             /// <summary>
-            /// Categorization of arm
+            /// Categorization of study arm
             /// </summary>
             [FhirElement("code", Order=50)]
             [DataMember]
@@ -236,9 +236,7 @@ namespace Hl7.Fhir.Model
             {
                 get
                 {
-                    // BackboneElement elements
-                    foreach (var elem in ModifierExtension) { if (elem != null) yield return elem; }
-                    // ArmComponent elements
+                    foreach (var item in base.Children) yield return item;
                     if (NameElement != null) yield return NameElement;
                     if (Code != null) yield return Code;
                     if (DescriptionElement != null) yield return DescriptionElement;
@@ -249,7 +247,7 @@ namespace Hl7.Fhir.Model
         
         
         /// <summary>
-        /// Business Identifer for study
+        /// Business Identifier for study
         /// </summary>
         [FhirElement("identifier", InSummary=true, Order=90)]
         [Cardinality(Min=0,Max=-1)]
@@ -501,7 +499,7 @@ namespace Hl7.Fhir.Model
         private Hl7.Fhir.Model.ResourceReference _Sponsor;
         
         /// <summary>
-        /// Individual responsible for the study
+        /// The individual responsible for the study
         /// </summary>
         [FhirElement("principalInvestigator", InSummary=true, Order=240)]
         [CLSCompliant(false)]
@@ -682,7 +680,7 @@ namespace Hl7.Fhir.Model
         {
             get
             {
-				// ResearchStudy elements
+                foreach (var item in base.Children) yield return item;
 				foreach (var elem in Identifier) { if (elem != null) yield return elem; }
 				if (TitleElement != null) yield return TitleElement;
 				foreach (var elem in Protocol) { if (elem != null) yield return elem; }

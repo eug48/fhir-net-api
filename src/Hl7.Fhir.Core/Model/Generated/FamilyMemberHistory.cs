@@ -4,7 +4,7 @@ using Hl7.Fhir.Introspection;
 using Hl7.Fhir.Validation;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.ComponentModel;
+using Hl7.Fhir.Utility;
 
 /*
   Copyright (c) 2011+, HL7, Inc.
@@ -37,7 +37,7 @@ using System.ComponentModel;
 */
 
 //
-// Generated for FHIR v1.9.0
+// Generated for FHIR v3.0.1
 //
 namespace Hl7.Fhir.Model
 {
@@ -205,9 +205,7 @@ namespace Hl7.Fhir.Model
             {
                 get
                 {
-                    // BackboneElement elements
-                    foreach (var elem in ModifierExtension) { if (elem != null) yield return elem; }
-                    // ConditionComponent elements
+                    foreach (var item in base.Children) yield return item;
                     if (Code != null) yield return Code;
                     if (Outcome != null) yield return Outcome;
                     if (Onset != null) yield return Onset;
@@ -282,7 +280,7 @@ namespace Hl7.Fhir.Model
         }
         
         /// <summary>
-        /// Family member history did not occur
+        /// The taking of a family member's history did not occur
         /// </summary>
         [FhirElement("notDone", InSummary=true, Order=120)]
         [DataMember]
@@ -295,7 +293,7 @@ namespace Hl7.Fhir.Model
         private Hl7.Fhir.Model.FhirBoolean _NotDoneElement;
         
         /// <summary>
-        /// Family member history did not occur
+        /// The taking of a family member's history did not occur
         /// </summary>
         /// <remarks>This uses the native .NET datatype, rather than the FHIR equivalent</remarks>
         [NotMapped]
@@ -603,7 +601,7 @@ namespace Hl7.Fhir.Model
             Key = "fhs-3",
             Severity = ElementDefinition.ConstraintSeverity.Warning,
             Human = "Not Done Reason can only be specified if NotDone is \"true\"",
-            Xpath = "f:notDone='true' or not(exists(f:notDoneReason))"
+            Xpath = "f:notDone/@value=true() or not(exists(f:notDoneReason))"
         };
 
         public static ElementDefinition.ConstraintComponent FamilyMemberHistory_FHS_1 = new ElementDefinition.ConstraintComponent()
@@ -721,7 +719,7 @@ namespace Hl7.Fhir.Model
         {
             get
             {
-				// FamilyMemberHistory elements
+                foreach (var item in base.Children) yield return item;
 				foreach (var elem in Identifier) { if (elem != null) yield return elem; }
 				foreach (var elem in Definition) { if (elem != null) yield return elem; }
 				if (StatusElement != null) yield return StatusElement;

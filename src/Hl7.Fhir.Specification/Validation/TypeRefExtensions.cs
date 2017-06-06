@@ -11,29 +11,18 @@ using Hl7.Fhir.Introspection;
 using Hl7.Fhir.Model;
 using Hl7.Fhir.Support;
 using System.Collections.Generic;
+using Hl7.Fhir.Utility;
 
 namespace Hl7.Fhir.Validation
 {
     internal static class TypeRefExtensions
     {
-        public static FHIRAllTypes BaseType(this StructureDefinition sd)
-        {
-            var result = EnumUtility.ParseLiteral<FHIRAllTypes>(sd.Type) ?? EnumUtility.ParseLiteral<FHIRAllTypes>(sd.Id);
-
-            if (result == null)
-                throw Error.NotSupported($"Encountered profile '{sd.Url}', for which the declaring core type cannot be determined");
-
-            return result.Value;
-        }
-
-        public static string ReadableName(this StructureDefinition sd) => sd.Type != null ? sd.Url : sd.Id;
+        public static string ReadableName(this StructureDefinition sd) => sd.Derivation == StructureDefinition.TypeDerivationRule.Constraint ? sd.Url : sd.Id;
 
         public static string GetDeclaredProfiles(this ElementDefinition.TypeRefComponent typeRef)
         {
-            if (typeRef.Profile.Any())
-            {
-                return typeRef.Profile;     // Take the first, this will disappear in STU3 anyway
-            }
+            if (!System.String.IsNullOrEmpty(typeRef.Profile))
+                return typeRef.Profile;
             else if (!string.IsNullOrEmpty(typeRef.Code))
                 return ModelInfo.CanonicalUriForFhirCoreType(typeRef.Code);
             else

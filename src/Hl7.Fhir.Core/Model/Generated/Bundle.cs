@@ -4,7 +4,7 @@ using Hl7.Fhir.Introspection;
 using Hl7.Fhir.Validation;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.ComponentModel;
+using Hl7.Fhir.Utility;
 
 /*
   Copyright (c) 2011+, HL7, Inc.
@@ -37,7 +37,7 @@ using System.ComponentModel;
 */
 
 //
-// Generated for FHIR v1.9.0
+// Generated for FHIR v3.0.1
 //
 namespace Hl7.Fhir.Model
 {
@@ -299,9 +299,7 @@ namespace Hl7.Fhir.Model
             {
                 get
                 {
-                    // BackboneElement elements
-                    foreach (var elem in ModifierExtension) { if (elem != null) yield return elem; }
-                    // LinkComponent elements
+                    foreach (var item in base.Children) yield return item;
                     if (RelationElement != null) yield return RelationElement;
                     if (UrlElement != null) yield return UrlElement;
                 }
@@ -479,9 +477,7 @@ namespace Hl7.Fhir.Model
             {
                 get
                 {
-                    // BackboneElement elements
-                    foreach (var elem in ModifierExtension) { if (elem != null) yield return elem; }
-                    // EntryComponent elements
+                    foreach (var item in base.Children) yield return item;
                     foreach (var elem in Link) { if (elem != null) yield return elem; }
                     if (FullUrlElement != null) yield return FullUrlElement;
                     if (Resource != null) yield return Resource;
@@ -615,9 +611,7 @@ namespace Hl7.Fhir.Model
             {
                 get
                 {
-                    // BackboneElement elements
-                    foreach (var elem in ModifierExtension) { if (elem != null) yield return elem; }
-                    // SearchComponent elements
+                    foreach (var item in base.Children) yield return item;
                     if (ModeElement != null) yield return ModeElement;
                     if (ScoreElement != null) yield return ScoreElement;
                 }
@@ -889,9 +883,7 @@ namespace Hl7.Fhir.Model
             {
                 get
                 {
-                    // BackboneElement elements
-                    foreach (var elem in ModifierExtension) { if (elem != null) yield return elem; }
-                    // RequestComponent elements
+                    foreach (var item in base.Children) yield return item;
                     if (MethodElement != null) yield return MethodElement;
                     if (UrlElement != null) yield return UrlElement;
                     if (IfNoneMatchElement != null) yield return IfNoneMatchElement;
@@ -1114,9 +1106,7 @@ namespace Hl7.Fhir.Model
             {
                 get
                 {
-                    // BackboneElement elements
-                    foreach (var elem in ModifierExtension) { if (elem != null) yield return elem; }
-                    // ResponseComponent elements
+                    foreach (var item in base.Children) yield return item;
                     if (StatusElement != null) yield return StatusElement;
                     if (LocationElement != null) yield return LocationElement;
                     if (EtagElement != null) yield return EtagElement;
@@ -1308,7 +1298,7 @@ namespace Hl7.Fhir.Model
             Key = "bdl-8",
             Severity = ElementDefinition.ConstraintSeverity.Warning,
             Human = "fullUrl cannot be a version specific reference",
-            Xpath = "not(exists(f:fullUrl[contains(@value, '/_history/')]))"
+            Xpath = "not(exists(f:fullUrl[contains(string(@value), '/_history/')]))"
         };
 
         public static ElementDefinition.ConstraintComponent Bundle_BDL_5 = new ElementDefinition.ConstraintComponent()
@@ -1395,7 +1385,7 @@ namespace Hl7.Fhir.Model
         {
             get
             {
-				// Bundle elements
+                foreach (var item in base.Children) yield return item;
 				if (Identifier != null) yield return Identifier;
 				if (TypeElement != null) yield return TypeElement;
 				if (TotalElement != null) yield return TotalElement;

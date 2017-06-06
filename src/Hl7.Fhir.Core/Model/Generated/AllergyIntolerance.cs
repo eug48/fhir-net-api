@@ -4,7 +4,7 @@ using Hl7.Fhir.Introspection;
 using Hl7.Fhir.Validation;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.ComponentModel;
+using Hl7.Fhir.Utility;
 
 /*
   Copyright (c) 2011+, HL7, Inc.
@@ -37,7 +37,7 @@ using System.ComponentModel;
 */
 
 //
-// Generated for FHIR v1.9.0
+// Generated for FHIR v3.0.1
 //
 namespace Hl7.Fhir.Model
 {
@@ -132,6 +132,39 @@ namespace Hl7.Fhir.Model
             /// </summary>
             [EnumLiteral("intolerance"), Description("Intolerance")]
             Intolerance,
+        }
+
+        /// <summary>
+        /// Category of an identified substance.
+        /// (url: http://hl7.org/fhir/ValueSet/allergy-intolerance-category)
+        /// </summary>
+        [FhirEnumeration("AllergyIntoleranceCategory")]
+        public enum AllergyIntoleranceCategory
+        {
+            /// <summary>
+            /// MISSING DESCRIPTION
+            /// (system: http://hl7.org/fhir/allergy-intolerance-category)
+            /// </summary>
+            [EnumLiteral("food"), Description("Food")]
+            Food,
+            /// <summary>
+            /// MISSING DESCRIPTION
+            /// (system: http://hl7.org/fhir/allergy-intolerance-category)
+            /// </summary>
+            [EnumLiteral("medication"), Description("Medication")]
+            Medication,
+            /// <summary>
+            /// MISSING DESCRIPTION
+            /// (system: http://hl7.org/fhir/allergy-intolerance-category)
+            /// </summary>
+            [EnumLiteral("environment"), Description("Environment")]
+            Environment,
+            /// <summary>
+            /// MISSING DESCRIPTION
+            /// (system: http://hl7.org/fhir/allergy-intolerance-category)
+            /// </summary>
+            [EnumLiteral("biologic"), Description("Biologic")]
+            Biologic,
         }
 
         /// <summary>
@@ -410,9 +443,7 @@ namespace Hl7.Fhir.Model
             {
                 get
                 {
-                    // BackboneElement elements
-                    foreach (var elem in ModifierExtension) { if (elem != null) yield return elem; }
-                    // ReactionComponent elements
+                    foreach (var item in base.Children) yield return item;
                     if (Substance != null) yield return Substance;
                     foreach (var elem in Manifestation) { if (elem != null) yield return elem; }
                     if (DescriptionElement != null) yield return DescriptionElement;
@@ -543,13 +574,32 @@ namespace Hl7.Fhir.Model
         [FhirElement("category", InSummary=true, Order=130)]
         [Cardinality(Min=0,Max=-1)]
         [DataMember]
-        public List<Hl7.Fhir.Model.CodeableConcept> Category
+        public List<Code<Hl7.Fhir.Model.AllergyIntolerance.AllergyIntoleranceCategory>> CategoryElement
         {
-            get { if(_Category==null) _Category = new List<Hl7.Fhir.Model.CodeableConcept>(); return _Category; }
-            set { _Category = value; OnPropertyChanged("Category"); }
+            get { if(_CategoryElement==null) _CategoryElement = new List<Hl7.Fhir.Model.Code<Hl7.Fhir.Model.AllergyIntolerance.AllergyIntoleranceCategory>>(); return _CategoryElement; }
+            set { _CategoryElement = value; OnPropertyChanged("CategoryElement"); }
         }
         
-        private List<Hl7.Fhir.Model.CodeableConcept> _Category;
+        private List<Code<Hl7.Fhir.Model.AllergyIntolerance.AllergyIntoleranceCategory>> _CategoryElement;
+        
+        /// <summary>
+        /// food | medication | environment | biologic
+        /// </summary>
+        /// <remarks>This uses the native .NET datatype, rather than the FHIR equivalent</remarks>
+        [NotMapped]
+        [IgnoreDataMemberAttribute]
+        public IEnumerable<Hl7.Fhir.Model.AllergyIntolerance.AllergyIntoleranceCategory?> Category
+        {
+            get { return CategoryElement != null ? CategoryElement.Select(elem => elem.Value) : null; }
+            set
+            {
+                if (value == null)
+                  CategoryElement = null; 
+                else
+                  CategoryElement = new List<Hl7.Fhir.Model.Code<Hl7.Fhir.Model.AllergyIntolerance.AllergyIntoleranceCategory>>(value.Select(elem=>new Hl7.Fhir.Model.Code<Hl7.Fhir.Model.AllergyIntolerance.AllergyIntoleranceCategory>(elem)));
+                OnPropertyChanged("Category");
+            }
+        }
         
         /// <summary>
         /// low | high | unable-to-assess
@@ -787,7 +837,7 @@ namespace Hl7.Fhir.Model
                 if(ClinicalStatusElement != null) dest.ClinicalStatusElement = (Code<Hl7.Fhir.Model.AllergyIntolerance.AllergyIntoleranceClinicalStatus>)ClinicalStatusElement.DeepCopy();
                 if(VerificationStatusElement != null) dest.VerificationStatusElement = (Code<Hl7.Fhir.Model.AllergyIntolerance.AllergyIntoleranceVerificationStatus>)VerificationStatusElement.DeepCopy();
                 if(TypeElement != null) dest.TypeElement = (Code<Hl7.Fhir.Model.AllergyIntolerance.AllergyIntoleranceType>)TypeElement.DeepCopy();
-                if(Category != null) dest.Category = new List<Hl7.Fhir.Model.CodeableConcept>(Category.DeepCopy());
+                if(CategoryElement != null) dest.CategoryElement = new List<Code<Hl7.Fhir.Model.AllergyIntolerance.AllergyIntoleranceCategory>>(CategoryElement.DeepCopy());
                 if(CriticalityElement != null) dest.CriticalityElement = (Code<Hl7.Fhir.Model.AllergyIntolerance.AllergyIntoleranceCriticality>)CriticalityElement.DeepCopy();
                 if(Code != null) dest.Code = (Hl7.Fhir.Model.CodeableConcept)Code.DeepCopy();
                 if(Patient != null) dest.Patient = (Hl7.Fhir.Model.ResourceReference)Patient.DeepCopy();
@@ -819,7 +869,7 @@ namespace Hl7.Fhir.Model
             if( !DeepComparable.Matches(ClinicalStatusElement, otherT.ClinicalStatusElement)) return false;
             if( !DeepComparable.Matches(VerificationStatusElement, otherT.VerificationStatusElement)) return false;
             if( !DeepComparable.Matches(TypeElement, otherT.TypeElement)) return false;
-            if( !DeepComparable.Matches(Category, otherT.Category)) return false;
+            if( !DeepComparable.Matches(CategoryElement, otherT.CategoryElement)) return false;
             if( !DeepComparable.Matches(CriticalityElement, otherT.CriticalityElement)) return false;
             if( !DeepComparable.Matches(Code, otherT.Code)) return false;
             if( !DeepComparable.Matches(Patient, otherT.Patient)) return false;
@@ -844,7 +894,7 @@ namespace Hl7.Fhir.Model
             if( !DeepComparable.IsExactly(ClinicalStatusElement, otherT.ClinicalStatusElement)) return false;
             if( !DeepComparable.IsExactly(VerificationStatusElement, otherT.VerificationStatusElement)) return false;
             if( !DeepComparable.IsExactly(TypeElement, otherT.TypeElement)) return false;
-            if( !DeepComparable.IsExactly(Category, otherT.Category)) return false;
+            if( !DeepComparable.IsExactly(CategoryElement, otherT.CategoryElement)) return false;
             if( !DeepComparable.IsExactly(CriticalityElement, otherT.CriticalityElement)) return false;
             if( !DeepComparable.IsExactly(Code, otherT.Code)) return false;
             if( !DeepComparable.IsExactly(Patient, otherT.Patient)) return false;
@@ -864,12 +914,12 @@ namespace Hl7.Fhir.Model
         {
             get
             {
-				// AllergyIntolerance elements
+                foreach (var item in base.Children) yield return item;
 				foreach (var elem in Identifier) { if (elem != null) yield return elem; }
 				if (ClinicalStatusElement != null) yield return ClinicalStatusElement;
 				if (VerificationStatusElement != null) yield return VerificationStatusElement;
 				if (TypeElement != null) yield return TypeElement;
-				foreach (var elem in Category) { if (elem != null) yield return elem; }
+				foreach (var elem in CategoryElement) { if (elem != null) yield return elem; }
 				if (CriticalityElement != null) yield return CriticalityElement;
 				if (Code != null) yield return Code;
 				if (Patient != null) yield return Patient;

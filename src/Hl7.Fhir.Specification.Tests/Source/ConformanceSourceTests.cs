@@ -16,6 +16,7 @@ using System.IO;
 using Hl7.Fhir.Introspection;
 using Hl7.Fhir.Serialization;
 using Hl7.Fhir.Specification.Source;
+using Hl7.Fhir.Utility;
 
 namespace Hl7.Fhir.Specification.Tests
 {
@@ -61,7 +62,7 @@ namespace Hl7.Fhir.Specification.Tests
             Assert.IsNotNull(vs.Annotation<OriginInformation>());
 
             // A non-HL7 valueset
-            vs = source.FindCodeSystem("http://nema.org/dicom/dicm");
+            vs = source.FindCodeSystem("http://dicom.nema.org/resources/ontology/DCM"); // http://nema.org/dicom/dicm");
             Assert.IsNotNull(vs);
 
             // One from v2-tables

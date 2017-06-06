@@ -4,7 +4,7 @@ using Hl7.Fhir.Introspection;
 using Hl7.Fhir.Validation;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.ComponentModel;
+using Hl7.Fhir.Utility;
 
 /*
   Copyright (c) 2011+, HL7, Inc.
@@ -37,7 +37,7 @@ using System.ComponentModel;
 */
 
 //
-// Generated for FHIR v1.9.0
+// Generated for FHIR v3.0.1
 //
 namespace Hl7.Fhir.Model
 {
@@ -81,7 +81,7 @@ namespace Hl7.Fhir.Model
         }
 
         /// <summary>
-        /// Type for access of external uri
+        /// Type for access of external URI
         /// (url: http://hl7.org/fhir/ValueSet/repository-type)
         /// </summary>
         [FhirEnumeration("repositoryType")]
@@ -97,7 +97,7 @@ namespace Hl7.Fhir.Model
             /// MISSING DESCRIPTION
             /// (system: http://hl7.org/fhir/repository-type)
             /// </summary>
-            [EnumLiteral("openapi"), Description("The url is the RESTful or other kind of API that can get access to the result.")]
+            [EnumLiteral("openapi"), Description("The URL is the RESTful or other kind of API that can access to the result.")]
             Openapi,
             /// <summary>
             /// MISSING DESCRIPTION
@@ -109,13 +109,13 @@ namespace Hl7.Fhir.Model
             /// MISSING DESCRIPTION
             /// (system: http://hl7.org/fhir/repository-type)
             /// </summary>
-            [EnumLiteral("oauth"), Description("Result need to be fetched with API and need LOGIN( or cookies is required when visit the link of resource)")]
+            [EnumLiteral("oauth"), Description("Result need to be fetched with API and need LOGIN( or cookies are required when visiting the link of resource)")]
             Oauth,
             /// <summary>
             /// MISSING DESCRIPTION
             /// (system: http://hl7.org/fhir/repository-type)
             /// </summary>
-            [EnumLiteral("other"), Description("Some other complicated or particular way to get resource from url.")]
+            [EnumLiteral("other"), Description("Some other complicated or particular way to get resource from URL.")]
             Other,
         }
 
@@ -397,9 +397,7 @@ namespace Hl7.Fhir.Model
             {
                 get
                 {
-                    // BackboneElement elements
-                    foreach (var elem in ModifierExtension) { if (elem != null) yield return elem; }
-                    // ReferenceSeqComponent elements
+                    foreach (var item in base.Children) yield return item;
                     if (Chromosome != null) yield return Chromosome;
                     if (GenomeBuildElement != null) yield return GenomeBuildElement;
                     if (ReferenceSeqId != null) yield return ReferenceSeqId;
@@ -658,9 +656,7 @@ namespace Hl7.Fhir.Model
             {
                 get
                 {
-                    // BackboneElement elements
-                    foreach (var elem in ModifierExtension) { if (elem != null) yield return elem; }
-                    // VariantComponent elements
+                    foreach (var item in base.Children) yield return item;
                     if (StartElement != null) yield return StartElement;
                     if (EndElement != null) yield return EndElement;
                     if (ObservedAlleleElement != null) yield return ObservedAlleleElement;
@@ -1158,9 +1154,7 @@ namespace Hl7.Fhir.Model
             {
                 get
                 {
-                    // BackboneElement elements
-                    foreach (var elem in ModifierExtension) { if (elem != null) yield return elem; }
-                    // QualityComponent elements
+                    foreach (var item in base.Children) yield return item;
                     if (TypeElement != null) yield return TypeElement;
                     if (StandardSequence != null) yield return StandardSequence;
                     if (StartElement != null) yield return StartElement;
@@ -1443,9 +1437,7 @@ namespace Hl7.Fhir.Model
             {
                 get
                 {
-                    // BackboneElement elements
-                    foreach (var elem in ModifierExtension) { if (elem != null) yield return elem; }
-                    // RepositoryComponent elements
+                    foreach (var item in base.Children) yield return item;
                     if (TypeElement != null) yield return TypeElement;
                     if (UrlElement != null) yield return UrlElement;
                     if (NameElement != null) yield return NameElement;
@@ -1880,7 +1872,7 @@ namespace Hl7.Fhir.Model
         {
             get
             {
-				// Sequence elements
+                foreach (var item in base.Children) yield return item;
 				foreach (var elem in Identifier) { if (elem != null) yield return elem; }
 				if (TypeElement != null) yield return TypeElement;
 				if (CoordinateSystemElement != null) yield return CoordinateSystemElement;

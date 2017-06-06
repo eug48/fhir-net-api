@@ -4,7 +4,7 @@ using Hl7.Fhir.Introspection;
 using Hl7.Fhir.Validation;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.ComponentModel;
+using Hl7.Fhir.Utility;
 
 /*
   Copyright (c) 2011+, HL7, Inc.
@@ -37,7 +37,7 @@ using System.ComponentModel;
 */
 
 //
-// Generated for FHIR v1.9.0
+// Generated for FHIR v3.0.1
 //
 namespace Hl7.Fhir.Model
 {
@@ -54,7 +54,7 @@ namespace Hl7.Fhir.Model
         public override string TypeName { get { return "Device"; } }
         
         /// <summary>
-        /// Codes to identify how udi data was entered
+        /// Codes to identify how UDI data was entered
         /// (url: http://hl7.org/fhir/ValueSet/udi-entry-type)
         /// </summary>
         [FhirEnumeration("UDIEntryType")]
@@ -102,8 +102,8 @@ namespace Hl7.Fhir.Model
         /// The availability status of the device.
         /// (url: http://hl7.org/fhir/ValueSet/device-status)
         /// </summary>
-        [FhirEnumeration("DeviceStatus")]
-        public enum DeviceStatus
+        [FhirEnumeration("FHIRDeviceStatus")]
+        public enum FHIRDeviceStatus
         {
             /// <summary>
             /// MISSING DESCRIPTION
@@ -427,9 +427,7 @@ namespace Hl7.Fhir.Model
             {
                 get
                 {
-                    // BackboneElement elements
-                    foreach (var elem in ModifierExtension) { if (elem != null) yield return elem; }
-                    // UdiComponent elements
+                    foreach (var item in base.Children) yield return item;
                     if (DeviceIdentifierElement != null) yield return DeviceIdentifierElement;
                     if (NameElement != null) yield return NameElement;
                     if (JurisdictionElement != null) yield return JurisdictionElement;
@@ -475,13 +473,13 @@ namespace Hl7.Fhir.Model
         /// </summary>
         [FhirElement("status", InSummary=true, Order=110)]
         [DataMember]
-        public Code<Hl7.Fhir.Model.Device.DeviceStatus> StatusElement
+        public Code<Hl7.Fhir.Model.Device.FHIRDeviceStatus> StatusElement
         {
             get { return _StatusElement; }
             set { _StatusElement = value; OnPropertyChanged("StatusElement"); }
         }
         
-        private Code<Hl7.Fhir.Model.Device.DeviceStatus> _StatusElement;
+        private Code<Hl7.Fhir.Model.Device.FHIRDeviceStatus> _StatusElement;
         
         /// <summary>
         /// active | inactive | entered-in-error | unknown
@@ -489,7 +487,7 @@ namespace Hl7.Fhir.Model
         /// <remarks>This uses the native .NET datatype, rather than the FHIR equivalent</remarks>
         [NotMapped]
         [IgnoreDataMemberAttribute]
-        public Hl7.Fhir.Model.Device.DeviceStatus? Status
+        public Hl7.Fhir.Model.Device.FHIRDeviceStatus? Status
         {
             get { return StatusElement != null ? StatusElement.Value : null; }
             set
@@ -497,7 +495,7 @@ namespace Hl7.Fhir.Model
                 if (!value.HasValue)
                   StatusElement = null; 
                 else
-                  StatusElement = new Code<Hl7.Fhir.Model.Device.DeviceStatus>(value);
+                  StatusElement = new Code<Hl7.Fhir.Model.Device.FHIRDeviceStatus>(value);
                 OnPropertyChanged("Status");
             }
         }
@@ -842,7 +840,7 @@ namespace Hl7.Fhir.Model
                 base.CopyTo(dest);
                 if(Identifier != null) dest.Identifier = new List<Hl7.Fhir.Model.Identifier>(Identifier.DeepCopy());
                 if(Udi != null) dest.Udi = (Hl7.Fhir.Model.Device.UdiComponent)Udi.DeepCopy();
-                if(StatusElement != null) dest.StatusElement = (Code<Hl7.Fhir.Model.Device.DeviceStatus>)StatusElement.DeepCopy();
+                if(StatusElement != null) dest.StatusElement = (Code<Hl7.Fhir.Model.Device.FHIRDeviceStatus>)StatusElement.DeepCopy();
                 if(Type != null) dest.Type = (Hl7.Fhir.Model.CodeableConcept)Type.DeepCopy();
                 if(LotNumberElement != null) dest.LotNumberElement = (Hl7.Fhir.Model.FhirString)LotNumberElement.DeepCopy();
                 if(ManufacturerElement != null) dest.ManufacturerElement = (Hl7.Fhir.Model.FhirString)ManufacturerElement.DeepCopy();
@@ -927,7 +925,7 @@ namespace Hl7.Fhir.Model
         {
             get
             {
-				// Device elements
+                foreach (var item in base.Children) yield return item;
 				foreach (var elem in Identifier) { if (elem != null) yield return elem; }
 				if (Udi != null) yield return Udi;
 				if (StatusElement != null) yield return StatusElement;

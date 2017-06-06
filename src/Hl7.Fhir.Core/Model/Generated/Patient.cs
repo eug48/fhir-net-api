@@ -4,7 +4,7 @@ using Hl7.Fhir.Introspection;
 using Hl7.Fhir.Validation;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.ComponentModel;
+using Hl7.Fhir.Utility;
 
 /*
   Copyright (c) 2011+, HL7, Inc.
@@ -37,7 +37,7 @@ using System.ComponentModel;
 */
 
 //
-// Generated for FHIR v1.9.0
+// Generated for FHIR v3.0.1
 //
 namespace Hl7.Fhir.Model
 {
@@ -64,8 +64,14 @@ namespace Hl7.Fhir.Model
             /// MISSING DESCRIPTION
             /// (system: http://hl7.org/fhir/link-type)
             /// </summary>
-            [EnumLiteral("replace"), Description("Replace")]
-            Replace,
+            [EnumLiteral("replaced-by"), Description("Replaced-by")]
+            ReplacedBy,
+            /// <summary>
+            /// MISSING DESCRIPTION
+            /// (system: http://hl7.org/fhir/link-type)
+            /// </summary>
+            [EnumLiteral("replaces"), Description("Replaces")]
+            Replaces,
             /// <summary>
             /// MISSING DESCRIPTION
             /// (system: http://hl7.org/fhir/link-type)
@@ -266,9 +272,7 @@ namespace Hl7.Fhir.Model
             {
                 get
                 {
-                    // BackboneElement elements
-                    foreach (var elem in ModifierExtension) { if (elem != null) yield return elem; }
-                    // ContactComponent elements
+                    foreach (var item in base.Children) yield return item;
                     foreach (var elem in Relationship) { if (elem != null) yield return elem; }
                     if (Name != null) yield return Name;
                     foreach (var elem in Telecom) { if (elem != null) yield return elem; }
@@ -382,9 +386,7 @@ namespace Hl7.Fhir.Model
             {
                 get
                 {
-                    // BackboneElement elements
-                    foreach (var elem in ModifierExtension) { if (elem != null) yield return elem; }
-                    // AnimalComponent elements
+                    foreach (var item in base.Children) yield return item;
                     if (Species != null) yield return Species;
                     if (Breed != null) yield return Breed;
                     if (GenderStatus != null) yield return GenderStatus;
@@ -497,9 +499,7 @@ namespace Hl7.Fhir.Model
             {
                 get
                 {
-                    // BackboneElement elements
-                    foreach (var elem in ModifierExtension) { if (elem != null) yield return elem; }
-                    // CommunicationComponent elements
+                    foreach (var item in base.Children) yield return item;
                     if (Language != null) yield return Language;
                     if (PreferredElement != null) yield return PreferredElement;
                 }
@@ -532,7 +532,7 @@ namespace Hl7.Fhir.Model
             private Hl7.Fhir.Model.ResourceReference _Other;
             
             /// <summary>
-            /// replace | refer | seealso - type of link
+            /// replaced-by | replaces | refer | seealso - type of link
             /// </summary>
             [FhirElement("type", InSummary=true, Order=50)]
             [Cardinality(Min=1,Max=1)]
@@ -546,7 +546,7 @@ namespace Hl7.Fhir.Model
             private Code<Hl7.Fhir.Model.Patient.LinkType> _TypeElement;
             
             /// <summary>
-            /// replace | refer | seealso - type of link
+            /// replaced-by | replaces | refer | seealso - type of link
             /// </summary>
             /// <remarks>This uses the native .NET datatype, rather than the FHIR equivalent</remarks>
             [NotMapped]
@@ -614,9 +614,7 @@ namespace Hl7.Fhir.Model
             {
                 get
                 {
-                    // BackboneElement elements
-                    foreach (var elem in ModifierExtension) { if (elem != null) yield return elem; }
-                    // LinkComponent elements
+                    foreach (var item in base.Children) yield return item;
                     if (Other != null) yield return Other;
                     if (TypeElement != null) yield return TypeElement;
                 }
@@ -1031,7 +1029,7 @@ namespace Hl7.Fhir.Model
         {
             get
             {
-				// Patient elements
+                foreach (var item in base.Children) yield return item;
 				foreach (var elem in Identifier) { if (elem != null) yield return elem; }
 				if (ActiveElement != null) yield return ActiveElement;
 				foreach (var elem in Name) { if (elem != null) yield return elem; }

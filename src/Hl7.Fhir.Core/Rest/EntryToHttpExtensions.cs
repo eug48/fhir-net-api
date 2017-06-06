@@ -23,6 +23,7 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
 using System.Reflection;
+using Hl7.Fhir.Utility;
 
 namespace Hl7.Fhir.Rest
 {
@@ -118,7 +119,7 @@ namespace Hl7.Fhir.Rest
 
         private static void setBodyAndContentType(HttpWebRequest request, Resource data, ResourceFormat format, bool CompressRequestBody, out byte[] body)
         {
-            if (data == null) throw Error.ArgumentNull("data");
+            if (data == null) throw Error.ArgumentNull(nameof(data));
 
             if (data is Binary)
             {

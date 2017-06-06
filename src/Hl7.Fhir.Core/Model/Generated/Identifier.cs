@@ -4,7 +4,7 @@ using Hl7.Fhir.Introspection;
 using Hl7.Fhir.Validation;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.ComponentModel;
+using Hl7.Fhir.Utility;
 
 /*
   Copyright (c) 2011+, HL7, Inc.
@@ -37,7 +37,7 @@ using System.ComponentModel;
 */
 
 //
-// Generated for FHIR v1.9.0
+// Generated for FHIR v3.0.1
 //
 namespace Hl7.Fhir.Model
 {
@@ -283,7 +283,7 @@ namespace Hl7.Fhir.Model
         {
             get
             {
-                // Identifier elements
+                foreach (var item in base.Children) yield return item;
                 if (UseElement != null) yield return UseElement;
                 if (Type != null) yield return Type;
                 if (SystemElement != null) yield return SystemElement;

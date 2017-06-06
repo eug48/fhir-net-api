@@ -4,7 +4,7 @@ using Hl7.Fhir.Introspection;
 using Hl7.Fhir.Validation;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.ComponentModel;
+using Hl7.Fhir.Utility;
 
 /*
   Copyright (c) 2011+, HL7, Inc.
@@ -37,12 +37,12 @@ using System.ComponentModel;
 */
 
 //
-// Generated for FHIR v1.9.0
+// Generated for FHIR v3.0.1
 //
 namespace Hl7.Fhir.Model
 {
     /// <summary>
-    /// Pure binary content defined by some other format than FHIR
+    /// Pure binary content defined by a format other than FHIR
     /// </summary>
     [FhirType("Binary", IsResource=true)]
     [DataContract]
@@ -193,7 +193,7 @@ namespace Hl7.Fhir.Model
         {
             get
             {
-				// Binary elements
+                foreach (var item in base.Children) yield return item;
 				if (ContentTypeElement != null) yield return ContentTypeElement;
 				if (SecurityContext != null) yield return SecurityContext;
 				if (ContentElement != null) yield return ContentElement;

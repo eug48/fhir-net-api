@@ -10,8 +10,9 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using Hl7.Fhir.Model;
-using Hl7.ElementModel;
 using Hl7.Fhir.Support;
+using Hl7.Fhir.Utility;
+using Hl7.Fhir.Serialization;
 
 namespace Hl7.Fhir.FhirPath
 {
@@ -26,9 +27,7 @@ namespace Hl7.Fhir.FhirPath
         // For the root element only
         internal PocoElementNavigator(string name, Base value)
         {
-            if (value == null) throw Error.ArgumentNull("value");
-
-            _pocoElement = value;
+            _pocoElement = value ?? throw Error.ArgumentNull(nameof(value));
             PropMap = null;
             Name = name;
             _arrayIndex = 0;
@@ -37,9 +36,7 @@ namespace Hl7.Fhir.FhirPath
         // For Normal element properties representing a FHIR type
         internal PocoElementNavigator(Introspection.PropertyMapping map, Base value, int arrayIndex)
         {
-            if (value == null) throw Error.ArgumentNull("value");
-
-            _pocoElement = value;
+            _pocoElement = value ?? throw Error.ArgumentNull(nameof(value));
             PropMap = map;
             Name = map.Name;
             _arrayIndex = arrayIndex;
@@ -49,9 +46,7 @@ namespace Hl7.Fhir.FhirPath
         // rendered as attributes in the xml
         internal PocoElementNavigator(Introspection.PropertyMapping map, string value)
         {
-            if (value == null) throw Error.ArgumentNull("value");
-
-            _string = value;
+            _string = value ?? throw Error.ArgumentNull(nameof(value));
             PropMap = map;
             Name = map.Name;
             _arrayIndex = 0;
@@ -85,36 +80,29 @@ namespace Hl7.Fhir.FhirPath
 
                 try
                 {
-                    if (_pocoElement is FhirDateTime)
-                        return ((FhirDateTime)_pocoElement).ToPartialDateTime();
-                    else if (_pocoElement is Hl7.Fhir.Model.Time)
-                        return ((Hl7.Fhir.Model.Time)_pocoElement).ToTime();
-                    else if ((_pocoElement is Hl7.Fhir.Model.Date))
-                        return (((Hl7.Fhir.Model.Date)_pocoElement).ToPartialDateTime());
-                    else if (_pocoElement is Hl7.Fhir.Model.Instant)
-                        return ((Hl7.Fhir.Model.Instant)_pocoElement).ToPartialDateTime();
-                    else if ((_pocoElement is Integer))
+                    switch(_pocoElement)
                     {
-                        if ((_pocoElement as Integer).Value.HasValue)
-                            return (long)(_pocoElement as Integer).Value.Value;
-                        return null;
-                    }
-                    else if ((_pocoElement is PositiveInt))
-                    {
-                        if ((_pocoElement as PositiveInt).Value.HasValue)
-                            return (long)(_pocoElement as PositiveInt).Value.Value;
-                        return null;
-                    }
-                    else if ((_pocoElement is UnsignedInt))
-                    {
-                        if ((_pocoElement as UnsignedInt).Value.HasValue)
-                            return (long)(_pocoElement as UnsignedInt).Value.Value;
-                        return null;
-                    }
-                    else if (_pocoElement is Primitive)
-                        return ((Primitive)_pocoElement).ObjectValue;
-                    else
-                        return null;
+                        case Hl7.Fhir.Model.Instant ins:
+                            return ins.ToPartialDateTime();
+                        case Hl7.Fhir.Model.Time time:
+                            return time.ToTime();
+                        case Hl7.Fhir.Model.Date dt:
+                            return dt.ToPartialDateTime();
+                        case FhirDateTime fdt:
+                            return fdt.ToPartialDateTime();
+                        case Hl7.Fhir.Model.Integer fint:
+                            return (long)fint.Value;
+                        case Hl7.Fhir.Model.PositiveInt pint:
+                            return (long)pint.Value;
+                        case Hl7.Fhir.Model.UnsignedInt unsint:
+                            return (long)unsint.Value;
+                        case Hl7.Fhir.Model.Base64Binary b64:
+                            return b64.Value != null ? PrimitiveTypeConverter.ConvertTo<string>(b64.Value) : null;
+                        case Primitive prim:
+                            return prim.ObjectValue;
+                        default:
+                            return null;
+                    }                       
                 }
                 catch (FormatException)
                 {
@@ -126,7 +114,8 @@ namespace Hl7.Fhir.FhirPath
             }
         }
 
-        private static string[] quantitySubtypes = { "SimpleQuantity", "Age", "Count", "Distance", "Duration", "Money" };
+        private static string[] dstu2quantitySubtypes = { "SimpleQuantity", "Age", "Count", "Distance", "Duration", "Money" };
+        private static string[] stu3quantitySubtypes = { "SimpleQuantity" };
 
         public string TypeName
         {
@@ -150,7 +139,7 @@ namespace Hl7.Fhir.FhirPath
                 {
 
                     var tn = _pocoElement.TypeName;
-                    if (quantitySubtypes.Contains(tn)) tn = "Quantity";
+                    if (stu3quantitySubtypes.Contains(tn)) tn = "Quantity";
 
                     return tn;
                 }

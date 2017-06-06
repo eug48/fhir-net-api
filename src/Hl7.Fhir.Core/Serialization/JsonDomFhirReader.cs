@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Hl7.Fhir.Model;
+using Hl7.Fhir.Utility;
 
 namespace Hl7.Fhir.Serialization
 {
@@ -43,7 +44,7 @@ namespace Hl7.Fhir.Serialization
             }
             catch (Exception e)
             {
-                throw Error.Format("Cannot parse json: " + e.Message, null);
+                throw Error.Format("Cannot parse json: " + e.Message);
             }
         }
 
@@ -212,7 +213,7 @@ namespace Hl7.Fhir.Serialization
                 var memberName = member.Name;
 
                 //When enumerating properties for a complex object, make sure not to let resourceType get through
-                if(memberName != JsonDomFhirReader.RESOURCETYPE_MEMBER_NAME)
+                if(memberName != JsonDomFhirReader.RESOURCETYPE_MEMBER_NAME || Current.Path == "payee") // this is a workaround for Claim.Payee
                 {
                     IFhirReader nestedReader = new JsonDomFhirReader(member.Value);
 

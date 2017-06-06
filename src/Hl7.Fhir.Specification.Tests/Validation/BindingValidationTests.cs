@@ -4,9 +4,6 @@ using Hl7.Fhir.Model;
 using System.Linq;
 using Xunit;
 using Hl7.Fhir.Support;
-using Hl7.Fhir.FhirPath;
-using Hl7.Fhir.Specification.Navigation;
-using Hl7.ElementModel;
 
 namespace Hl7.Fhir.Validation
 {
@@ -48,13 +45,8 @@ namespace Hl7.Fhir.Validation
 
             c.Display = "Not a NumberX";
             result = val.ValidateBinding(c, vsUri, BindingStrength.Required);
-            Assert.False(result.Success);
-
-            // But this won't, it's also a composition, but without expansion - the local term server won't help you here
-            c = new Coding("http://snomed.info/sct", "160244002");
-            result = val.ValidateBinding(c, "http://hl7.org/fhir/ValueSet/allergyintolerance-substance-code");
             Assert.True(result.Success);
-            Assert.NotEmpty(result.Where(type: OperationOutcome.IssueType.NotSupported));
+            Assert.Equal(1, result.Warnings);   // Incorrect display
         }
 
         [Fact]

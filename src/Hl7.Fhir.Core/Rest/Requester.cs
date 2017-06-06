@@ -9,6 +9,7 @@
 using Hl7.Fhir.Model;
 using Hl7.Fhir.Serialization;
 using Hl7.Fhir.Support;
+using Hl7.Fhir.Utility;
 using System;
 using System.IO.Compression;
 using System.Net;
@@ -59,7 +60,7 @@ namespace Hl7.Fhir.Rest
 
         public Bundle.EntryComponent Execute(Bundle.EntryComponent interaction)
         {
-            if (interaction == null) throw Error.ArgumentNull("interaction");
+            if (interaction == null) throw Error.ArgumentNull(nameof(interaction));
             bool compressRequestBody = false;
 
             compressRequestBody = CompressRequestBody; // PCL doesn't support compression at the moment

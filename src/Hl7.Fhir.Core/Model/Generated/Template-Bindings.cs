@@ -1,6 +1,4 @@
-﻿using System;
-using Hl7.Fhir.Introspection;
-using System.ComponentModel;
+﻿using Hl7.Fhir.Utility;
 /*
   Copyright (c) 2011+, HL7, Inc.
   All rights reserved.
@@ -61,69 +59,12 @@ namespace Hl7.Fhir.Model
         /// </summary>
         [EnumLiteral("retired"), Description("Retired")]
         Retired,
-    }
-
-    /// <summary>
-    /// The kind of operation to perform as a part of a property based filter.
-    /// (url: http://hl7.org/fhir/ValueSet/filter-operator)
-    /// </summary>
-    [FhirEnumeration("FilterOperator")]
-    public enum FilterOperator
-    {
         /// <summary>
         /// MISSING DESCRIPTION<br/>
-        /// (system: http://hl7.org/fhir/filter-operator)
+        /// (system: http://hl7.org/fhir/publication-status)
         /// </summary>
-        [EnumLiteral("="), Description("Equals")]
-        Equal,
-        /// <summary>
-        /// MISSING DESCRIPTION<br/>
-        /// (system: http://hl7.org/fhir/filter-operator)
-        /// </summary>
-        [EnumLiteral("is-a"), Description("Is A (by subsumption)")]
-        IsA,
-        /// <summary>
-        /// MISSING DESCRIPTION<br/>
-        /// (system: http://hl7.org/fhir/filter-operator)
-        /// </summary>
-        [EnumLiteral("descendent-of"), Description("Descendent Of (by subsumption)")]
-        DescendentOf,
-        /// <summary>
-        /// MISSING DESCRIPTION<br/>
-        /// (system: http://hl7.org/fhir/filter-operator)
-        /// </summary>
-        [EnumLiteral("is-not-a"), Description("Not (Is A) (by subsumption)")]
-        IsNotA,
-        /// <summary>
-        /// MISSING DESCRIPTION<br/>
-        /// (system: http://hl7.org/fhir/filter-operator)
-        /// </summary>
-        [EnumLiteral("regex"), Description("Regular Expression")]
-        Regex,
-        /// <summary>
-        /// MISSING DESCRIPTION<br/>
-        /// (system: http://hl7.org/fhir/filter-operator)
-        /// </summary>
-        [EnumLiteral("in"), Description("In Set")]
-        In,
-        /// <summary>
-        /// MISSING DESCRIPTION<br/>
-        /// (system: http://hl7.org/fhir/filter-operator)
-        /// </summary>
-        [EnumLiteral("not-in"), Description("Not in Set")]
-        NotIn,
-        /// <summary>
-        /// MISSING DESCRIPTION<br/>
-        /// (system: http://hl7.org/fhir/filter-operator)
-        /// </summary>
-        [EnumLiteral("generalizes"), Description("Generalizes (by Subsumption)")]
-        Generalizes,
-        /// <summary>
-        /// MISSING DESCRIPTION<br/>
-        /// (system: http://hl7.org/fhir/filter-operator)
-        /// </summary>
-        [EnumLiteral("exists"), Description("Exists")]
-        Exists,
+        [EnumLiteral("unknown"), Description("Unknown")]
+        Unknown,
     }
 
     /// <summary>
@@ -217,12 +158,6 @@ namespace Hl7.Fhir.Model
         /// </summary>
         [EnumLiteral("CareTeam"), Description("CareTeam")]
         CareTeam,
-        /// <summary>
-        /// MISSING DESCRIPTION<br/>
-        /// (system: http://hl7.org/fhir/resource-types)
-        /// </summary>
-        [EnumLiteral("Catalog"), Description("Catalog")]
-        Catalog,
         /// <summary>
         /// MISSING DESCRIPTION<br/>
         /// (system: http://hl7.org/fhir/resource-types)
@@ -1000,7 +935,7 @@ namespace Hl7.Fhir.Model
     }
 
     /// <summary>
-    /// This value set includes STatus codes.
+    /// This value set includes Status codes.
     /// (url: http://hl7.org/fhir/ValueSet/fm-status)
     /// </summary>
     [FhirEnumeration("FinancialResourceStatusCodes")]
@@ -1030,6 +965,69 @@ namespace Hl7.Fhir.Model
         /// </summary>
         [EnumLiteral("entered-in-error"), Description("Entered in Error")]
         EnteredInError,
+    }
+
+    /// <summary>
+    /// The kind of operation to perform as a part of a property based filter.
+    /// (url: http://hl7.org/fhir/ValueSet/filter-operator)
+    /// </summary>
+    [FhirEnumeration("FilterOperator")]
+    public enum FilterOperator
+    {
+        /// <summary>
+        /// MISSING DESCRIPTION<br/>
+        /// (system: http://hl7.org/fhir/filter-operator)
+        /// </summary>
+        [EnumLiteral("="), Description("Equals")]
+        Equal,
+        /// <summary>
+        /// MISSING DESCRIPTION<br/>
+        /// (system: http://hl7.org/fhir/filter-operator)
+        /// </summary>
+        [EnumLiteral("is-a"), Description("Is A (by subsumption)")]
+        IsA,
+        /// <summary>
+        /// MISSING DESCRIPTION<br/>
+        /// (system: http://hl7.org/fhir/filter-operator)
+        /// </summary>
+        [EnumLiteral("descendent-of"), Description("Descendent Of (by subsumption)")]
+        DescendentOf,
+        /// <summary>
+        /// MISSING DESCRIPTION<br/>
+        /// (system: http://hl7.org/fhir/filter-operator)
+        /// </summary>
+        [EnumLiteral("is-not-a"), Description("Not (Is A) (by subsumption)")]
+        IsNotA,
+        /// <summary>
+        /// MISSING DESCRIPTION<br/>
+        /// (system: http://hl7.org/fhir/filter-operator)
+        /// </summary>
+        [EnumLiteral("regex"), Description("Regular Expression")]
+        Regex,
+        /// <summary>
+        /// MISSING DESCRIPTION<br/>
+        /// (system: http://hl7.org/fhir/filter-operator)
+        /// </summary>
+        [EnumLiteral("in"), Description("In Set")]
+        In,
+        /// <summary>
+        /// MISSING DESCRIPTION<br/>
+        /// (system: http://hl7.org/fhir/filter-operator)
+        /// </summary>
+        [EnumLiteral("not-in"), Description("Not in Set")]
+        NotIn,
+        /// <summary>
+        /// MISSING DESCRIPTION<br/>
+        /// (system: http://hl7.org/fhir/filter-operator)
+        /// </summary>
+        [EnumLiteral("generalizes"), Description("Generalizes (by Subsumption)")]
+        Generalizes,
+        /// <summary>
+        /// MISSING DESCRIPTION<br/>
+        /// (system: http://hl7.org/fhir/filter-operator)
+        /// </summary>
+        [EnumLiteral("exists"), Description("Exists")]
+        Exists,
     }
 
     /// <summary>
@@ -1168,7 +1166,7 @@ namespace Hl7.Fhir.Model
     }
 
     /// <summary>
-    /// Which compartment a compartmnet definition describes
+    /// Which compartment a compartment definition describes
     /// (url: http://hl7.org/fhir/ValueSet/compartment-type)
     /// </summary>
     [FhirEnumeration("CompartmentType")]
@@ -1240,6 +1238,39 @@ namespace Hl7.Fhir.Model
     }
 
     /// <summary>
+    /// The type of relationship between documents.
+    /// (url: http://hl7.org/fhir/ValueSet/document-relationship-type)
+    /// </summary>
+    [FhirEnumeration("DocumentRelationshipType")]
+    public enum DocumentRelationshipType
+    {
+        /// <summary>
+        /// MISSING DESCRIPTION<br/>
+        /// (system: http://hl7.org/fhir/document-relationship-type)
+        /// </summary>
+        [EnumLiteral("replaces"), Description("Replaces")]
+        Replaces,
+        /// <summary>
+        /// MISSING DESCRIPTION<br/>
+        /// (system: http://hl7.org/fhir/document-relationship-type)
+        /// </summary>
+        [EnumLiteral("transforms"), Description("Transforms")]
+        Transforms,
+        /// <summary>
+        /// MISSING DESCRIPTION<br/>
+        /// (system: http://hl7.org/fhir/document-relationship-type)
+        /// </summary>
+        [EnumLiteral("signs"), Description("Signs")]
+        Signs,
+        /// <summary>
+        /// MISSING DESCRIPTION<br/>
+        /// (system: http://hl7.org/fhir/document-relationship-type)
+        /// </summary>
+        [EnumLiteral("appends"), Description("Appends")]
+        Appends,
+    }
+
+    /// <summary>
     /// The processing mode that applies to this list
     /// (url: http://hl7.org/fhir/ValueSet/list-mode)
     /// </summary>
@@ -1264,6 +1295,63 @@ namespace Hl7.Fhir.Model
         /// </summary>
         [EnumLiteral("changes"), Description("Change List")]
         Changes,
+    }
+
+    /// <summary>
+    /// Codes providing the status of an observation.
+    /// (url: http://hl7.org/fhir/ValueSet/observation-status)
+    /// </summary>
+    [FhirEnumeration("ObservationStatus")]
+    public enum ObservationStatus
+    {
+        /// <summary>
+        /// MISSING DESCRIPTION<br/>
+        /// (system: http://hl7.org/fhir/observation-status)
+        /// </summary>
+        [EnumLiteral("registered"), Description("Registered")]
+        Registered,
+        /// <summary>
+        /// MISSING DESCRIPTION<br/>
+        /// (system: http://hl7.org/fhir/observation-status)
+        /// </summary>
+        [EnumLiteral("preliminary"), Description("Preliminary")]
+        Preliminary,
+        /// <summary>
+        /// MISSING DESCRIPTION<br/>
+        /// (system: http://hl7.org/fhir/observation-status)
+        /// </summary>
+        [EnumLiteral("final"), Description("Final")]
+        Final,
+        /// <summary>
+        /// MISSING DESCRIPTION<br/>
+        /// (system: http://hl7.org/fhir/observation-status)
+        /// </summary>
+        [EnumLiteral("amended"), Description("Amended")]
+        Amended,
+        /// <summary>
+        /// MISSING DESCRIPTION<br/>
+        /// (system: http://hl7.org/fhir/observation-status)
+        /// </summary>
+        [EnumLiteral("corrected"), Description("Corrected")]
+        Corrected,
+        /// <summary>
+        /// MISSING DESCRIPTION<br/>
+        /// (system: http://hl7.org/fhir/observation-status)
+        /// </summary>
+        [EnumLiteral("cancelled"), Description("Cancelled")]
+        Cancelled,
+        /// <summary>
+        /// MISSING DESCRIPTION<br/>
+        /// (system: http://hl7.org/fhir/observation-status)
+        /// </summary>
+        [EnumLiteral("entered-in-error"), Description("Entered in Error")]
+        EnteredInError,
+        /// <summary>
+        /// MISSING DESCRIPTION<br/>
+        /// (system: http://hl7.org/fhir/observation-status)
+        /// </summary>
+        [EnumLiteral("unknown"), Description("Unknown")]
+        Unknown,
     }
 
     /// <summary>
@@ -1375,63 +1463,6 @@ namespace Hl7.Fhir.Model
         /// </summary>
         [EnumLiteral("sun"), Description("Sunday")]
         Sun,
-    }
-
-    /// <summary>
-    /// Codes providing the status of an observation.
-    /// (url: http://hl7.org/fhir/ValueSet/observation-status)
-    /// </summary>
-    [FhirEnumeration("ObservationStatus")]
-    public enum ObservationStatus
-    {
-        /// <summary>
-        /// MISSING DESCRIPTION<br/>
-        /// (system: http://hl7.org/fhir/observation-status)
-        /// </summary>
-        [EnumLiteral("registered"), Description("Registered")]
-        Registered,
-        /// <summary>
-        /// MISSING DESCRIPTION<br/>
-        /// (system: http://hl7.org/fhir/observation-status)
-        /// </summary>
-        [EnumLiteral("preliminary"), Description("Preliminary")]
-        Preliminary,
-        /// <summary>
-        /// MISSING DESCRIPTION<br/>
-        /// (system: http://hl7.org/fhir/observation-status)
-        /// </summary>
-        [EnumLiteral("final"), Description("Final")]
-        Final,
-        /// <summary>
-        /// MISSING DESCRIPTION<br/>
-        /// (system: http://hl7.org/fhir/observation-status)
-        /// </summary>
-        [EnumLiteral("amended"), Description("Amended")]
-        Amended,
-        /// <summary>
-        /// MISSING DESCRIPTION<br/>
-        /// (system: http://hl7.org/fhir/observation-status)
-        /// </summary>
-        [EnumLiteral("corrected"), Description("Corrected")]
-        Corrected,
-        /// <summary>
-        /// MISSING DESCRIPTION<br/>
-        /// (system: http://hl7.org/fhir/observation-status)
-        /// </summary>
-        [EnumLiteral("cancelled"), Description("Cancelled")]
-        Cancelled,
-        /// <summary>
-        /// MISSING DESCRIPTION<br/>
-        /// (system: http://hl7.org/fhir/observation-status)
-        /// </summary>
-        [EnumLiteral("entered-in-error"), Description("Entered in Error")]
-        EnteredInError,
-        /// <summary>
-        /// MISSING DESCRIPTION<br/>
-        /// (system: http://hl7.org/fhir/observation-status)
-        /// </summary>
-        [EnumLiteral("unknown"), Description("Unknown")]
-        Unknown,
     }
 
     /// <summary>
@@ -1870,12 +1901,6 @@ namespace Hl7.Fhir.Model
         /// </summary>
         [EnumLiteral("CareTeam"), Description("CareTeam")]
         CareTeam,
-        /// <summary>
-        /// MISSING DESCRIPTION<br/>
-        /// (system: http://hl7.org/fhir/resource-types)
-        /// </summary>
-        [EnumLiteral("Catalog"), Description("Catalog")]
-        Catalog,
         /// <summary>
         /// MISSING DESCRIPTION<br/>
         /// (system: http://hl7.org/fhir/resource-types)

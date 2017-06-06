@@ -6,13 +6,13 @@
  * available at https://raw.githubusercontent.com/ewoutkramer/fhir-net-api/master/LICENSE
  */
 
-using System;
 using System.Collections.Generic;
-using Hl7.ElementModel;
 using Hl7.Fhir.Specification.Navigation;
 using Hl7.Fhir.Support;
 using System.Linq;
 using Hl7.Fhir.Model;
+using Hl7.Fhir.ElementModel;
+using Hl7.Fhir.Utility;
 
 namespace Hl7.Fhir.Validation
 {
@@ -31,7 +31,7 @@ namespace Hl7.Fhir.Validation
 
         public static IBucket CreateGroup(ElementDefinitionNavigator root, Validator validator, IBucket entryBucket, bool atRoot)
         {
-            var childDiscriminators = root.Current.Slicing.Discriminator.Select(d=>d.Path).ToArray();
+            var childDiscriminators = root.Current.Slicing.Discriminator.ToArray();  // copy, since root will move after this
             var slices = root.FindMemberSlices(atRoot);
             var bm = root.Bookmark();
             var subs = new List<IBucket>();
